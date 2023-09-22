@@ -107,7 +107,7 @@ def sankey_index(words, dashCount, treeNode):
     parentDash = dashCount[i]
     childDash = parentDash + 2
     index = startIndex
-    while dashCount[index] == childDash:
+    while dashCount[index] == childDash and index < len(words):
         index += 1
 
     endingIndex = index-1
@@ -157,58 +157,7 @@ def sankey_versions(lines):
             spark.append(line)
     return cp, spark
 
-def create_operations(lines):
-    operators = []
-    for line in lines:
-        name = line[1]
-        input = []
-        if name == 'seq':
-            input.append(line[5])
-            input.append(line[6])
-            input.append(line[7])
-            output = line[8]
-        elif name == 'rand':
-            input.append(line[2])
-            input.append(line[3])
-            i = len(line)-1
-            output = line[i]
-        elif name == "-" or name == "+":
-            input.append(line[2])
-            input.append(line[3])
-            output = line[4]
-        else:
-            input.append(line[2])
-            output = line[3]
-        operator = Operator(name, input, output)
-        operators.append(operator)
-    return operators
 
-def create_sankey_nodes(operators):
-    labels = []
-    source = []
-    target = []
-    value = []
-    for operator in operators:
-        labels.append(operator.get_name())
-
-    for x in range(len(operators)-1):
-        operator1 = operators[x]
-        name1 = operator1.get_name()
-        output1 = operator1.get_output()
-        for y in range(x+1, len(operators)):
-            operator2 = operators[y]
-            name2 = operator2.get_name()
-            input2 = operator2.get_input()
-            for input in input2:
-                if output1 in input or input in output1:
-                    source.append(x)
-                    target.append(y)
-    if len(source) == 0:
-        source.append(0)
-        target.append(1)
-    for i in range(len(labels)):
-        value.append(1)
-    return labels, source, target, value
 
 
 def tree_to_sankey(names, parents):
@@ -230,6 +179,64 @@ def tree_to_sankey(names, parents):
 
 
 
+def create_operations(lines):
+    operators = []
+    for line in lines:
+        name = line[1]
+        input = []
+        if name == 'seq':
+            input.append(line[5])
+            input.append(line[6])
+            input.append(line[7])
+            output = line[8]
+        elif name == 'rand':
+            input.append(line[2])
+            input.append(line[3])
+            i = len(line)-1
+            output = line[i]
+        elif name == "-" or name == "+":
+            input.append(line[2])
+            input.append(line[3])
+            output = line[4]
+        elif name == 'rightIndex':
+            input.append(line[2])
+            input.append(line[3])
+            input.append(line[4])
+            input.append(line[5])
+            input.append(line[6])
+            output = line[7]
+        else:
+            input.append(line[2])
+            output = line[3]
+        operator = Operator(name, input, output)
+        operators.append(operator)
+    return operators
+
+
+def create_sankey_nodes(operators):
+    labels = []
+    source = []
+    target = []
+    value = []
+    for operator in operators:
+        labels.append(operator.get_name())
+
+    for x in range(len(operators)-1):
+        operator1 = operators[x]
+        output1 = operator1.get_output()
+        for y in range(x+1, len(operators)):
+            operator2 = operators[y]
+            input2 = operator2.get_input()
+            for input in input2:
+                if output1 in input or input in output1:
+                    source.append(x)
+                    target.append(y)
+    if len(source) == 0:
+        source.append(0)
+        target.append(1)
+    for i in range(len(labels)):
+        value.append(1)
+    return labels, source, target, value
 
 
 
