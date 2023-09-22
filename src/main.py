@@ -2,25 +2,27 @@ import parser
 import plotly.express as px
 import plotly.graph_objects as go
 
+
+#path for log file
 path = 'decisionTree.log'
 
-#name of node for operators graph
+#name of the node for operators graph
 node = 'GENERIC 6'
 
-#initialize 2 arrays for tree
+#initialize 2 arrays for the tree
 words, dashCount = parser.extract_words(path)
 parser.adapt_node_label(words,dashCount)
 labels, dashCountTree = parser.extract_tree_labels(words, dashCount)
 names, parents = parser.add_tree_nodes(labels, dashCountTree)
 
-#display tree graph for generic and logic blocks
+#visualization of the tree graph for generic and logic blocks
 fig = px.treemap(names = names,
                  parents = parents)
 fig.update_traces(root_color="lightgrey")
 fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
 fig.show()
 
-
+#visualization of the sankey diagram for generic and logic blocks
 label,source, target, value = parser.tree_to_sankey(names, parents)
 fig = go.Figure(go.Sankey(
     arrangement= 'freeform',
@@ -48,7 +50,8 @@ fig.show()
 start, end = parser.sankey_index(words, dashCount, node)
 sankeylines = parser.extract_sankey_lines(path,start,end)
 cp, spark = parser.sankey_versions(sankeylines)
-
+for i in cp:
+    print(i)
 
 #create list of operations for cp and print
 operatorscp = parser.create_operations(cp)

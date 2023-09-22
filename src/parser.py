@@ -107,7 +107,7 @@ def sankey_index(words, dashCount, treeNode):
     parentDash = dashCount[i]
     childDash = parentDash + 2
     index = startIndex
-    while dashCount[index] == childDash:
+    while dashCount[index] == childDash and index < len(words):
         index += 1
 
     endingIndex = index-1
@@ -157,58 +157,7 @@ def sankey_versions(lines):
             spark.append(line)
     return cp, spark
 
-def create_operations(lines):
-    operators = []
-    for line in lines:
-        name = line[1]
-        input = []
-        if name == 'seq':
-            input.append(line[5])
-            input.append(line[6])
-            input.append(line[7])
-            output = line[8]
-        elif name == 'rand':
-            input.append(line[2])
-            input.append(line[3])
-            i = len(line)-1
-            output = line[i]
-        elif name == "-" or name == "+":
-            input.append(line[2])
-            input.append(line[3])
-            output = line[4]
-        else:
-            input.append(line[2])
-            output = line[3]
-        operator = Operator(name, input, output)
-        operators.append(operator)
-    return operators
 
-def create_sankey_nodes(operators):
-    labels = []
-    source = []
-    target = []
-    value = []
-    for operator in operators:
-        labels.append(operator.get_name())
-
-    for x in range(len(operators)-1):
-        operator1 = operators[x]
-        name1 = operator1.get_name()
-        output1 = operator1.get_output()
-        for y in range(x+1, len(operators)):
-            operator2 = operators[y]
-            name2 = operator2.get_name()
-            input2 = operator2.get_input()
-            for input in input2:
-                if output1 in input or input in output1:
-                    source.append(x)
-                    target.append(y)
-    if len(source) == 0:
-        source.append(0)
-        target.append(1)
-    for i in range(len(labels)):
-        value.append(1)
-    return labels, source, target, value
 
 
 def tree_to_sankey(names, parents):
@@ -228,8 +177,85 @@ def tree_to_sankey(names, parents):
         value.append(1)
     return labels, source,target,value
 
+def group_operators(name):
+    group1 = ['>', '<', '>=', '<=', '==', '!=', '+', '-', '^2', '/', '*', 'cpmm']
+    group2 = ['seq']
+    group3 = ['rand']
+    group4 = ['rightIndex']
+    group5 = ['uppertri', 'replace', 'ifelse']
+    group6 = ['leftIndex']
+    if name in group1:
+        return 1
+    elif name in group2:
+        return 2
+    elif name in group3:
+        return 3
+    elif name in group4:
+        return 4
+    elif name in group5:
+        return 5
+    elif name in group6:
+        return 6
+    else:
+        return 7
+
+def get_input_output(number, line):
+    if number == 1:
+        return [line[2], line[3]] , line[4]
+    if number == 2:
+        return [line[5], line[6], line[7]], line[8]
+    if number == 3:
+        return  [line[2], line[3]], line[len(line)-1]
+    if number == 4:
+        return  [line[2], line[3], line[4], line[5], line[6]], line[7]
+    if number == 5:
+        return [line[2], line[3], line[4]], line[5]
+    if number == 6:
+        return [line[2], line[3], line[4], line[5], line[6], line[7]], line[8]
+    else:
+        return [line[2]], line[3]
 
 
+
+
+
+def create_operations(lines):
+    operators = []
+    for line in lines:
+        name = line[1]
+        number = group_operators(name)
+        inputs, output = get_input_output(number, line)
+        operator = Operator(name, inputs, output)
+        operators.append(operator)
+    return operators
+
+
+def create_sankey_nodes(operators):
+    labels = []
+    source = []
+    target = []
+    value = []
+    for operator in operators:
+        labels.append(operator.get_name())
+
+    for x in range(len(operators)-1):
+        operator1 = operators[x]
+        output1 = operator1.get_output()
+        name1 = operator1.get_name()
+        for y in range(x+1, len(operators)):
+            operator2 = operators[y]
+            input2 = operator2.get_input()
+            name2 = operator2.get_name()
+            for input in input2:
+                if output1 in input or input in output1:
+                    source.append(x)
+                    target.append(y)
+    if len(source) == 0:
+        source.append(0)
+        target.append(1)
+    for i in range(len(labels)):
+        value.append(1)
+    return labels, source, target, value
 
 
 
