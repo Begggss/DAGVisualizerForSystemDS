@@ -1,0 +1,121 @@
+# EXPLAIN (RUNTIME):
+# Memory Budget local/remote = 2100MB/?MB/?MB/?MB
+# Degree of Parallelism (vcores) local/remote = 8/?
+PROGRAM ( size CP/SP = 93/4 )
+--FUNCTIONS
+----FUNCTION CALL GRAPH
+------MAIN PROGRAM
+--------.builtinNS::m_naiveBayes
+----FUNCTION .builtinNS::m_naiveBayes [recompile=false]
+------GENERIC (lines 42-47) [recompile=false]
+--------CP uamin D.MATRIX.FP64 _Var8.SCALAR.FP64 8
+--------CP uamax C.MATRIX.FP64 _Var9.SCALAR.FP64 8
+--------CP castvti _Var9.SCALAR.FP64.false _Var10.SCALAR.INT64 8
+--------CP rmvar _Var9
+--------CP uamin C.MATRIX.FP64 _Var11.SCALAR.FP64 8
+--------CP assignvar _Var8.SCALAR.FP64.false minFeatureVal.SCALAR.FP64
+--------CP assignvar _Var10.SCALAR.INT64.false numClasses.SCALAR.INT64
+--------CP assignvar _Var11.SCALAR.FP64.false minLabelVal.SCALAR.FP64
+--------CP rmvar _Var8 _Var10 _Var11 laplace
+------IF (lines 50-52)
+--------CP < minFeatureVal.SCALAR.FP64.false 0.SCALAR.INT64.true _Var12.SCALAR.BOOLEAN
+--------CP mvvar _Var12 __pred
+--------GENERIC (lines 51-52) [recompile=false]
+----------CP stop naiveBayes: Stopping due to invalid argument: Multinomial naive Bayes  is meant for count-based feature values, minimum value in X is negative.SCALAR.STRING.true _Var13.SCALAR.STRING 8
+----------CP rmvar _Var13
+--------CP rmvar minFeatureVal
+------IF (lines 56-57)
+--------CP < minLabelVal.SCALAR.FP64.false 1.SCALAR.INT64.true _Var14.SCALAR.BOOLEAN
+--------CP mvvar _Var14 __pred
+--------GENERIC (lines 57-57) [recompile=false]
+----------CP stop naiveBayes: Stopping due to invalid argument: Label vector (Y) must be recoded.SCALAR.STRING.true _Var15.SCALAR.STRING 8
+----------CP rmvar _Var15
+--------CP rmvar minLabelVal
+------IF (lines 58-60)
+--------CP == numClasses.SCALAR.INT64.false 1.SCALAR.INT64.true _Var16.SCALAR.BOOLEAN
+--------CP mvvar _Var16 __pred
+--------GENERIC (lines 59-60) [recompile=false]
+----------CP stop naiveBayes: Stopping due to invalid argument: Maximum label value is 1, need more than one class to learn a multi-class classifier.SCALAR.STRING.true _Var17.SCALAR.STRING 8
+----------CP rmvar _Var17
+------IF (lines 61-63)
+--------CP createvar _mVar18 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp0 true MATRIX binary 100 1 1000 -1 copy
+--------CP %% C.MATRIX.FP64 1.SCALAR.INT64.true _mVar18.MATRIX.FP64 8
+--------CP createvar _mVar19 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp1 true MATRIX binary 100 1 1000 -1 copy
+--------CP == _mVar18.MATRIX.FP64 0.SCALAR.INT64.true _mVar19.MATRIX.FP64 8
+--------CP rmvar _mVar18
+--------CP uak+ _mVar19.MATRIX.FP64 _Var20.SCALAR.FP64 8
+--------CP rmvar _mVar19
+--------CP != _Var20.SCALAR.FP64.false 100.SCALAR.INT64.true _Var21.SCALAR.BOOLEAN
+--------CP rmvar _Var20
+--------CP mvvar _Var21 __pred
+--------GENERIC (lines 62-63) [recompile=false]
+----------CP stop naiveBayes: Stopping due to invalid argument: Please ensure that Y contains (positive) integral labels.SCALAR.STRING.true _Var22.SCALAR.STRING 8
+----------CP rmvar _Var22
+------GENERIC (lines 70-88) [recompile=false]
+--------CP createvar _mVar23 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp2 true MATRIX binary -1 -1 1000 -1 copy
+--------CP groupedagg target=D groups=C fn=sum ngroups=¶numClasses¶ k=8 _mVar23.MATRIX.FP64
+--------CP createvar _mVar24 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp3 true MATRIX binary -1 50 1000 -1 copy
+--------CP + _mVar23.MATRIX.FP64 1.0.SCALAR.FP64.true _mVar24.MATRIX.FP64 8
+--------CP createvar _mVar25 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp4 true MATRIX binary -1 1 1000 -1 copy
+--------CP uark+ _mVar23.MATRIX.FP64 _mVar25.MATRIX.FP64 8
+--------CP rmvar _mVar23
+--------CP createvar _mVar26 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp5 true MATRIX binary -1 1 1000 -1 copy
+--------CP + _mVar25.MATRIX.FP64 50.0.SCALAR.FP64.true _mVar26.MATRIX.FP64 8
+--------CP rmvar _mVar25
+--------CP createvar _mVar27 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp6 true MATRIX binary -1 50 1000 -1 copy
+--------CP / _mVar24.MATRIX.FP64 _mVar26.MATRIX.FP64 _mVar27.MATRIX.FP64 8
+--------CP rmvar _mVar24 _mVar26
+--------CP createvar _mVar28 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp7 true MATRIX binary -1 -1 1000 -1 copy
+--------CP groupedagg target=C groups=C fn=count ngroups=¶numClasses¶ k=8 _mVar28.MATRIX.FP64
+--------CP createvar _mVar29 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp8 true MATRIX binary -1 1 1000 -1 copy
+--------CP / _mVar28.MATRIX.FP64 100.SCALAR.INT64.true _mVar29.MATRIX.FP64 8
+--------CP rmvar _mVar28
+--------CP createvar _mVar30 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp9 true MATRIX binary -1 50 1000 -1 copy
+--------CP log _mVar27.MATRIX.FP64 _mVar30.MATRIX.FP64 8 false
+--------CP createvar _mVar31 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp10 true MATRIX binary 50 -1 1000 -1 copy
+--------CP r' _mVar30.MATRIX.FP64 _mVar31.MATRIX.FP64 8
+--------CP rmvar _mVar30
+--------CP createvar _mVar32 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp11 true MATRIX binary 100 -1 1000 -1 copy
+--------CP ba+* D.MATRIX.FP64 _mVar31.MATRIX.FP64 _mVar32.MATRIX.FP64 8
+--------CP rmvar _mVar31
+--------CP createvar _mVar33 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp12 true MATRIX binary -1 1 1000 -1 copy
+--------CP log _mVar29.MATRIX.FP64 _mVar33.MATRIX.FP64 8 false
+--------CP createvar _mVar34 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp13 true MATRIX binary 1 -1 1000 -1 copy
+--------CP r' _mVar33.MATRIX.FP64 _mVar34.MATRIX.FP64 8
+--------CP rmvar _mVar33
+--------CP createvar _mVar35 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp14 true MATRIX binary 100 -1 1000 -1 copy
+--------CP + _mVar32.MATRIX.FP64 _mVar34.MATRIX.FP64 _mVar35.MATRIX.FP64 8
+--------CP rmvar _mVar32 _mVar34
+--------CP createvar _mVar36 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp15 true MATRIX binary 100 1 1000 -1 copy
+--------CP uarimax _mVar35.MATRIX.FP64 _mVar36.MATRIX.FP64 8 1
+--------CP rmvar _mVar35
+--------CP createvar _mVar37 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp16 true MATRIX binary 100 1 1000 -1 copy
+--------CP == _mVar36.MATRIX.FP64 C.MATRIX.FP64 _mVar37.MATRIX.FP64 8
+--------CP rmvar _mVar36
+--------CP uak+ _mVar37.MATRIX.FP64 _Var38.SCALAR.FP64 8
+--------CP rmvar _mVar37
+--------CP / _Var38.SCALAR.FP64.false 100.SCALAR.INT64.true _Var39.SCALAR.FP64
+--------CP rmvar _Var38
+--------CP * _Var39.SCALAR.FP64.false 100.SCALAR.INT64.true _Var40.SCALAR.FP64
+--------CP rmvar _Var39
+--------CP + Training Accuracy (%): .SCALAR.STRING.true _Var40.SCALAR.FP64.false _Var41.SCALAR.STRING
+--------CP rmvar _Var40
+--------CP print _Var41.SCALAR.STRING.false _Var42.SCALAR.STRING 8
+--------CP rmvar _Var41
+--------CP cpvar _mVar27 classConditionals
+--------CP cpvar _mVar29 prior
+--------CP rmvar _Var42 _mVar27 _mVar29 C numFeatures D numRows laplaceCorrection verbose numClasses
+--MAIN PROGRAM
+----GENERIC (lines 22-24) [recompile=false]
+------CP createvar pREADX target/testTemp/functions/builtin/BuiltinNaiveBayesTest/in/X false MATRIX text 100 50 -1 -1 copy
+------CP createvar pREADy target/testTemp/functions/builtin/BuiltinNaiveBayesTest/in/Y false MATRIX text 100 1 -1 -1 copy
+------CP createvar _mVar43 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp17 true MATRIX binary 100 50 1000 -1 copy
+------SPARK rblk pREADX.MATRIX.FP64 _mVar43.MATRIX.FP64 1000 true
+------CP createvar _mVar44 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/NaiveBayes/target/scratch_space//_p90616_192.168.0.100//_t0/temp18 true MATRIX binary 100 1 1000 -1 copy
+------SPARK rblk pREADy.MATRIX.FP64 _mVar44.MATRIX.FP64 1000 true
+------CP fcall .builtinNS m_naiveBayes true 4 2 D=_mVar43.MATRIX.FP64 C=_mVar44.MATRIX.FP64 laplace=1.0.SCALAR.FP64.true verbose=true.SCALAR.BOOLEAN.true prior conditionals
+------CP rmvar _mVar43 _mVar44
+----GENERIC (lines 25-26) [recompile=true]
+------SPARK write prior.MATRIX.FP64 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/out/prior.SCALAR.STRING.true text.SCALAR.STRING.true .SCALAR.STRING.true -1
+------SPARK write conditionals.MATRIX.FP64 target/testTemp/functions/builtin/BuiltinNaiveBayesTest/out/conditionals.SCALAR.STRING.true text.SCALAR.STRING.true .SCALAR.STRING.true -1
+------CP rmvar conditionals prior

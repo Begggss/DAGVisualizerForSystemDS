@@ -1,0 +1,770 @@
+--FUNCTIONS
+----FUNCTION CALL GRAPH
+------MAIN PROGRAM
+--------.builtinNS::m_decisionTree
+----------.builtinNS::findBestSplit
+----------.builtinNS::computeLeafLabel
+----FUNCTION .builtinNS::findBestSplit [recompile=true]
+------GENERIC (lines 164-177) [recompile=true]
+--------CP createvar _mVar191 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp58 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uak+ I.MATRIX.FP64 _mVar191.MATRIX.FP64 SINGLE_BLOCK
+--------CP castdts _mVar191.MATRIX.FP64.false _Var192.SCALAR.FP64 1
+--------CP rmvar _mVar191
+--------CP createvar _mVar193 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp59 true MATRIX binary 5 1 1000 -1 copy
+--------CP seq 5 1 1000 1.SCALAR.INT64.true 5.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar193.MATRIX.FP64
+--------CP createvar _mVar194 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp60 true MATRIX binary 3 5 1000 0 copy
+--------CP rand 3.SCALAR.INT64.true 5.SCALAR.INT64.true 1000 0 0 1.0 -1 uniform 1.0 8 _mVar194.MATRIX.FP64
+--------CP mvvar _Var192 numI
+--------CP cpvar _mVar193 feat
+--------CP cpvar _mVar194 R
+--------CP rmvar _mVar193 _mVar194 max_features
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar195 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp61 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint I.MATRIX.FP64 _mVar195.MATRIX.FP64 MEMORY_AND_DISK
+--------CP createvar _mVar196 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp62 true MATRIX binary 5 -1 1000 -1 copy
+--------SPARK chkpoint y2.MATRIX.FP64 _mVar196.MATRIX.FP64 MEMORY_AND_DISK
+--------CP createvar _mVar197 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp63 true MATRIX binary 5 -1 1000 -1 copy
+--------SPARK chkpoint X2.MATRIX.FP64 _mVar197.MATRIX.FP64 MEMORY_AND_DISK
+--------CP rmvar I y2 X2
+--------CP cpvar _mVar195 I
+--------CP cpvar _mVar196 y2
+--------CP cpvar _mVar197 X2
+--------CP rmvar _mVar195 _mVar196 _mVar197
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 5.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 179-182) [recompile=false]
+----------CP createvar _mVar198 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp64 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex feat.MATRIX.FP64 i.SCALAR.INT64.false i.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar198.MATRIX.FP64
+----------CP castdts _mVar198.MATRIX.FP64.false _Var199.SCALAR.FP64 8
+----------CP rmvar _mVar198
+----------CP createvar _mVar200 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp65 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex foffb.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var199.SCALAR.FP64.false _Var199.SCALAR.FP64.false _mVar200.MATRIX.FP64
+----------CP castdts _mVar200.MATRIX.FP64.false _Var201.SCALAR.FP64 8
+----------CP rmvar _mVar200
+----------CP + _Var201.SCALAR.FP64.false 1.SCALAR.INT64.true _Var202.SCALAR.FP64
+----------CP rmvar _Var201
+----------CP createvar _mVar203 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp66 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex foffe.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var199.SCALAR.FP64.false _Var199.SCALAR.FP64.false _mVar203.MATRIX.FP64
+----------CP castdts _mVar203.MATRIX.FP64.false _Var204.SCALAR.FP64 8
+----------CP rmvar _mVar203
+----------CP - _Var204.SCALAR.FP64.false _Var202.SCALAR.FP64.false _Var205.SCALAR.FP64
+----------CP assignvar _Var199.SCALAR.FP64.false f.SCALAR.FP64
+----------CP assignvar _Var202.SCALAR.FP64.false beg.SCALAR.FP64
+----------CP assignvar _Var204.SCALAR.FP64.false end.SCALAR.FP64
+----------CP assignvar _Var205.SCALAR.FP64.false belen.SCALAR.FP64
+----------CP rmvar _Var199 _Var202 _Var204 _Var205
+--------WHILE (lines 183-183)
+----------CP assignvar false.SCALAR.BOOLEAN.true __pred.SCALAR.BOOLEAN
+--------GENERIC (lines 188-209) [recompile=true]
+----------CP + belen.SCALAR.FP64.false 1.SCALAR.INT64.true _Var206.SCALAR.FP64
+----------CP createvar _mVar207 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp67 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK seq -1 1 1000 1.SCALAR.INT64.true _Var206.SCALAR.FP64.false 1.SCALAR.INT64.true _mVar207.MATRIX.FP64
+----------CP createvar _mVar208 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp68 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rand belen.SCALAR.FP64.false _Var206.SCALAR.FP64.false 1000 1 1 1.0 -1 null uniform 1.0 _mVar208.MATRIX.FP64
+----------CP rmvar _Var206
+----------CP createvar _mVar209 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp69 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK uppertri diag=true values=false target=_mVar208 _mVar209.MATRIX.FP64
+----------CP rmvar _mVar208
+----------CP ncol X2.MATRIX.FP64.false _Var210.SCALAR.INT64 8
+----------CP ncol _mVar209.MATRIX.FP64.false _Var211.SCALAR.INT64 8
+----------CP createvar _mVar212 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp70 true MATRIX binary -1 -1 1000 0 copy
+----------SPARK rand _Var210.SCALAR.INT64.false _Var211.SCALAR.INT64.false 1000 0 0 1.0 -1 null uniform 1.0 _mVar212.MATRIX.FP64
+----------CP rmvar _Var210
+----------CP - end.SCALAR.FP64.false 1.SCALAR.INT64.true _Var213.SCALAR.FP64
+----------CP createvar _mVar214 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp71 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex _mVar212.MATRIX.FP64 _mVar209.MATRIX.FP64 beg.SCALAR.FP64.false _Var213.SCALAR.FP64.false 1.SCALAR.INT64.true _Var211.SCALAR.INT64.false _mVar214.MATRIX.FP64 NONE
+----------CP rmvar _mVar212 _mVar209 _Var213 _Var211
+----------CP createvar _mVar215 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp72 true MATRIX binary 5 -1 1000 -1 copy
+----------SPARK cpmm X2.MATRIX.FP64 _mVar214.MATRIX.FP64 _mVar215.MATRIX.FP64 true MULTI_BLOCK
+----------CP rmvar _mVar214
+----------CP createvar _mVar216 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp73 true MATRIX binary -1 5 1000 -1 copy
+----------SPARK r' _mVar215.MATRIX.FP64 _mVar216.MATRIX.FP64
+----------CP rmvar _mVar215
+----------CP createvar _mVar217 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp74 true MATRIX binary -1 5 1000 -1 copy
+----------SPARK * _mVar216.MATRIX.FP64 I.MATRIX.FP64 _mVar217.MATRIX.FP64
+----------CP rmvar _mVar216
+----------CP createvar _mVar218 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp75 true MATRIX binary -1 5 1000 -1 copy
+----------SPARK != _mVar217.MATRIX.FP64 0.SCALAR.INT64.true _mVar218.MATRIX.FP64
+----------CP createvar _mVar219 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp76 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK uark+ _mVar218.MATRIX.FP64 _mVar219.MATRIX.FP64 NONE
+----------CP createvar _mVar220 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp77 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK >= _mVar219.MATRIX.FP64 2.SCALAR.INT64.true _mVar220.MATRIX.FP64
+----------CP createvar _mVar221 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp78 true MATRIX binary -1 5 1000 -1 copy
+----------SPARK == _mVar217.MATRIX.FP64 0.SCALAR.INT64.true _mVar221.MATRIX.FP64
+----------CP rmvar _mVar217
+----------CP createvar _mVar222 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp79 true MATRIX binary -1 5 1000 -1 copy
+----------SPARK * _mVar221.MATRIX.FP64 I.MATRIX.FP64 _mVar222.MATRIX.FP64
+----------CP rmvar _mVar221
+----------CP createvar _mVar223 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp80 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK uark+ _mVar222.MATRIX.FP64 _mVar223.MATRIX.FP64 NONE
+----------CP createvar _mVar224 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp81 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK >= _mVar223.MATRIX.FP64 2.SCALAR.INT64.true _mVar224.MATRIX.FP64
+----------CP createvar _mVar225 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp82 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK && _mVar220.MATRIX.FP64 _mVar224.MATRIX.FP64 _mVar225.MATRIX.FP64
+----------CP rmvar _mVar220 _mVar224
+----------CP createvar _mVar226 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp83 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK cpmm I.MATRIX.FP64 y2.MATRIX.FP64 _mVar226.MATRIX.FP64 true MULTI_BLOCK
+----------CP createvar _mVar227 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp84 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK uark+ I.MATRIX.FP64 _mVar227.MATRIX.FP64 MULTI_BLOCK
+----------CP createvar _mVar228 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp85 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK / _mVar226.MATRIX.FP64 _mVar227.MATRIX.FP64 _mVar228.MATRIX.FP64
+----------CP rmvar _mVar226 _mVar227
+----------CP createvar _mVar229 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp86 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK ^2 _mVar228.MATRIX.FP64 2.SCALAR.INT64.true _mVar229.MATRIX.FP64
+----------CP rmvar _mVar228
+----------CP createvar _mVar230 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp87 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK uark+ _mVar229.MATRIX.FP64 _mVar230.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _mVar229
+----------CP castdts _mVar230.MATRIX.FP64.false _Var231.SCALAR.FP64 8
+----------CP rmvar _mVar230
+----------CP - 1.SCALAR.INT64.true _Var231.SCALAR.FP64.false _Var232.SCALAR.INT64
+----------CP rmvar _Var231
+----------CP createvar _mVar233 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp88 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK / _mVar219.MATRIX.FP64 numI.SCALAR.FP64.false _mVar233.MATRIX.FP64
+----------CP createvar _mVar234 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp89 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK cpmm _mVar218.MATRIX.FP64 y2.MATRIX.FP64 _mVar234.MATRIX.FP64 true MULTI_BLOCK
+----------CP rmvar _mVar218
+----------CP createvar _mVar235 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp90 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK / _mVar234.MATRIX.FP64 _mVar219.MATRIX.FP64 _mVar235.MATRIX.FP64
+----------CP rmvar _mVar234 _mVar219
+----------CP createvar _mVar236 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp91 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK ^2 _mVar235.MATRIX.FP64 2.SCALAR.INT64.true _mVar236.MATRIX.FP64
+----------CP rmvar _mVar235
+----------CP createvar _mVar237 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp92 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK uark+ _mVar236.MATRIX.FP64 _mVar237.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _mVar236
+----------CP createvar _mVar238 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp93 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK - 1.SCALAR.INT64.true _mVar237.MATRIX.FP64 _mVar238.MATRIX.FP64
+----------CP rmvar _mVar237
+----------CP createvar _mVar239 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp94 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK * _mVar233.MATRIX.FP64 _mVar238.MATRIX.FP64 _mVar239.MATRIX.FP64
+----------CP rmvar _mVar233 _mVar238
+----------CP createvar _mVar240 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp95 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK - _Var232.SCALAR.INT64.false _mVar239.MATRIX.FP64 _mVar240.MATRIX.FP64
+----------CP rmvar _Var232 _mVar239
+----------CP createvar _mVar241 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp96 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK / _mVar223.MATRIX.FP64 numI.SCALAR.FP64.false _mVar241.MATRIX.FP64
+----------CP createvar _mVar242 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp97 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK cpmm _mVar222.MATRIX.FP64 y2.MATRIX.FP64 _mVar242.MATRIX.FP64 true MULTI_BLOCK
+----------CP rmvar _mVar222
+----------CP createvar _mVar243 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp98 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK / _mVar242.MATRIX.FP64 _mVar223.MATRIX.FP64 _mVar243.MATRIX.FP64
+----------CP rmvar _mVar242 _mVar223
+----------CP createvar _mVar244 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp99 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK ^2 _mVar243.MATRIX.FP64 2.SCALAR.INT64.true _mVar244.MATRIX.FP64
+----------CP rmvar _mVar243
+----------CP createvar _mVar245 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp100 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK uark+ _mVar244.MATRIX.FP64 _mVar245.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _mVar244
+----------CP createvar _mVar246 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp101 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK - 1.SCALAR.INT64.true _mVar245.MATRIX.FP64 _mVar246.MATRIX.FP64
+----------CP rmvar _mVar245
+----------CP createvar _mVar247 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp102 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK * _mVar241.MATRIX.FP64 _mVar246.MATRIX.FP64 _mVar247.MATRIX.FP64
+----------CP rmvar _mVar241 _mVar246
+----------CP createvar _mVar248 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp103 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK - _mVar240.MATRIX.FP64 _mVar247.MATRIX.FP64 _mVar248.MATRIX.FP64
+----------CP rmvar _mVar240 _mVar247
+----------CP createvar _mVar249 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp104 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK replace pattern=NaN replacement=0 target=_mVar248 _mVar249.MATRIX.FP64
+----------CP rmvar _mVar248
+----------CP createvar _mVar250 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp105 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK * _mVar225.MATRIX.FP64 _mVar249.MATRIX.FP64 _mVar250.MATRIX.FP64
+----------CP rmvar _mVar249
+----------CP createvar _mVar251 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp106 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK uamax _mVar250.MATRIX.FP64 _mVar251.MATRIX.FP64 SINGLE_BLOCK
+----------CP castdts _mVar251.MATRIX.FP64.false _Var252.SCALAR.FP64 1
+----------CP rmvar _mVar251
+----------CP > _Var252.SCALAR.FP64.false 0.SCALAR.INT64.true _Var253.SCALAR.BOOLEAN
+----------CP nrow _mVar225.MATRIX.FP64.false _Var254.SCALAR.INT64 8
+----------CP rmvar _mVar225
+----------CP createvar _mVar255 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp107 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rev _mVar250.MATRIX.FP64 _mVar255.MATRIX.FP64
+----------CP rmvar _mVar250
+----------CP createvar _mVar256 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp108 true MATRIX binary 1 -1 1000 -1 copy
+----------SPARK r' _mVar255.MATRIX.FP64 _mVar256.MATRIX.FP64
+----------CP rmvar _mVar255
+----------CP createvar _mVar257 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp109 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK uarimax _mVar256.MATRIX.FP64 _mVar257.MATRIX.FP64 SINGLE_BLOCK
+----------CP rmvar _mVar256
+----------CP castdts _mVar257.MATRIX.FP64.false _Var258.SCALAR.FP64 8
+----------CP rmvar _mVar257
+----------CP - _Var254.SCALAR.INT64.false _Var258.SCALAR.FP64.false _Var259.SCALAR.FP64
+----------CP rmvar _Var254 _Var258
+----------CP + _Var259.SCALAR.FP64.false beg.SCALAR.FP64.false _Var260.SCALAR.FP64
+----------CP rmvar _Var259
+----------CP ifelse _Var253.SCALAR.BOOLEAN.false _Var260.SCALAR.FP64.false -1.SCALAR.INT64.true _Var261.SCALAR.FP64
+----------CP rmvar _Var253 _Var260
+----------CP assignvar _Var252.SCALAR.FP64.false bestig.SCALAR.FP64
+----------CP assignvar _Var261.SCALAR.FP64.false bestv.SCALAR.FP64
+----------CP rmvar _Var252 _Var261
+----------CP mvvar _mVar207 vI
+----------CP rmvar belen end
+--------IF (lines 210-211)
+----------CP >= bestv.SCALAR.FP64.false 0.SCALAR.INT64.true _Var262.SCALAR.BOOLEAN
+----------CP mvvar _Var262 __pred
+----------GENERIC (lines 211-211) [recompile=true]
+------------CP - bestv.SCALAR.FP64.false beg.SCALAR.FP64.false _Var263.SCALAR.FP64
+------------CP + _Var263.SCALAR.FP64.false 1.SCALAR.INT64.true _Var264.SCALAR.FP64
+------------CP rmvar _Var263
+------------CP createvar _mVar265 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp110 true MATRIX binary 1 1 1000 -1 copy
+------------SPARK rightIndex vI.MATRIX.FP64 _Var264.SCALAR.FP64.false _Var264.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar265.MATRIX.FP64 NONE
+------------CP rmvar _Var264
+------------CP castdts _mVar265.MATRIX.FP64.false _Var266.SCALAR.FP64 8
+------------CP rmvar _mVar265
+------------CP + _Var266.SCALAR.FP64.false beg.SCALAR.FP64.false _Var267.SCALAR.FP64
+------------CP rmvar _Var266
+------------CP - _Var267.SCALAR.FP64.false 1.SCALAR.INT64.true _Var268.SCALAR.FP64
+------------CP rmvar _Var267
+------------CP mvvar _Var268 bestv
+------------CP rmvar beg vI
+----------CP rmvar beg vI
+--------GENERIC (lines 212-212) [recompile=false]
+----------CP list f.SCALAR.FP64.false bestig.SCALAR.FP64.false bestv.SCALAR.FP64.false _Var269.LIST.UNKNOWN
+----------CP createvar _mVar270 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp111 true MATRIX binary 3 1 1000 -1 copy
+----------CP castdtm _Var269.LIST.UNKNOWN.false _mVar270.MATRIX.FP64 8
+----------CP rmvar _Var269
+----------CP createvar _mVar271 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp112 true MATRIX binary 3 5 1000 -1 copy
+----------CP leftIndex R.MATRIX.FP64 _mVar270.MATRIX.FP64 1.SCALAR.INT64.true 3.SCALAR.INT64.true i.SCALAR.INT64.false i.SCALAR.INT64.false _mVar271.MATRIX.FP64
+----------CP rmvar _mVar270 R
+----------CP mvvar _mVar271 R
+----------CP rmvar bestig f bestv
+--------CP rmvar impurity bestig seed beg f belen bestv Ileft max_values i fP foffe numI P valid vI _funvar6 y2 _funvar5 end Iright _funvar4 min_leaf ig
+------GENERIC (lines 214-221) [recompile=false]
+--------CP * 2.SCALAR.INT64.true ID.SCALAR.INT64.false _Var272.SCALAR.INT64
+--------CP + _Var272.SCALAR.INT64.false 1.SCALAR.INT64.true _Var273.SCALAR.INT64
+--------CP createvar _mVar274 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp113 true MATRIX binary 1 5 1000 -1 copy
+--------CP rightIndex R.MATRIX.FP64 2.SCALAR.INT64.true 2.SCALAR.INT64.true 1.SCALAR.INT64.true 5.SCALAR.INT64.true _mVar274.MATRIX.FP64
+--------CP createvar _mVar275 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp114 true MATRIX binary 1 1 1000 -1 copy
+--------CP uarimax _mVar274.MATRIX.FP64 _mVar275.MATRIX.FP64 8 1
+--------CP rmvar _mVar274
+--------CP castdts _mVar275.MATRIX.FP64.false _Var276.SCALAR.FP64 8
+--------CP rmvar _mVar275
+--------CP createvar _mVar277 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp115 true MATRIX binary 1 1 1000 -1 copy
+--------CP rightIndex feat.MATRIX.FP64 _Var276.SCALAR.FP64.false _Var276.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar277.MATRIX.FP64
+--------CP castdts _mVar277.MATRIX.FP64.false _Var278.SCALAR.FP64 8
+--------CP rmvar _mVar277
+--------CP castvti _Var278.SCALAR.FP64.false _Var279.SCALAR.INT64 8
+--------CP rmvar _Var278
+--------CP createvar _mVar280 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp116 true MATRIX binary 1 1 1000 -1 copy
+--------CP rightIndex foffb.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var279.SCALAR.INT64.false _Var279.SCALAR.INT64.false _mVar280.MATRIX.FP64
+--------CP castdts _mVar280.MATRIX.FP64.false _Var281.SCALAR.FP64 8
+--------CP rmvar _mVar280
+--------CP createvar _mVar282 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp117 true MATRIX binary 1 1 1000 -1 copy
+--------CP rightIndex R.MATRIX.FP64 3.SCALAR.INT64.true 3.SCALAR.INT64.true _Var276.SCALAR.FP64.false _Var276.SCALAR.FP64.false _mVar282.MATRIX.FP64
+--------CP rmvar _Var276
+--------CP castdts _mVar282.MATRIX.FP64.false _Var283.SCALAR.FP64 8
+--------CP rmvar _mVar282
+--------CP - _Var283.SCALAR.FP64.false _Var281.SCALAR.FP64.false _Var284.SCALAR.FP64
+--------CP rmvar _Var283
+--------CP castvti _Var284.SCALAR.FP64.false _Var285.SCALAR.INT64 8
+--------CP rmvar _Var284
+--------CP assignvar _Var272.SCALAR.INT64.false IDleft.SCALAR.INT64
+--------CP assignvar _Var273.SCALAR.INT64.false IDright.SCALAR.INT64
+--------CP assignvar _Var279.SCALAR.INT64.false f.SCALAR.INT64
+--------CP assignvar _Var281.SCALAR.FP64.false beg.SCALAR.FP64
+--------CP assignvar _Var285.SCALAR.INT64.false v.SCALAR.INT64
+--------CP rmvar _Var272 _Var273 _Var279 _Var281 _Var285 foffb ID feat
+------IF (lines 222-230)
+--------CP createvar _mVar286 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp118 true MATRIX binary 1 5 1000 -1 copy
+--------CP rightIndex R.MATRIX.FP64 2.SCALAR.INT64.true 2.SCALAR.INT64.true 1.SCALAR.INT64.true 5.SCALAR.INT64.true _mVar286.MATRIX.FP64
+--------CP uamax _mVar286.MATRIX.FP64 _Var287.SCALAR.FP64 8
+--------CP rmvar _mVar286
+--------CP > _Var287.SCALAR.FP64.false 0.SCALAR.INT64.true _Var288.SCALAR.BOOLEAN
+--------CP rmvar _Var287
+--------CP mvvar _Var288 __pred
+--------GENERIC (lines 223-225) [recompile=true]
+----------CP + beg.SCALAR.FP64.false 1.SCALAR.INT64.true _Var289.SCALAR.FP64
+----------CP + beg.SCALAR.FP64.false v.SCALAR.INT64.false _Var290.SCALAR.FP64
+----------CP createvar _mVar291 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp119 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK seq -1 1 1000 _Var289.SCALAR.FP64.false _Var290.SCALAR.FP64.false 1.SCALAR.INT64.true _mVar291.MATRIX.FP64
+----------CP rmvar _Var289 _Var290
+----------CP ncol X2.MATRIX.FP64.false _Var292.SCALAR.INT64 8
+----------CP createvar _mVar293 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp120 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK ctable _mVar291.MATRIX.FP64 1.SCALAR.INT64.true 1.0.SCALAR.FP64.true _Var292.false 1.true _mVar293.MATRIX.FP64 false true
+----------CP rmvar _mVar291 _Var292
+----------CP createvar _mVar294 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp121 true MATRIX binary 5 1 1000 -1 copy
+----------SPARK cpmm X2.MATRIX.FP64 _mVar293.MATRIX.FP64 _mVar294.MATRIX.FP64 false SINGLE_BLOCK
+----------CP rmvar _mVar293
+----------CP createvar _mVar295 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp122 true MATRIX binary 1 5 1000 -1 copy
+----------CP r' _mVar294.MATRIX.FP64 _mVar295.MATRIX.FP64 8
+----------CP rmvar _mVar294
+----------CP createvar _mVar296 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp123 true MATRIX binary 1 5 1000 -1 copy
+----------SPARK * _mVar295.MATRIX.FP64 I.MATRIX.FP64 _mVar296.MATRIX.FP64
+----------CP rmvar _mVar295
+----------CP createvar _mVar297 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp124 true MATRIX binary 1 5 1000 -1 copy
+----------CP != _mVar296.MATRIX.FP64 0.SCALAR.INT64.true _mVar297.MATRIX.FP64 8
+----------CP createvar _mVar298 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp125 true MATRIX binary 1 5 1000 -1 copy
+----------CP == _mVar296.MATRIX.FP64 0.SCALAR.INT64.true _mVar298.MATRIX.FP64 8
+----------CP rmvar _mVar296
+----------CP createvar _mVar299 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp126 true MATRIX binary -1 5 1000 -1 copy
+----------SPARK * I.MATRIX.FP64 _mVar298.MATRIX.FP64 _mVar299.MATRIX.FP64
+----------CP rmvar _mVar298
+----------CP cpvar _mVar297 Ileft
+----------CP cpvar _mVar299 Iright
+----------CP rmvar _mVar297 _mVar299 beg I X2
+------ELSE
+--------GENERIC (lines 228-229) [recompile=false]
+----------CP createvar _mVar300 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp127 true MATRIX binary 1 1 1000 -1 copy
+----------CP castdtm 0.SCALAR.INT64.true _mVar300.MATRIX.FP64 8
+----------CP cpvar _mVar300 Ileft
+----------CP cpvar _mVar300 Iright
+----------CP rmvar _mVar300
+--------CP rmvar I R X2 beg
+----FUNCTION .builtinNS::computeLeafLabel [recompile=false]
+------GENERIC (lines 254-258) [recompile=true]
+--------CP createvar _mVar171 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp50 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK cpmm I.MATRIX.FP64 y2.MATRIX.FP64 _mVar171.MATRIX.FP64 true MULTI_BLOCK
+--------CP createvar _mVar172 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp51 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uak+ I.MATRIX.FP64 _mVar172.MATRIX.FP64 SINGLE_BLOCK
+--------CP castdts _mVar172.MATRIX.FP64.false _Var173.SCALAR.FP64 1
+--------CP rmvar _mVar172
+--------CP createvar _mVar174 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp52 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK / _mVar171.MATRIX.FP64 _Var173.SCALAR.FP64.false _mVar174.MATRIX.FP64
+--------CP rmvar _mVar171
+--------CP createvar _mVar175 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp53 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK uarimax _mVar174.MATRIX.FP64 _mVar175.MATRIX.FP64 MULTI_BLOCK
+--------CP ncol _mVar174.MATRIX.FP64.false _Var176.SCALAR.INT64 8
+--------CP createvar _mVar177 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp54 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK seq -1 1 1000 1.SCALAR.INT64.true _Var176.SCALAR.INT64.false 1.SCALAR.INT64.true _mVar177.MATRIX.FP64
+--------CP rmvar _Var176
+--------CP createvar _mVar178 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp55 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK cpmm _mVar174.MATRIX.FP64 _mVar177.MATRIX.FP64 _mVar178.MATRIX.FP64 true MULTI_BLOCK
+--------CP rmvar _mVar177
+--------CP createvar _mVar179 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp56 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK ifelse classify.SCALAR.BOOLEAN.false _mVar175.MATRIX.FP64 _mVar178.MATRIX.FP64 _mVar179.MATRIX.FP64
+--------CP rmvar _mVar175 _mVar178
+--------CP castdts _mVar179.MATRIX.FP64.false _Var180.SCALAR.FP64 8
+--------CP rmvar _mVar179
+--------CP + -- leaf node label: .SCALAR.STRING.true _Var180.SCALAR.FP64.false _Var181.SCALAR.STRING
+--------CP + _Var181.SCALAR.STRING.false  (.SCALAR.STRING.true _Var182.SCALAR.STRING
+--------CP rmvar _Var181
+--------CP createvar _mVar183 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp57 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uamax _mVar174.MATRIX.FP64 _mVar183.MATRIX.FP64 SINGLE_BLOCK
+--------CP rmvar _mVar174
+--------CP castdts _mVar183.MATRIX.FP64.false _Var184.SCALAR.FP64 1
+--------CP rmvar _mVar183
+--------CP * _Var173.SCALAR.FP64.false _Var184.SCALAR.FP64.false _Var185.SCALAR.FP64
+--------CP rmvar _Var184
+--------CP + _Var182.SCALAR.STRING.false _Var185.SCALAR.FP64.false _Var186.SCALAR.STRING
+--------CP rmvar _Var182 _Var185
+--------CP + _Var186.SCALAR.STRING.false /.SCALAR.STRING.true _Var187.SCALAR.STRING
+--------CP rmvar _Var186
+--------CP + _Var187.SCALAR.STRING.false _Var173.SCALAR.FP64.false _Var188.SCALAR.STRING
+--------CP rmvar _Var187 _Var173
+--------CP + _Var188.SCALAR.STRING.false ).SCALAR.STRING.true _Var189.SCALAR.STRING
+--------CP rmvar _Var188
+--------CP print _Var189.SCALAR.STRING.false _Var190.SCALAR.STRING 8
+--------CP rmvar _Var189
+--------CP mvvar _Var180 label
+--------CP rmvar _Var190 I classify y2 verbose
+----FUNCTION .builtinNS::m_decisionTree [recompile=true]
+------IF (lines 79-80)
+--------CP createvar _mVar24 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp0 true MATRIX binary 5 5 1000 -1 copy
+--------CP <= X.MATRIX.FP64 0.SCALAR.INT64.true _mVar24.MATRIX.FP64 8
+--------CP uak+ _mVar24.MATRIX.FP64 _Var25.SCALAR.FP64 8
+--------CP rmvar _mVar24
+--------CP != _Var25.SCALAR.FP64.false 0.SCALAR.INT64.true _Var26.SCALAR.BOOLEAN
+--------CP rmvar _Var25
+--------CP mvvar _Var26 __pred
+--------GENERIC (lines 80-80) [recompile=false]
+----------CP createvar _mVar27 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp1 true MATRIX binary 5 5 1000 -1 copy
+----------CP <= X.MATRIX.FP64 0.SCALAR.INT64.true _mVar27.MATRIX.FP64 8
+----------CP uak+ _mVar27.MATRIX.FP64 _Var28.SCALAR.FP64 8
+----------CP rmvar _mVar27
+----------CP + decisionTree: feature matrix X is not properly recoded/binned (values <= 0): .SCALAR.STRING.true _Var28.SCALAR.FP64.false _Var29.SCALAR.STRING
+----------CP rmvar _Var28
+----------CP stop _Var29.SCALAR.STRING.false _Var30.SCALAR.STRING 8
+----------CP rmvar _Var29 _Var30
+------IF (lines 81-82)
+--------CP createvar _mVar31 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp2 true MATRIX binary 5 5 1000 -1 copy
+--------CP round X.MATRIX.FP64 _mVar31.MATRIX.FP64 8 false
+--------CP createvar _mVar32 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp3 true MATRIX binary 5 5 1000 -1 copy
+--------CP - X.MATRIX.FP64 _mVar31.MATRIX.FP64 _mVar32.MATRIX.FP64 8
+--------CP rmvar _mVar31
+--------CP createvar _mVar33 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp4 true MATRIX binary 5 5 1000 -1 copy
+--------CP abs _mVar32.MATRIX.FP64 _mVar33.MATRIX.FP64 8 false
+--------CP rmvar _mVar32
+--------CP createvar _mVar34 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp5 true MATRIX binary 5 5 1000 -1 copy
+--------CP > _mVar33.MATRIX.FP64 1.0E-14.SCALAR.FP64.true _mVar34.MATRIX.FP64 8
+--------CP rmvar _mVar33
+--------CP uak+ _mVar34.MATRIX.FP64 _Var35.SCALAR.FP64 8
+--------CP rmvar _mVar34
+--------CP != _Var35.SCALAR.FP64.false 0.SCALAR.INT64.true _Var36.SCALAR.BOOLEAN
+--------CP rmvar _Var35
+--------CP mvvar _Var36 __pred
+--------GENERIC (lines 82-82) [recompile=false]
+----------CP createvar _mVar37 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp6 true MATRIX binary 5 5 1000 -1 copy
+----------CP round X.MATRIX.FP64 _mVar37.MATRIX.FP64 8 false
+----------CP createvar _mVar38 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp7 true MATRIX binary 5 5 1000 -1 copy
+----------CP - X.MATRIX.FP64 _mVar37.MATRIX.FP64 _mVar38.MATRIX.FP64 8
+----------CP rmvar _mVar37
+----------CP createvar _mVar39 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp8 true MATRIX binary 5 5 1000 -1 copy
+----------CP abs _mVar38.MATRIX.FP64 _mVar39.MATRIX.FP64 8 false
+----------CP rmvar _mVar38
+----------CP createvar _mVar40 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp9 true MATRIX binary 5 5 1000 -1 copy
+----------CP > _mVar39.MATRIX.FP64 1.0E-14.SCALAR.FP64.true _mVar40.MATRIX.FP64 8
+----------CP rmvar _mVar39
+----------CP uak+ _mVar40.MATRIX.FP64 _Var41.SCALAR.FP64 8
+----------CP rmvar _mVar40
+----------CP + decisionTree: feature matrix X is not properly recoded/binned (non-integer): .SCALAR.STRING.true _Var41.SCALAR.FP64.false _Var42.SCALAR.STRING
+----------CP rmvar _Var41
+----------CP stop _Var42.SCALAR.STRING.false _Var43.SCALAR.STRING 8
+----------CP rmvar _Var42 _Var43
+------IF (lines 83-84)
+--------CP createvar _mVar44 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp10 true MATRIX binary 5 1 1000 -1 copy
+--------CP <= y.MATRIX.FP64 0.SCALAR.INT64.true _mVar44.MATRIX.FP64 8
+--------CP uak+ _mVar44.MATRIX.FP64 _Var45.SCALAR.FP64 8
+--------CP rmvar _mVar44
+--------CP != _Var45.SCALAR.FP64.false 0.SCALAR.INT64.true _Var46.SCALAR.BOOLEAN
+--------CP rmvar _Var45
+--------CP mvvar _Var46 __pred
+--------GENERIC (lines 84-84) [recompile=false]
+----------CP createvar _mVar47 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp11 true MATRIX binary 5 1 1000 -1 copy
+----------CP <= y.MATRIX.FP64 0.SCALAR.INT64.true _mVar47.MATRIX.FP64 8
+----------CP uak+ _mVar47.MATRIX.FP64 _Var48.SCALAR.FP64 8
+----------CP rmvar _mVar47
+----------CP + decisionTree: label vector y is not properly recoded/binned: .SCALAR.STRING.true _Var48.SCALAR.FP64.false _Var49.SCALAR.STRING
+----------CP rmvar _Var48
+----------CP stop _Var49.SCALAR.STRING.false _Var50.SCALAR.STRING 8
+----------CP rmvar _Var49 _Var50
+------GENERIC (lines 88-105) [recompile=false]
+--------CP createvar _mVar51 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp12 true MATRIX binary 5 1 1000 -1 copy
+--------CP seq 5 1 1000 1.SCALAR.INT64.true 5.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar51.MATRIX.FP64
+--------CP createvar _mVar52 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp13 true MATRIX binary 5 -1 1000 -1 copy
+--------CP ctableexpand _mVar51.MATRIX.FP64 y.MATRIX.FP64 1.0.SCALAR.FP64.true -1.true -1.true _mVar52.MATRIX.FP64 false
+--------CP cpvar _mVar52 _sbcvar7
+--------CP cpvar _mVar51 _sbcvar8
+--------CP rmvar _mVar51 _mVar52
+------GENERIC (lines 88-105) [recompile=true]
+--------CP createvar _mVar53 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp14 true MATRIX binary 1 1 1000 -1 copy
+--------CP rightIndex ctypes.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true 6.SCALAR.INT64.true 6.SCALAR.INT64.true _mVar53.MATRIX.FP64
+--------CP castdts _mVar53.MATRIX.FP64.false _Var54.SCALAR.FP64 8
+--------CP rmvar _mVar53
+--------CP == _Var54.SCALAR.FP64.false 2.SCALAR.INT64.true _Var55.SCALAR.BOOLEAN
+--------CP rmvar _Var54
+--------CP createvar _mVar56 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp15 true MATRIX binary 1 5 1000 -1 copy
+--------CP uacmax X.MATRIX.FP64 _mVar56.MATRIX.FP64 8
+--------CP createvar _mVar57 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp16 true MATRIX binary 1 5 1000 -1 copy
+--------CP max _mVar56.MATRIX.FP64 2.SCALAR.INT64.true _mVar57.MATRIX.FP64 8
+--------CP rmvar _mVar56
+--------CP createvar _mVar58 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp17 true MATRIX binary 5 1 1000 -1 copy
+--------CP r' _mVar57.MATRIX.FP64 _mVar58.MATRIX.FP64 8
+--------CP createvar _mVar59 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp18 true MATRIX binary 5 1 1000 -1 copy
+--------CP ucumk+ _mVar58.MATRIX.FP64 _mVar59.MATRIX.FP64 8 false
+--------CP rmvar _mVar58
+--------CP createvar _mVar60 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp19 true MATRIX binary 1 5 1000 -1 copy
+--------CP r' _mVar59.MATRIX.FP64 _mVar60.MATRIX.FP64 8
+--------CP rmvar _mVar59
+--------CP createvar _mVar61 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp20 true MATRIX binary 1 5 1000 -1 copy
+--------CP - _mVar60.MATRIX.FP64 _mVar57.MATRIX.FP64 _mVar61.MATRIX.FP64 8
+--------CP rmvar _mVar57
+--------CP createvar _mVar62 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp21 true MATRIX binary 1 5 1000 5 copy
+--------CP rand 1.SCALAR.INT64.true 5.SCALAR.INT64.true 1000 1 1 1.0 -1 uniform 1.0 8 _mVar62.MATRIX.FP64
+--------CP createvar _mVar63 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp22 true MATRIX binary 5 5 1000 -1 copy
+--------CP ba+* _sbcvar8.MATRIX.FP64 _mVar62.MATRIX.FP64 _mVar63.MATRIX.FP64 8
+--------CP createvar _mVar64 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp23 true MATRIX binary 5 5 1000 -1 copy
+--------CP + X.MATRIX.FP64 _mVar61.MATRIX.FP64 _mVar64.MATRIX.FP64 8
+--------CP createvar _mVar65 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp24 true MATRIX binary 1 1 1000 -1 copy
+--------CP rightIndex _mVar60.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true 5.SCALAR.INT64.true 5.SCALAR.INT64.true _mVar65.MATRIX.FP64
+--------CP castdts _mVar65.MATRIX.FP64.false _Var66.SCALAR.FP64 8
+--------CP rmvar _mVar65
+--------CP createvar _mVar67 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp25 true MATRIX binary 5 -1 1000 -1 copy
+--------CP ctable _mVar63.MATRIX.FP64 _mVar64.MATRIX.FP64 1.SCALAR.INT64.true 5.true _Var66.false _mVar67.MATRIX.FP64 false
+--------CP rmvar _Var66
+--------CP createvar _mVar68 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp26 true MATRIX binary 1 -1 1000 -1 copy
+--------CP uack+ _mVar67.MATRIX.FP64 _mVar68.MATRIX.FP64 8
+--------CP createvar _mVar69 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp27 true MATRIX binary 1 -1 1000 -1 copy
+--------SPARK mapmm _mVar62.MATRIX.FP64 _sbcvar7.MATRIX.FP64 _mVar69.MATRIX.FP64 RIGHT true NONE
+--------CP uak+ _mVar62.MATRIX.FP64 _Var70.SCALAR.FP64 8
+--------CP createvar _mVar71 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp28 true MATRIX binary 1 -1 1000 -1 copy
+--------SPARK / _mVar69.MATRIX.FP64 _Var70.SCALAR.FP64.false _mVar71.MATRIX.FP64
+--------CP rmvar _mVar69 _Var70
+--------CP createvar _mVar72 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp29 true MATRIX binary 1 -1 1000 -1 copy
+--------SPARK ^2 _mVar71.MATRIX.FP64 2.SCALAR.INT64.true _mVar72.MATRIX.FP64
+--------CP rmvar _mVar71
+--------CP createvar _mVar73 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp30 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uak+ _mVar72.MATRIX.FP64 _mVar73.MATRIX.FP64 SINGLE_BLOCK
+--------CP rmvar _mVar72
+--------CP castdts _mVar73.MATRIX.FP64.false _Var74.SCALAR.FP64 1
+--------CP rmvar _mVar73
+--------CP createvar _mVar75 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp31 true MATRIX binary 1 1 1000 -1 copy
+--------CP castdtm _Var74.SCALAR.FP64.false _mVar75.MATRIX.FP64 8
+--------CP rmvar _Var74
+--------CP createvar _mVar76 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp32 true MATRIX binary 1 1 1000 -1 copy
+--------CP - 1.SCALAR.INT64.true _mVar75.MATRIX.FP64 _mVar76.MATRIX.FP64 8
+--------CP rmvar _mVar75
+--------CP print decisionTree: initialize with max_depth=10, max_features=1, impurity=gini, seed=-1..SCALAR.STRING.true _Var77.SCALAR.STRING 8
+--------CP print decisionTree: basic statistics:.SCALAR.STRING.true _Var78.SCALAR.STRING 8
+--------CP mvvar _Var55 classify
+--------CP rmvar _mVar63 _mVar64
+--------CP cpvar _mVar61 foffb
+--------CP cpvar _mVar60 foffe
+--------CP cpvar _mVar67 X2
+--------CP cpvar _sbcvar7 y2
+--------CP cpvar _mVar68 cnt
+--------CP cpvar _mVar62 I
+--------CP rmvar _Var77 _Var78
+--------CP cpvar _mVar76 _funvar0
+--------CP rmvar _mVar60 _mVar61 _mVar62 _mVar67 _mVar68 _mVar76 _sbcvar7 _sbcvar8 X y ctypes
+------GENERIC (lines 105-113) [recompile=true]
+--------CP castdts _funvar0.MATRIX.FP64.false _Var79.SCALAR.FP64 8
+--------CP + -- impurity: .SCALAR.STRING.true _Var79.SCALAR.FP64.false _Var80.SCALAR.STRING
+--------CP rmvar _Var79
+--------CP createvar _mVar81 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp33 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uamin cnt.MATRIX.FP64 _mVar81.MATRIX.FP64 SINGLE_BLOCK
+--------CP castdts _mVar81.MATRIX.FP64.false _Var82.SCALAR.FP64 1
+--------CP rmvar _mVar81
+--------CP + -- minFeatureCount: .SCALAR.STRING.true _Var82.SCALAR.FP64.false _Var83.SCALAR.STRING
+--------CP rmvar _Var82
+--------CP createvar _mVar84 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp34 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uamax cnt.MATRIX.FP64 _mVar84.MATRIX.FP64 SINGLE_BLOCK
+--------CP castdts _mVar84.MATRIX.FP64.false _Var85.SCALAR.FP64 1
+--------CP rmvar _mVar84
+--------CP + -- maxFeatureCount: .SCALAR.STRING.true _Var85.SCALAR.FP64.false _Var86.SCALAR.STRING
+--------CP rmvar _Var85
+--------CP createvar _mVar87 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp35 true MATRIX binary 1 2046 1000 0 copy
+--------CP rand 1.SCALAR.INT64.true 2046.SCALAR.INT64.true 1000 0 0 1.0 -1 uniform 1.0 8 _mVar87.MATRIX.FP64
+--------CP list 1.SCALAR.INT64.true I.MATRIX.FP64 _Var88.LIST.UNKNOWN
+--------CP list _Var88.LIST.UNKNOWN.false _Var89.LIST.UNKNOWN
+--------CP rmvar _Var88
+--------CP print _Var80.SCALAR.STRING.false _Var90.SCALAR.STRING 8
+--------CP rmvar _Var80
+--------CP print _Var83.SCALAR.STRING.false _Var91.SCALAR.STRING 8
+--------CP rmvar _Var83
+--------CP print _Var86.SCALAR.STRING.false _Var92.SCALAR.STRING 8
+--------CP rmvar _Var86
+--------CP assignvar 1.SCALAR.INT64.true maxPath.SCALAR.INT64
+--------CP rmvar _Var90 _Var91 _Var92
+--------CP cpvar _mVar87 M
+--------CP cpvar _Var89 queue
+--------CP rmvar _mVar87 _Var89 cnt I _funvar0
+------GENERIC (lines 114-148) [recompile=true]
+--------CP createvar _mVar93 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp36 true MATRIX binary 5 -1 1000 -1 copy
+--------SPARK chkpoint y2.MATRIX.FP64 _mVar93.MATRIX.FP64 MEMORY_AND_DISK
+--------CP createvar _mVar94 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp37 true MATRIX binary 5 -1 1000 -1 copy
+--------SPARK chkpoint X2.MATRIX.FP64 _mVar94.MATRIX.FP64 MEMORY_AND_DISK
+--------CP rmvar y2 X2
+--------CP cpvar _mVar93 y2
+--------CP cpvar _mVar94 X2
+--------CP rmvar _mVar93 _mVar94
+------WHILE (lines 114-148) [in-place=[M]]
+--------CP length queue.LIST.UNKNOWN.false _Var95.SCALAR.INT64 8
+--------CP > _Var95.SCALAR.INT64.false 0.SCALAR.INT64.true _Var96.SCALAR.BOOLEAN
+--------CP rmvar _Var95
+--------CP mvvar _Var96 __pred
+--------GENERIC (lines 116-116) [recompile=true]
+----------CP remove queue.LIST.UNKNOWN.false 1.SCALAR.INT64.true queue node0
+--------GENERIC (lines 117-126) [recompile=true]
+----------CP castdtl node0.LIST.UNKNOWN.false _Var97.LIST.UNKNOWN 8
+----------CP rightIndex _Var97.LIST.UNKNOWN.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var98.LIST.UNKNOWN
+----------CP castdts _Var98.LIST.UNKNOWN.false _Var99.SCALAR.UNKNOWN 8
+----------CP rmvar _Var98
+----------CP rightIndex _Var97.LIST.UNKNOWN.false 2.SCALAR.INT64.true 2.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var100.LIST.UNKNOWN
+----------CP rmvar _Var97
+----------CP createvar _mVar101 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp38 true MATRIX binary -1 -1 1000 -1 copy
+----------CP castdtm _Var100.LIST.UNKNOWN.false _mVar101.MATRIX.FP64 8
+----------CP rmvar _Var100
+----------CP + decisionTree: attempting split of node .SCALAR.STRING.true _Var99.SCALAR.UNKNOWN.false _Var102.SCALAR.STRING
+----------CP + _Var102.SCALAR.STRING.false  (.SCALAR.STRING.true _Var103.SCALAR.STRING
+----------CP rmvar _Var102
+----------CP uak+ _mVar101.MATRIX.FP64 _Var104.SCALAR.FP64 8
+----------CP + _Var103.SCALAR.STRING.false _Var104.SCALAR.FP64.false _Var105.SCALAR.STRING
+----------CP rmvar _Var103 _Var104
+----------CP + _Var105.SCALAR.STRING.false  rows).SCALAR.STRING.true _Var106.SCALAR.STRING
+----------CP rmvar _Var105
+----------CP * -1.SCALAR.INT64.true _Var99.SCALAR.UNKNOWN.false _Var107.SCALAR.INT64
+----------CP ifelse true.SCALAR.BOOLEAN.true -1.SCALAR.INT64.true _Var107.SCALAR.INT64.false _Var108.SCALAR.INT64
+----------CP rmvar _Var107
+----------CP print _Var106.SCALAR.STRING.false _Var109.SCALAR.STRING 8
+----------CP rmvar _Var106
+----------CP fcall .builtinNS findBestSplit true 11 6 X2=X2.MATRIX.FP64 y2=y2.MATRIX.FP64 foffb=foffb.MATRIX.FP64 foffe=foffe.MATRIX.FP64 ID=_Var99.SCALAR.UNKNOWN.false I=_mVar101.MATRIX.FP64 min_leaf=2.SCALAR.INT64.true max_features=1.SCALAR.INT64.true max_values=1.0.SCALAR.FP64.true impurity=gini.SCALAR.STRING.true seed=_Var108.SCALAR.INT64.false f v IDleft Ileft IDright Iright
+----------CP rmvar _Var108
+----------CP mvvar _Var99 nID
+----------CP cpvar _mVar101 nI
+----------CP rmvar _Var109 _mVar101 node0
+--------GENERIC (lines 127-129) [recompile=true]
+----------CP createvar _mVar110 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp39 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK uak+ Ileft.MATRIX.FP64 _mVar110.MATRIX.FP64 SINGLE_BLOCK
+----------CP castdts _mVar110.MATRIX.FP64.false _Var111.SCALAR.FP64 1
+----------CP rmvar _mVar110
+----------CP >= _Var111.SCALAR.FP64.false 2.SCALAR.INT64.true _Var112.SCALAR.BOOLEAN
+----------CP rmvar _Var111
+----------CP createvar _mVar113 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp40 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK uak+ Iright.MATRIX.FP64 _mVar113.MATRIX.FP64 SINGLE_BLOCK
+----------CP castdts _mVar113.MATRIX.FP64.false _Var114.SCALAR.FP64 1
+----------CP rmvar _mVar113
+----------CP >= _Var114.SCALAR.FP64.false 2.SCALAR.INT64.true _Var115.SCALAR.BOOLEAN
+----------CP rmvar _Var114
+----------CP && _Var112.SCALAR.BOOLEAN.false _Var115.SCALAR.BOOLEAN.false _Var116.SCALAR.BOOLEAN
+----------CP rmvar _Var112 _Var115
+----------CP + -- best split: f.SCALAR.STRING.true f.SCALAR.INT64.false _Var117.SCALAR.STRING
+----------CP + _Var117.SCALAR.STRING.false  <= .SCALAR.STRING.true _Var118.SCALAR.STRING
+----------CP rmvar _Var117
+----------CP + _Var118.SCALAR.STRING.false v.SCALAR.INT64.false _Var119.SCALAR.STRING
+----------CP rmvar _Var118
+----------CP + _Var119.SCALAR.STRING.false  --> valid=.SCALAR.STRING.true _Var120.SCALAR.STRING
+----------CP rmvar _Var119
+----------CP + _Var120.SCALAR.STRING.false _Var116.SCALAR.BOOLEAN.false _Var121.SCALAR.STRING
+----------CP rmvar _Var120
+----------CP print _Var121.SCALAR.STRING.false _Var122.SCALAR.STRING 8
+----------CP rmvar _Var121
+----------CP mvvar _Var116 validSplit
+----------CP rmvar _Var122
+--------IF (lines 130-133)
+----------CP assignvar validSplit.SCALAR.BOOLEAN.false __pred.SCALAR.BOOLEAN
+----------GENERIC (lines 131-131) [recompile=false]
+------------CP list f.SCALAR.INT64.false v.SCALAR.INT64.false _Var123.LIST.UNKNOWN
+------------CP createvar _mVar124 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp41 true MATRIX binary 2 1 1000 -1 copy
+------------CP castdtm _Var123.LIST.UNKNOWN.false _mVar124.MATRIX.FP64 8
+------------CP rmvar _Var123
+------------CP createvar _mVar125 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp42 true MATRIX binary 1 2 1000 -1 copy
+------------CP r' _mVar124.MATRIX.FP64 _mVar125.MATRIX.FP64 8
+------------CP rmvar _mVar124
+------------CP * 2.SCALAR.INT64.true nID.SCALAR.UNKNOWN.false _Var126.SCALAR.INT64
+------------CP - _Var126.SCALAR.INT64.false 1.SCALAR.INT64.true _Var127.SCALAR.INT64
+------------CP createvar _mVar128 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp43 true MATRIX binary 1 2046 1000 -1 copy
+------------CP leftIndex M.MATRIX.FP64 _mVar125.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var127.SCALAR.INT64.false _Var126.SCALAR.INT64.false _mVar128.MATRIX.FP64
+------------CP rmvar _mVar125 _Var127 _Var126 M
+------------CP mvvar _mVar128 M
+------------CP rmvar f v
+--------ELSE
+----------GENERIC (lines 133-133) [recompile=true]
+------------CP fcall .builtinNS computeLeafLabel true 4 1 y2=y2.MATRIX.FP64 I=nI.MATRIX.FP64 classify=classify.SCALAR.BOOLEAN.false verbose=true.SCALAR.BOOLEAN.true _funvar1
+------------CP rmvar nI
+----------GENERIC (lines 133-133) [recompile=false]
+------------CP * 2.SCALAR.INT64.true nID.SCALAR.UNKNOWN.false _Var129.SCALAR.INT64
+------------CP createvar _mVar130 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp44 true MATRIX binary 1 2046 1000 -1 copy
+------------CP leftIndex M.MATRIX.FP64 _funvar1.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var129.SCALAR.INT64.false _Var129.SCALAR.INT64.false _mVar130.MATRIX.FP64
+------------CP rmvar _Var129 M
+------------CP mvvar _mVar130 M
+------------CP rmvar _funvar1
+----------CP rmvar nI f v
+--------GENERIC (lines 134-134) [recompile=false]
+----------CP log nID.SCALAR.UNKNOWN.false 2.SCALAR.INT64.true _Var131.SCALAR.FP64
+----------CP + _Var131.SCALAR.FP64.false 1.SCALAR.INT64.true _Var132.SCALAR.FP64
+----------CP rmvar _Var131
+----------CP floor _Var132.SCALAR.FP64.false _Var133.SCALAR.FP64 8
+----------CP rmvar _Var132
+----------CP max maxPath.SCALAR.FP64.false _Var133.SCALAR.FP64.false _Var134.SCALAR.FP64
+----------CP rmvar _Var133
+----------CP mvvar _Var134 maxPath
+----------CP rmvar nID
+--------IF (lines 137-147)
+----------CP assignvar validSplit.SCALAR.BOOLEAN.false __pred.SCALAR.BOOLEAN
+----------IF (lines 138-141)
+------------CP createvar _mVar135 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp45 true MATRIX binary 1 1 1000 -1 copy
+------------SPARK uak+ Ileft.MATRIX.FP64 _mVar135.MATRIX.FP64 SINGLE_BLOCK
+------------CP castdts _mVar135.MATRIX.FP64.false _Var136.SCALAR.FP64 1
+------------CP rmvar _mVar135
+------------CP >= _Var136.SCALAR.FP64.false 4.SCALAR.INT64.true _Var137.SCALAR.BOOLEAN
+------------CP rmvar _Var136
+------------CP log IDleft.SCALAR.INT64.false 2.SCALAR.INT64.true _Var138.SCALAR.FP64
+------------CP floor _Var138.SCALAR.FP64.false _Var139.SCALAR.FP64 8
+------------CP rmvar _Var138
+------------CP + _Var139.SCALAR.FP64.false 2.SCALAR.INT64.true _Var140.SCALAR.FP64
+------------CP rmvar _Var139
+------------CP < _Var140.SCALAR.FP64.false 10.SCALAR.INT64.true _Var141.SCALAR.BOOLEAN
+------------CP rmvar _Var140
+------------CP && _Var137.SCALAR.BOOLEAN.false _Var141.SCALAR.BOOLEAN.false _Var142.SCALAR.BOOLEAN
+------------CP rmvar _Var137 _Var141
+------------CP mvvar _Var142 __pred
+------------GENERIC (lines 139-139) [recompile=true]
+--------------CP list IDleft.SCALAR.INT64.false Ileft.MATRIX.FP64 _Var143.LIST.UNKNOWN
+--------------CP append queue.LIST.UNKNOWN.false _Var143.LIST.UNKNOWN.false -1.SCALAR.INT64.true _Var144.LIST.UNKNOWN true
+--------------CP rmvar _Var143
+--------------CP mvvar _Var144 queue
+--------------CP rmvar Ileft
+----------ELSE
+------------GENERIC (lines 141-141) [recompile=true]
+--------------CP fcall .builtinNS computeLeafLabel true 4 1 y2=y2.MATRIX.FP64 I=Ileft.MATRIX.FP64 classify=classify.SCALAR.BOOLEAN.false verbose=true.SCALAR.BOOLEAN.true _funvar2
+--------------CP rmvar Ileft
+------------GENERIC (lines 141-141) [recompile=false]
+--------------CP * 2.SCALAR.INT64.true IDleft.SCALAR.INT64.false _Var145.SCALAR.INT64
+--------------CP createvar _mVar146 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp46 true MATRIX binary 1 2046 1000 -1 copy
+--------------CP leftIndex M.MATRIX.FP64 _funvar2.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var145.SCALAR.INT64.false _Var145.SCALAR.INT64.false _mVar146.MATRIX.FP64
+--------------CP rmvar _Var145 M
+--------------CP mvvar _mVar146 M
+--------------CP rmvar _funvar2
+------------CP rmvar Ileft
+----------IF (lines 142-145)
+------------CP createvar _mVar147 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp47 true MATRIX binary 1 1 1000 -1 copy
+------------SPARK uak+ Iright.MATRIX.FP64 _mVar147.MATRIX.FP64 SINGLE_BLOCK
+------------CP castdts _mVar147.MATRIX.FP64.false _Var148.SCALAR.FP64 1
+------------CP rmvar _mVar147
+------------CP >= _Var148.SCALAR.FP64.false 4.SCALAR.INT64.true _Var149.SCALAR.BOOLEAN
+------------CP rmvar _Var148
+------------CP log IDright.SCALAR.INT64.false 2.SCALAR.INT64.true _Var150.SCALAR.FP64
+------------CP floor _Var150.SCALAR.FP64.false _Var151.SCALAR.FP64 8
+------------CP rmvar _Var150
+------------CP + _Var151.SCALAR.FP64.false 2.SCALAR.INT64.true _Var152.SCALAR.FP64
+------------CP rmvar _Var151
+------------CP < _Var152.SCALAR.FP64.false 10.SCALAR.INT64.true _Var153.SCALAR.BOOLEAN
+------------CP rmvar _Var152
+------------CP && _Var149.SCALAR.BOOLEAN.false _Var153.SCALAR.BOOLEAN.false _Var154.SCALAR.BOOLEAN
+------------CP rmvar _Var149 _Var153
+------------CP mvvar _Var154 __pred
+------------GENERIC (lines 143-143) [recompile=true]
+--------------CP list IDright.SCALAR.INT64.false Iright.MATRIX.FP64 _Var155.LIST.UNKNOWN
+--------------CP append queue.LIST.UNKNOWN.false _Var155.LIST.UNKNOWN.false -1.SCALAR.INT64.true _Var156.LIST.UNKNOWN true
+--------------CP rmvar _Var155
+--------------CP mvvar _Var156 queue
+--------------CP rmvar IDright Iright
+----------ELSE
+------------GENERIC (lines 145-145) [recompile=true]
+--------------CP fcall .builtinNS computeLeafLabel true 4 1 y2=y2.MATRIX.FP64 I=Iright.MATRIX.FP64 classify=classify.SCALAR.BOOLEAN.false verbose=true.SCALAR.BOOLEAN.true _funvar3
+--------------CP rmvar Iright
+------------GENERIC (lines 145-145) [recompile=false]
+--------------CP * 2.SCALAR.INT64.true IDright.SCALAR.INT64.false _Var157.SCALAR.INT64
+--------------CP createvar _mVar158 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp48 true MATRIX binary 1 2046 1000 -1 copy
+--------------CP leftIndex M.MATRIX.FP64 _funvar3.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var157.SCALAR.INT64.false _Var157.SCALAR.INT64.false _mVar158.MATRIX.FP64
+--------------CP rmvar _Var157 M
+--------------CP mvvar _mVar158 M
+--------------CP rmvar IDright _funvar3
+------------CP rmvar IDright Iright
+----------GENERIC (lines 146-146) [recompile=false]
+------------CP log IDleft.SCALAR.INT64.false 2.SCALAR.INT64.true _Var159.SCALAR.FP64
+------------CP + _Var159.SCALAR.FP64.false 1.SCALAR.INT64.true _Var160.SCALAR.FP64
+------------CP rmvar _Var159
+------------CP floor _Var160.SCALAR.FP64.false _Var161.SCALAR.FP64 8
+------------CP rmvar _Var160
+------------CP max maxPath.SCALAR.FP64.false _Var161.SCALAR.FP64.false _Var162.SCALAR.FP64
+------------CP rmvar _Var161
+------------CP mvvar _Var162 maxPath
+------------CP rmvar IDleft
+----------CP rmvar IDleft IDright Iright validSplit Ileft
+--------CP rmvar classify impurity seed max_depth max_values nID IDright nSeed y2 X2 min_leaf nI validSplit IDleft f Ileft foffb node0 foffe node max_features v Iright min_split queue
+------GENERIC (lines 151-155) [recompile=false]
+--------CP ^ 2.SCALAR.INT64.true maxPath.SCALAR.FP64.false _Var163.SCALAR.FP64
+--------CP - _Var163.SCALAR.FP64.false 1.SCALAR.INT64.true _Var164.SCALAR.FP64
+--------CP rmvar _Var163
+--------CP * 2.SCALAR.INT64.true _Var164.SCALAR.FP64.false _Var165.SCALAR.FP64
+--------CP rmvar _Var164
+--------CP createvar _mVar166 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp49 true MATRIX binary 1 -1 1000 -1 copy
+--------CP rightIndex M.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var165.SCALAR.FP64.false _mVar166.MATRIX.FP64
+--------CP rmvar _Var165
+--------CP toString target=_mVar166 _Var167.SCALAR.STRING
+--------CP + --.SCALAR.STRING.true _Var167.SCALAR.STRING.false _Var168.SCALAR.STRING
+--------CP rmvar _Var167
+--------CP print decisionTree: final constructed tree (linearized):.SCALAR.STRING.true _Var169.SCALAR.STRING 8
+--------CP print _Var168.SCALAR.STRING.false _Var170.SCALAR.STRING 8
+--------CP rmvar _Var168 M
+--------CP cpvar _mVar166 M
+--------CP rmvar _Var169 _Var170 _mVar166 verbose maxPath
+--MAIN PROGRAM
+----GENERIC (lines 22-27) [recompile=false]
+------CP createvar pREADX target/testTemp/functions/builtin/BuiltinDecisionTreeTest/in/X false MATRIX text 5 5 -1 -1 copy
+------CP createvar pREADY target/testTemp/functions/builtin/BuiltinDecisionTreeTest/in/Y false MATRIX text 5 1 -1 -1 copy
+------CP createvar pREADR target/testTemp/functions/builtin/BuiltinDecisionTreeTest/in/R false MATRIX text 1 6 -1 -1 copy
+------CP createvar _mVar301 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp128 true MATRIX binary 5 5 1000 -1 copy
+------SPARK rblk pREADX.MATRIX.FP64 _mVar301.MATRIX.FP64 1000 true
+------CP createvar _mVar302 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp129 true MATRIX binary 5 1 1000 -1 copy
+------SPARK rblk pREADY.MATRIX.FP64 _mVar302.MATRIX.FP64 1000 true
+------CP createvar _mVar303 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/decisionTree/target/scratch_space//_p42076_83.218.160.135//_t0/temp130 true MATRIX binary 1 6 1000 -1 copy
+------SPARK rblk pREADR.MATRIX.FP64 _mVar303.MATRIX.FP64 1000 true
+------CP fcall .builtinNS m_decisionTree true 11 1 X=_mVar301.MATRIX.FP64 y=_mVar302.MATRIX.FP64 ctypes=_mVar303.MATRIX.FP64 max_features=1.SCALAR.INT64.true min_split=4.SCALAR.INT64.true min_leaf=2.SCALAR.INT64.true verbose=true.SCALAR.BOOLEAN.true max_depth=10.SCALAR.INT64.true max_values=1.0.SCALAR.FP64.true impurity=gini.SCALAR.STRING.true seed=-1.SCALAR.INT64.true M
+------CP rmvar _mVar301 _mVar302 _mVar303
+----GENERIC (lines 29-29) [recompile=true]
+------SPARK write M.MATRIX.FP64 target/testTemp/functions/builtin/BuiltinDecisionTreeTest/out/M.SCALAR.STRING.true text.SCALAR.STRING.true .SCALAR.STRING.true -1
+------CP rmvar M

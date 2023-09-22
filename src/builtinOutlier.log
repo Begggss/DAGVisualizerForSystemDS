@@ -1,0 +1,31 @@
+# EXPLAIN (RUNTIME):
+# Memory Budget local/remote = 2867MB/?MB/?MB/?MB
+# Degree of Parallelism (vcores) local/remote = 8/?
+--MAIN PROGRAM
+----GENERIC (lines 22-24) [recompile=false]
+------CP createvar pREADX target/testTemp/functions/builtin/BuiltinOutlierTest/in/A false MATRIX text 1765 392 -1 -1 copy
+------CP createvar _mVar0 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp0 true MATRIX binary 1765 392 1000 -1 copy
+------SPARK rblk pREADX.MATRIX.FP64 _mVar0.MATRIX.FP64 1000 true
+------CP createvar _mVar1 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp1 true MATRIX binary 1 392 1000 -1 copy
+------CP uacmax _mVar0.MATRIX.FP64 _mVar1.MATRIX.FP64 8
+------CP createvar _mVar2 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp2 true MATRIX binary 1 392 1000 -1 copy
+------CP uacmean _mVar0.MATRIX.FP64 _mVar2.MATRIX.FP64 8
+------CP createvar _mVar3 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp3 true MATRIX binary 1 392 1000 -1 copy
+------CP - _mVar1.MATRIX.FP64 _mVar2.MATRIX.FP64 _mVar3.MATRIX.FP64 8
+------CP createvar _mVar4 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp4 true MATRIX binary 1 392 1000 -1 copy
+------CP uacmin _mVar0.MATRIX.FP64 _mVar4.MATRIX.FP64 8
+------CP rmvar _mVar0
+------CP createvar _mVar5 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp5 true MATRIX binary 1 392 1000 -1 copy
+------CP - _mVar2.MATRIX.FP64 _mVar4.MATRIX.FP64 _mVar5.MATRIX.FP64 8
+------CP rmvar _mVar2
+------CP createvar _mVar6 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp6 true MATRIX binary 1 392 1000 -1 copy
+------CP > _mVar3.MATRIX.FP64 _mVar5.MATRIX.FP64 _mVar6.MATRIX.FP64 8
+------CP rmvar _mVar3 _mVar5
+------CP createvar _mVar7 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp7 true MATRIX binary 1 392 1000 -1 copy
+------CP xor _mVar6.MATRIX.FP64 false.SCALAR.BOOLEAN.true _mVar7.MATRIX.FP64 8
+------CP rmvar _mVar6
+------CP createvar _mVar8 target/testTemp/functions/builtin/BuiltinOutlierTest/outlier/target/scratch_space//_p98045_83.218.160.135//_t0/temp8 true MATRIX binary 1 392 1000 -1 copy
+------CP ifelse _mVar7.MATRIX.FP64 _mVar1.MATRIX.FP64 _mVar4.MATRIX.FP64 _mVar8.MATRIX.FP64 8
+------CP rmvar _mVar7 _mVar1 _mVar4
+------CP write _mVar8.MATRIX.FP64 target/testTemp/functions/builtin/BuiltinOutlierTest/out/B.SCALAR.STRING.true text.SCALAR.STRING.true .SCALAR.STRING.true -1
+------CP rmvar _mVar8
