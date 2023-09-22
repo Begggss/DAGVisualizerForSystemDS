@@ -1,7 +1,3 @@
-import re
-import pandas as pd
-from node import Node
-import numpy as np
 from operators import Operator
 
 
@@ -176,6 +172,10 @@ def create_operations(lines):
             input.append(line[3])
             i = len(line)-1
             output = line[i]
+        elif name == "-" or name == "+":
+            input.append(line[2])
+            input.append(line[3])
+            output = line[4]
         else:
             input.append(line[2])
             output = line[3]
@@ -209,6 +209,26 @@ def create_sankey_nodes(operators):
     for i in range(len(labels)):
         value.append(1)
     return labels, source, target, value
+
+
+def tree_to_sankey(names, parents):
+    labels = []
+    source = []
+    target = []
+    value = []
+    for name in names:
+        labels.append(name)
+    for i in range(len(labels)):
+        if labels[i] == 'MAIN':
+            continue
+        parent = parents[i]
+        indexParent = labels.index(parent)
+        source.append(indexParent)
+        target.append(i)
+        value.append(1)
+    return labels, source,target,value
+
+
 
 
 

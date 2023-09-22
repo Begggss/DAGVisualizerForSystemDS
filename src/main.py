@@ -1,39 +1,56 @@
-import re
 import parser
-from node import Node
 import plotly.express as px
-from operators import Operator
 import plotly.graph_objects as go
 
-path = '/Users/begum/PycharmProjects/workspace/ldevisualizer/src/decisionTree.log'
-node = 'GENERIC 1'
+path = 'decisionTree.log'
+
+#name of node for operators graph
+node = 'GENERIC 6'
+
+#initialize 2 arrays for tree
 words, dashCount = parser.extract_words(path)
 parser.adapt_node_label(words,dashCount)
+labels, dashCountTree = parser.extract_tree_labels(words, dashCount)
+names, parents = parser.add_tree_nodes(labels, dashCountTree)
 
-labelscp=[]
-dashCountTree=[]
-labelscp, dashCountTree = parser.extract_tree_labels(words, dashCount)
-
-
-
-names=[]
-parents=[]
-
-names, parents = parser.add_tree_nodes(labelscp, dashCountTree)
-
+#display tree graph for generic and logic blocks
 fig = px.treemap(names = names,
                  parents = parents)
 fig.update_traces(root_color="lightgrey")
 fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
 fig.show()
 
+
+label,source, target, value = parser.tree_to_sankey(names, parents)
+fig = go.Figure(go.Sankey(
+    arrangement= 'freeform',
+    node = dict(
+      pad = 100,
+      thickness = 30,
+      line = dict(color = "black", width = 0.5),
+      label = label,
+
+    ),
+    link = dict(
+      arrowlen = 15,
+      source = source, # indices correspond to labels, eg A1, A2, A1, B1, ...
+      target = target,
+      value = value
+  )))
+fig.update_layout(title_text= path, font_size=10)
+
+fig.show()
+
+
+
+
+#extract lines for operators graph and initialize two arrays for cp and spark
 start, end = parser.sankey_index(words, dashCount, node)
-
 sankeylines = parser.extract_sankey_lines(path,start,end)
-
 cp, spark = parser.sankey_versions(sankeylines)
 
 
+#create list of operations for cp and print
 operatorscp = parser.create_operations(cp)
 labelscp, sourcecp, targetcp, valuecp = parser.create_sankey_nodes(operatorscp)
 
