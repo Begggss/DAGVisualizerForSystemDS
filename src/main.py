@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 path = 'decisionTree.log'
 
 #name of the node for operators graph
-node = 'GENERIC 6'
+node = 'GENERIC 1'
 
 #initialize 2 arrays for the tree
 words, dashCount = parser.extract_words(path)

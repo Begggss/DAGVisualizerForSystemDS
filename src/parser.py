@@ -221,7 +221,7 @@ def get_input_output(number, line):
 
 def create_operations(lines):
     operators = []
-    for line in lines:
+    for line in  lines:
         name = line[1]
         number = group_operators(name)
         inputs, output = get_input_output(number, line)
