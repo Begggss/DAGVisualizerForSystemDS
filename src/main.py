@@ -52,12 +52,19 @@ fig.show()
 start, end = parser.sankey_index(words, dashCount, node)
 sankeylines = parser.extract_sankey_lines(path,start,end)
 cp, spark = parser.sankey_versions(sankeylines)
-for i in cp:
-    print(i)
+# for i in cp:
+#     print(i)
 
 #create list of operations for cp and visualize the diagram
 operatorscp = parser.create_operations(cp)
 labelscp, sourcecp, targetcp, valuecp = parser.create_sankey_nodes(operatorscp)
+print(labelscp)
+print(sourcecp)
+print(targetcp)
+print(valuecp)
+print(len(sourcecp))
+print(len(valuecp))
+
 
 fig = go.Figure(go.Sankey(
     arrangement= 'freeform',

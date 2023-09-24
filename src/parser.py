@@ -107,7 +107,9 @@ def sankey_index(words, dashCount, treeNode):
     parentDash = dashCount[i]
     childDash = parentDash + 2
     index = startIndex
-    while dashCount[index] == childDash and index < len(words):
+    while dashCount[index] == childDash:
+        if index == len(words)-1:
+            break
         index += 1
 
     endingIndex = index-1
@@ -178,7 +180,7 @@ def tree_to_sankey(names, parents):
     return labels, source,target,value
 
 def group_operators(name):
-    group1 = ['>', '<', '>=', '<=', '==', '!=', '+', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'log']
+    group1 = ['>', '<', '>=', '<=', '==', '!=', '+', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'log', 'xor']
     group2 = ['seq']
     group3 = ['rand']
     group4 = ['rightIndex','ctable', 'ctableexpand']
@@ -250,10 +252,10 @@ def create_sankey_nodes(operators):
                 if output1 in input or input in output1:
                     source.append(x)
                     target.append(y)
+                    value.append(1)
     if len(source) == 0:
         source.append(0)
         target.append(1)
-    for i in range(len(labels)):
         value.append(1)
     return labels, source, target, value
 
