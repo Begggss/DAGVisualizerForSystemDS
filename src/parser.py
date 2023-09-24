@@ -180,7 +180,7 @@ def tree_to_sankey(names, parents):
     return labels, source,target,value
 
 def group_operators(name):
-    group1 = ['>', '<', '>=', '<=', '==', '!=', '+', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'log', 'xor']
+    group1 = ['>', '<', '>=', '<=', '==', '!=', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'log', 'xor']
     group2 = ['seq']
     group3 = ['rand']
     group4 = ['rightIndex','ctable', 'ctableexpand']
@@ -198,8 +198,10 @@ def group_operators(name):
         return 5
     elif name in group6:
         return 6
-    else:
+    elif name == "+":
         return 7
+    else:
+        return 8
 
 def get_input_output(number, line):
     if number == 1:
@@ -214,6 +216,15 @@ def get_input_output(number, line):
         return [line[2], line[3], line[4]], line[5]
     if number == 6:
         return [line[2], line[3], line[4], line[5], line[6], line[7]], line[8]
+    if number == 7:
+        inputs = []
+        output= line[len(line)-1]
+        for i in range(2, len(line)-1):
+            if 'SCALAR' in  line[i]:
+                inputs.append(line[i])
+
+        return inputs, output
+
     else:
         return [line[2]], line[3]
 
