@@ -7,10 +7,11 @@ import plotly.graph_objects as go
 path = 'decisionTree.log'
 
 #name of the node for operators graph
-node = 'GENERIC 15'
+node = 'GENERIC 6'
 
 #initialize 2 arrays for the tree
 words, dashCount = parser.extract_words(path)
+
 parser.adapt_node_label(words,dashCount)
 
 labels, dashCountTree = parser.extract_tree_labels(words, dashCount)
@@ -50,9 +51,9 @@ fig.show()
 #extract lines for operators graph and initialize two arrays for cp and spark
 start, end = parser.sankey_index(words, dashCount, node)
 sankeylines = parser.extract_sankey_lines(path,start,end)
+
 cp, spark = parser.sankey_versions(sankeylines)
-for i in cp:
-    print(i)
+
 
 #create list of operations for cp and visualize the diagram
 operatorscp = parser.create_operations(cp)

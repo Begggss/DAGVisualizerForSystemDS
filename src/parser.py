@@ -242,6 +242,19 @@ def create_operations(lines):
         operators.append(operator)
     return operators
 
+def extract_inputs(operator):
+    inputs = operator.get_input()
+    for i in range(len(inputs)):
+        if 'SCALAR' or 'MATRIX' in inputs[i]:
+            inputs[i] = inputs[i].split('.')[0]
+        if 'target' in inputs[i]:
+            inputs[i] = inputs[i].split('=')[1]
+    return inputs
+def extract_output(operator):
+    output = operator.get_output()
+    if 'SCALAR' or 'MATRIX' in output:
+        output = output.split('.')[0]
+    return output
 
 def create_sankey_nodes(operators):
     labels = []
@@ -249,18 +262,21 @@ def create_sankey_nodes(operators):
     target = []
     value = []
     for operator in operators:
-        labels.append(operator.get_name())
+        if operator.get_name() == "cpvar" or operator.get_name() == 'mvvar':
+            labels.append('var: ' + operator.get_output())
+        else:
+            labels.append(operator.get_name())
 
     for x in range(len(operators)-1):
         operator1 = operators[x]
-        output1 = operator1.get_output()
+        output1 = extract_output(operator1)
         name1 = operator1.get_name()
         for y in range(x+1, len(operators)):
             operator2 = operators[y]
-            input2 = operator2.get_input()
+            input2 = extract_inputs(operator2)
             name2 = operator2.get_name()
             for input in input2:
-                if output1 in input or input in output1:
+                if output1 == input:
                     source.append(x)
                     target.append(y)
                     value.append(1)
