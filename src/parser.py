@@ -178,11 +178,11 @@ def tree_to_sankey(names, parents):
     return labels, source,target,value
 
 def group_operators(name):
-    group1 = ['>', '<', '>=', '<=', '==', '!=', '+', '-', '^2', '/', '*', 'cpmm']
+    group1 = ['>', '<', '>=', '<=', '==', '!=', '+', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'log']
     group2 = ['seq']
     group3 = ['rand']
-    group4 = ['rightIndex']
-    group5 = ['uppertri', 'replace', 'ifelse']
+    group4 = ['rightIndex','ctable', 'ctableexpand']
+    group5 = ['uppertri', 'replace', 'ifelse', 'append']
     group6 = ['leftIndex']
     if name in group1:
         return 1

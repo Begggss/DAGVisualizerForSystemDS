@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 
 
 #path for log file
-path = 'decisionTree.log'
+path = 'builtinOutlier.log'
 
 #name of the node for operators graph
 node = 'GENERIC 1'
@@ -12,10 +12,12 @@ node = 'GENERIC 1'
 #initialize 2 arrays for the tree
 words, dashCount = parser.extract_words(path)
 parser.adapt_node_label(words,dashCount)
+for word in words:
+    print
 labels, dashCountTree = parser.extract_tree_labels(words, dashCount)
 names, parents = parser.add_tree_nodes(labels, dashCountTree)
 
-#visualization of the tree graph for generic and logic blocks
+# #visualization of the tree graph for generic and logic blocks
 fig = px.treemap(names = names,
                  parents = parents)
 fig.update_traces(root_color="lightgrey")
@@ -53,7 +55,7 @@ cp, spark = parser.sankey_versions(sankeylines)
 for i in cp:
     print(i)
 
-#create list of operations for cp and print
+#create list of operations for cp and visualize the diagram
 operatorscp = parser.create_operations(cp)
 labelscp, sourcecp, targetcp, valuecp = parser.create_sankey_nodes(operatorscp)
 
@@ -81,6 +83,8 @@ fig.show()
 
 operatorspark = parser.create_operations(spark)
 labelspark, sourcespark,targetspark, valuespark = parser.create_sankey_nodes(operatorspark)
+for i in spark:
+    print(i)
 fig = go.Figure(go.Sankey(
     arrangement= 'freeform',
     node = dict(
