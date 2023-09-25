@@ -1,0 +1,147 @@
+# EXPLAIN (RUNTIME):
+# Memory Budget local/remote = 2100MB/?MB/?MB/?MB
+# Degree of Parallelism (vcores) local/remote = 8/?
+PROGRAM ( size CP/SP = 80/9 )
+--FUNCTIONS
+----FUNCTION CALL GRAPH
+------MAIN PROGRAM
+--------.builtinNS::m_alsTopkPredict
+----------.builtinNS::m_alsPredict
+----FUNCTION .builtinNS::m_alsTopkPredict [recompile=true]
+------GENERIC (lines 44-51) [recompile=true]
+--------CP createvar _mVar1 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp0 true MATRIX binary 5 5 1000 -1 copy
+--------CP != R.MATRIX.FP64 0.SCALAR.INT64.true _mVar1.MATRIX.FP64 8
+--------CP createvar _mVar2 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp1 true MATRIX binary 1 5 1000 -1 copy
+--------CP uack+ _mVar1.MATRIX.FP64 _mVar2.MATRIX.FP64 8
+--------CP rmvar _mVar1
+--------CP createvar _mVar3 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp2 true MATRIX binary 1 5 1000 -1 copy
+--------CP == _mVar2.MATRIX.FP64 0.SCALAR.INT64.true _mVar3.MATRIX.FP64 8
+--------CP rmvar _mVar2
+--------CP uak+ _mVar3.MATRIX.FP64 _Var4.SCALAR.FP64 8
+--------CP rmvar _mVar3
+--------CP - 5.SCALAR.INT64.true _Var4.SCALAR.FP64.false _Var5.SCALAR.FP64
+--------CP rmvar _Var4
+--------CP min _Var5.SCALAR.FP64.false K.SCALAR.INT64.false _Var6.SCALAR.FP64
+--------CP rmvar _Var5
+--------CP createvar _mVar7 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp3 true MATRIX binary 5 -1 1000 0 copy
+--------SPARK rand 5.SCALAR.INT64.true _Var6.SCALAR.FP64.false 1000 0 0 1.0 -1 null uniform 1.0 _mVar7.MATRIX.FP64
+--------CP fcall .builtinNS m_alsPredict true 4 1 userIDs=userIDs.MATRIX.FP64 I=I.MATRIX.FP64 L=L.MATRIX.FP64 R=R.MATRIX.FP64 Y
+--------CP mvvar _Var6 K
+--------CP cpvar _mVar7 TopIxs
+--------CP cpvar _mVar7 TopVals
+--------CP rmvar _mVar7 I R L userIDs
+------FOR (lines 0-0) [in-place=[TopIxs, TopVals]]
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar K.SCALAR.FP64.false __pred.SCALAR.FP64
+--------GENERIC (lines 56-58) [recompile=true]
+----------CP createvar _mVar8 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp4 true MATRIX binary 5 1 1000 -1 copy
+----------CP uarimax Y.MATRIX.FP64 _mVar8.MATRIX.FP64 8 1
+----------CP createvar _mVar9 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp5 true MATRIX binary 5 -1 1000 -1 copy
+----------SPARK mapLeftIndex TopIxs.MATRIX.FP64 _mVar8.MATRIX.FP64 1.SCALAR.INT64.true 5.SCALAR.INT64.true i.SCALAR.INT64.false i.SCALAR.INT64.false _mVar9.MATRIX.FP64 LEFT
+----------CP createvar _mVar10 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp6 true MATRIX binary 5 1 1000 -1 copy
+----------CP uarmax Y.MATRIX.FP64 _mVar10.MATRIX.FP64 8
+----------CP createvar _mVar11 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp7 true MATRIX binary 5 -1 1000 -1 copy
+----------SPARK mapLeftIndex TopVals.MATRIX.FP64 _mVar10.MATRIX.FP64 1.SCALAR.INT64.true 5.SCALAR.INT64.true i.SCALAR.INT64.false i.SCALAR.INT64.false _mVar11.MATRIX.FP64 LEFT
+----------CP rmvar _mVar10
+----------CP createvar _mVar12 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp8 true MATRIX binary 5 5 1000 -1 copy
+----------CP rexpand cast=true max=5 ignore=false dir=cols target=_mVar8 k=8 _mVar12.MATRIX.FP64
+----------CP rmvar _mVar8
+----------CP createvar _mVar13 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp9 true MATRIX binary 5 5 1000 -1 copy
+----------CP != _mVar12.MATRIX.FP64 0.SCALAR.INT64.true _mVar13.MATRIX.FP64 8
+----------CP rmvar _mVar12
+----------CP createvar _mVar14 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp10 true MATRIX binary 5 5 1000 -1 copy
+----------CP * Y.MATRIX.FP64 _mVar13.MATRIX.FP64 _mVar14.MATRIX.FP64 8
+----------CP rmvar _mVar13 TopIxs TopVals Y
+----------CP cpvar _mVar9 TopIxs
+----------CP cpvar _mVar11 TopVals
+----------CP cpvar _mVar14 Y
+----------CP rmvar _mVar9 _mVar11 _mVar14
+--------CP rmvar Y i K
+------GENERIC (lines 62-62) [recompile=true]
+--------CP createvar _mVar15 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp11 true MATRIX binary 5 -1 1000 -1 copy
+--------SPARK > TopVals.MATRIX.FP64 0.SCALAR.INT64.true _mVar15.MATRIX.FP64
+--------CP createvar _mVar16 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp12 true MATRIX binary 5 -1 1000 -1 copy
+--------SPARK * TopIxs.MATRIX.FP64 _mVar15.MATRIX.FP64 _mVar16.MATRIX.FP64
+--------CP rmvar _mVar15
+--------CP mvvar _mVar16 TopIxs
+----FUNCTION .builtinNS::m_alsPredict [recompile=false]
+------GENERIC (lines 42-43) [recompile=false]
+--------CP uamax userIDs.MATRIX.FP64 _Var17.SCALAR.FP64 8
+--------CP mvvar _Var17 X_user_max
+------IF (lines 45-46)
+--------CP > X_user_max.SCALAR.FP64.false 5.SCALAR.INT64.true _Var18.SCALAR.BOOLEAN
+--------CP mvvar _Var18 __pred
+--------GENERIC (lines 46-46) [recompile=false]
+----------CP stop Predictions cannot be provided. Maximum user-id exceeds the number of users..SCALAR.STRING.true _Var19.SCALAR.STRING 8
+----------CP rmvar _Var19
+--------CP rmvar X_user_max
+------GENERIC (lines 51-58) [recompile=false]
+--------CP createvar _mVar20 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp13 true MATRIX binary 5 5 1000 -1 copy
+--------CP rexpand cast=true max=5 ignore=false dir=cols target=userIDs k=8 _mVar20.MATRIX.FP64
+--------CP createvar _mVar21 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp14 true MATRIX binary 5 5 1000 -1 copy
+--------CP ba+* _mVar20.MATRIX.FP64 I.MATRIX.FP64 _mVar21.MATRIX.FP64 8
+--------CP createvar _mVar22 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp15 true MATRIX binary 5 5 1000 -1 copy
+--------CP == _mVar21.MATRIX.FP64 0.SCALAR.INT64.true _mVar22.MATRIX.FP64 8
+--------CP rmvar _mVar21
+--------CP createvar _mVar23 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp16 true MATRIX binary 5 5 1000 -1 copy
+--------CP ba+* L.MATRIX.FP64 R.MATRIX.FP64 _mVar23.MATRIX.FP64 8
+--------CP createvar _mVar24 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp17 true MATRIX binary 5 5 1000 -1 copy
+--------CP ba+* _mVar20.MATRIX.FP64 _mVar23.MATRIX.FP64 _mVar24.MATRIX.FP64 8
+--------CP rmvar _mVar20 _mVar23
+--------CP createvar _mVar25 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp18 true MATRIX binary 5 5 1000 -1 copy
+--------CP * _mVar22.MATRIX.FP64 _mVar24.MATRIX.FP64 _mVar25.MATRIX.FP64 8
+--------CP rmvar _mVar22 _mVar24
+--------CP mvvar _mVar25 Y
+--------CP rmvar I R L n userIDs
+--MAIN PROGRAM
+----GENERIC (lines 22-25) [recompile=false]
+------CP createvar pREADX target/testTemp/functions/builtin/BuiltinALSPredictTest/in/X false MATRIX text 5 2 -1 -1 copy
+------CP createvar pREADL target/testTemp/functions/builtin/BuiltinALSPredictTest/in/L false MATRIX text 5 5 -1 -1 copy
+------CP createvar pREADR target/testTemp/functions/builtin/BuiltinALSPredictTest/in/R false MATRIX text 5 5 -1 -1 copy
+------CP createvar _mVar26 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp19 true MATRIX binary 5 2 1000 -1 copy
+------SPARK rblk pREADX.MATRIX.FP64 _mVar26.MATRIX.FP64 1000 true
+------CP createvar _mVar27 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp20 true MATRIX binary 5 5 1000 0 copy
+------CP rand 5.SCALAR.INT64.true 5.SCALAR.INT64.true 1000 0 0 1.0 -1 uniform 1.0 8 _mVar27.MATRIX.FP64
+------CP createvar _mVar28 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp21 true MATRIX binary 5 5 1000 -1 copy
+------SPARK rblk pREADL.MATRIX.FP64 _mVar28.MATRIX.FP64 1000 true
+------CP createvar _mVar29 target/testTemp/functions/builtin/BuiltinALSPredictTest/alsTopkPredict/target/scratch_space//_p30883_192.168.0.100//_t0/temp22 true MATRIX binary 5 5 1000 -1 copy
+------SPARK rblk pREADR.MATRIX.FP64 _mVar29.MATRIX.FP64 1000 true
+------CP fcall .builtinNS m_alsTopkPredict true 5 2 userIDs=_mVar26.MATRIX.FP64 I=_mVar27.MATRIX.FP64 L=_mVar28.MATRIX.FP64 R=_mVar29.MATRIX.FP64 K=5.SCALAR.INT64.true TopIxs TopVals
+------CP rmvar _mVar26 _mVar27 _mVar28 _mVar29
+----GENERIC (lines 26-26) [recompile=true]
+------SPARK write TopVals.MATRIX.FP64 target/testTemp/functions/builtin/BuiltinALSPredictTest/out/Y.SCALAR.STRING.true text.SCALAR.STRING.true .SCALAR.STRING.true -1
+------CP rmvar TopVals
+
+SystemDS Statistics:
+Total elapsed time:		2.230 sec.
+Total compilation time:		1.688 sec.
+Total execution time:		0.542 sec.
+Number of compiled Spark inst:	9.
+Number of executed Spark inst:	0.
+Cache hits (Mem/Li/WB/FS/HDFS):	55/0/0/0/3.
+Cache writes (Li/WB/FS/HDFS):	0/0/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.320/0.000/0.001/0.081 sec.
+HOP DAGs recompiled (PRED, SB):	0/8.
+HOP DAGs recompile time:	0.076 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.015 sec.
+Spark ctx create time (lazy):	0.000 sec.
+Spark trans counts (par,bc,col):0/0/0.
+Spark trans times (par,bc,col):	0.000/0.000/0.000 secs.
+Spark async. count (pf,bc,op): 	0/0/0.
+Total JIT compile time:		1.306 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.049 sec.
+Heavy hitter instructions:
+  #  Instruction       Time(s)  Count
+  1  sp_rblk             0.325      3
+  2  m_alsTopkPredict    0.124      1
+  3  write               0.081      1
+  4  !=                  0.019      4
+  5  m_alsPredict        0.010      1
+  6  rand                0.006      8
+  7  uack+               0.005      1
+  8  rexpand             0.005      3
+  9  ba+*                0.003      3
+ 10  createvar           0.002     48
+

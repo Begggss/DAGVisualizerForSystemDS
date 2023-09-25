@@ -1,0 +1,1257 @@
+# EXPLAIN (RUNTIME):
+# Memory Budget local/remote = 2100MB/?MB/?MB/?MB
+# Degree of Parallelism (vcores) local/remote = 8/?
+PROGRAM ( size CP/SP = 417/49 )
+--FUNCTIONS
+----FUNCTION CALL GRAPH
+------MAIN PROGRAM
+--------.builtinNS::m_arima
+----------.builtinNS::arima_css
+------------.builtinNS::jacobi_solver
+----FUNCTION .builtinNS::jacobi_solver [recompile=true]
+------GENERIC (lines 232-238) [recompile=true]
+--------CP nrow A.MATRIX.FP64.false _Var377.SCALAR.INT64 8
+--------CP createvar _mVar378 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp170 true MATRIX binary -1 1 1000 0 copy
+--------SPARK rand _Var377.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 0 0 1.0 -1 null uniform 1.0 _mVar378.MATRIX.FP64
+--------CP rmvar _Var377
+--------CP createvar _mVar379 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp171 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK abs A.MATRIX.FP64 _mVar379.MATRIX.FP64
+--------CP createvar _mVar380 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp172 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK uark+ _mVar379.MATRIX.FP64 _mVar380.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _mVar379
+--------CP createvar _mVar381 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp173 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK >= _mVar380.MATRIX.FP64 1.SCALAR.INT64.true _mVar381.MATRIX.FP64
+--------CP rmvar _mVar380
+--------CP createvar _mVar382 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp174 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uak+ _mVar381.MATRIX.FP64 _mVar382.MATRIX.FP64 SINGLE_BLOCK
+--------CP rmvar _mVar381
+--------CP castdts _mVar382.MATRIX.FP64.false _Var383.SCALAR.FP64 1
+--------CP rmvar _mVar382
+--------CP assignvar 0.SCALAR.INT64.true iter.SCALAR.INT64
+--------CP assignvar 1.01.SCALAR.FP64.true diff.SCALAR.FP64
+--------CP mvvar _Var383 check
+--------CP mvvar _mVar378 y_hat
+------IF (lines 239-240)
+--------CP > check.SCALAR.FP64.false 0.SCALAR.INT64.true _Var384.SCALAR.BOOLEAN
+--------CP mvvar _Var384 __pred
+--------GENERIC (lines 240-240) [recompile=false]
+----------CP print The matrix is not diagonal dominant. Suggest switching to an exact solver..SCALAR.STRING.true _Var385.SCALAR.STRING 8
+----------CP rmvar _Var385
+--------CP rmvar check
+------GENERIC (lines 242-247) [recompile=true]
+--------CP createvar _mVar386 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp175 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint A.MATRIX.FP64 _mVar386.MATRIX.FP64 MEMORY_AND_DISK
+--------CP createvar _mVar387 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp176 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint B.MATRIX.FP64 _mVar387.MATRIX.FP64 MEMORY_AND_DISK
+--------CP rmvar A B
+--------CP cpvar _mVar386 A
+--------CP cpvar _mVar387 B
+--------CP rmvar _mVar386 _mVar387
+------WHILE (lines 242-247)
+--------CP < iter.SCALAR.INT64.false 100.SCALAR.INT64.true _Var388.SCALAR.BOOLEAN
+--------CP > diff.SCALAR.FP64.false 0.01.SCALAR.FP64.true _Var389.SCALAR.BOOLEAN
+--------CP && _Var388.SCALAR.BOOLEAN.false _Var389.SCALAR.BOOLEAN.false _Var390.SCALAR.BOOLEAN
+--------CP rmvar _Var388 _Var389
+--------CP mvvar _Var390 __pred
+--------GENERIC (lines 243-246) [recompile=true]
+----------CP createvar _mVar391 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp177 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK cpmm A.MATRIX.FP64 y_hat.MATRIX.FP64 _mVar391.MATRIX.FP64 true MULTI_BLOCK
+----------CP createvar _mVar392 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp178 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK - B.MATRIX.FP64 _mVar391.MATRIX.FP64 _mVar392.MATRIX.FP64
+----------CP rmvar _mVar391
+----------CP createvar _mVar393 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp179 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK - _mVar392.MATRIX.FP64 y_hat.MATRIX.FP64 _mVar393.MATRIX.FP64
+----------CP createvar _mVar394 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp180 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK ^2 _mVar393.MATRIX.FP64 2.SCALAR.INT64.true _mVar394.MATRIX.FP64
+----------CP rmvar _mVar393
+----------CP createvar _mVar395 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp181 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK uak+ _mVar394.MATRIX.FP64 _mVar395.MATRIX.FP64 SINGLE_BLOCK
+----------CP rmvar _mVar394
+----------CP castdts _mVar395.MATRIX.FP64.false _Var396.SCALAR.FP64 1
+----------CP rmvar _mVar395
+----------CP + iter.SCALAR.INT64.false 1.SCALAR.INT64.true _Var397.SCALAR.INT64
+----------CP rmvar y_hat
+----------CP assignvar _Var396.SCALAR.FP64.false diff.SCALAR.FP64
+----------CP assignvar _Var397.SCALAR.INT64.false iter.SCALAR.INT64
+----------CP rmvar _Var396 _Var397
+----------CP mvvar _mVar392 y_hat
+--------CP rmvar max_iterations A B y_hat_new iter diff tolerance
+----FUNCTION .builtinNS::jacobi_solver (unoptimized) [recompile=true]
+------GENERIC (lines 232-238) [recompile=true]
+--------CP nrow A.MATRIX.FP64.false _Var398.SCALAR.INT64 8
+--------CP createvar _mVar399 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp182 true MATRIX binary -1 1 1000 0 copy
+--------SPARK rand _Var398.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 0 0 1.0 -1 null uniform 1.0 _mVar399.MATRIX.FP64
+--------CP rmvar _Var398
+--------CP + tolerance.SCALAR.FP64.false 1.SCALAR.INT64.true _Var400.SCALAR.FP64
+--------CP createvar _mVar401 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp183 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK abs A.MATRIX.FP64 _mVar401.MATRIX.FP64
+--------CP createvar _mVar402 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp184 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK uark+ _mVar401.MATRIX.FP64 _mVar402.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _mVar401
+--------CP createvar _mVar403 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp185 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK >= _mVar402.MATRIX.FP64 1.SCALAR.INT64.true _mVar403.MATRIX.FP64
+--------CP rmvar _mVar402
+--------CP createvar _mVar404 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp186 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uak+ _mVar403.MATRIX.FP64 _mVar404.MATRIX.FP64 SINGLE_BLOCK
+--------CP rmvar _mVar403
+--------CP castdts _mVar404.MATRIX.FP64.false _Var405.SCALAR.FP64 1
+--------CP rmvar _mVar404
+--------CP assignvar 0.SCALAR.INT64.true iter.SCALAR.INT64
+--------CP assignvar _Var400.SCALAR.FP64.false diff.SCALAR.FP64
+--------CP assignvar _Var405.SCALAR.FP64.false check.SCALAR.FP64
+--------CP rmvar _Var400 _Var405
+--------CP mvvar _mVar399 y_hat
+------IF (lines 239-240)
+--------CP > check.SCALAR.FP64.false 0.SCALAR.INT64.true _Var406.SCALAR.BOOLEAN
+--------CP mvvar _Var406 __pred
+--------GENERIC (lines 240-240) [recompile=false]
+----------CP print The matrix is not diagonal dominant. Suggest switching to an exact solver..SCALAR.STRING.true _Var407.SCALAR.STRING 8
+----------CP rmvar _Var407
+--------CP rmvar check
+------GENERIC (lines 242-247) [recompile=true]
+--------CP createvar _mVar408 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp187 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint A.MATRIX.FP64 _mVar408.MATRIX.FP64 MEMORY_AND_DISK
+--------CP createvar _mVar409 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp188 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint B.MATRIX.FP64 _mVar409.MATRIX.FP64 MEMORY_AND_DISK
+--------CP rmvar A B
+--------CP cpvar _mVar408 A
+--------CP cpvar _mVar409 B
+--------CP rmvar _mVar408 _mVar409
+------WHILE (lines 242-247)
+--------CP < iter.SCALAR.INT64.false max_iterations.SCALAR.INT64.false _Var410.SCALAR.BOOLEAN
+--------CP > diff.SCALAR.FP64.false tolerance.SCALAR.FP64.false _Var411.SCALAR.BOOLEAN
+--------CP && _Var410.SCALAR.BOOLEAN.false _Var411.SCALAR.BOOLEAN.false _Var412.SCALAR.BOOLEAN
+--------CP rmvar _Var410 _Var411
+--------CP mvvar _Var412 __pred
+--------GENERIC (lines 243-246) [recompile=true]
+----------CP createvar _mVar413 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp189 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK cpmm A.MATRIX.FP64 y_hat.MATRIX.FP64 _mVar413.MATRIX.FP64 true MULTI_BLOCK
+----------CP createvar _mVar414 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp190 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK - B.MATRIX.FP64 _mVar413.MATRIX.FP64 _mVar414.MATRIX.FP64
+----------CP rmvar _mVar413
+----------CP createvar _mVar415 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp191 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK - _mVar414.MATRIX.FP64 y_hat.MATRIX.FP64 _mVar415.MATRIX.FP64
+----------CP createvar _mVar416 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp192 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK ^2 _mVar415.MATRIX.FP64 2.SCALAR.INT64.true _mVar416.MATRIX.FP64
+----------CP rmvar _mVar415
+----------CP createvar _mVar417 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp193 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK uak+ _mVar416.MATRIX.FP64 _mVar417.MATRIX.FP64 SINGLE_BLOCK
+----------CP rmvar _mVar416
+----------CP castdts _mVar417.MATRIX.FP64.false _Var418.SCALAR.FP64 1
+----------CP rmvar _mVar417
+----------CP + iter.SCALAR.INT64.false 1.SCALAR.INT64.true _Var419.SCALAR.INT64
+----------CP rmvar y_hat
+----------CP assignvar _Var418.SCALAR.FP64.false diff.SCALAR.FP64
+----------CP assignvar _Var419.SCALAR.INT64.false iter.SCALAR.INT64
+----------CP rmvar _Var418 _Var419
+----------CP mvvar _mVar414 y_hat
+--------CP rmvar max_iterations A B iter diff tolerance
+----FUNCTION .builtinNS::m_arima [recompile=true]
+------GENERIC (lines 49-62) [recompile=false]
+--------CP uamean X.MATRIX.FP64 _Var21.SCALAR.FP64 8
+--------CP createvar _mVar22 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp0 true MATRIX binary 3000 1 1000 -1 copy
+--------CP - X.MATRIX.FP64 _Var21.SCALAR.FP64.false _mVar22.MATRIX.FP64 8
+--------CP rmvar X
+--------CP mvvar _Var21 mu
+--------CP mvvar _mVar22 X
+------FOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 0.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 67-67) [recompile=true]
+----------CP nrow X.MATRIX.FP64.false _Var23.SCALAR.INT64 8
+----------CP createvar _mVar24 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp1 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 2.SCALAR.INT64.true _Var23.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar24.MATRIX.FP64 MULTI_BLOCK
+----------CP - _Var23.SCALAR.INT64.false 1.SCALAR.INT64.true _Var25.SCALAR.INT64
+----------CP rmvar _Var23
+----------CP createvar _mVar26 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp2 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var25.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar26.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var25
+----------CP createvar _mVar27 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp3 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK - _mVar24.MATRIX.FP64 _mVar26.MATRIX.FP64 _mVar27.MATRIX.FP64
+----------CP rmvar _mVar24 _mVar26
+----------CP mvvar _mVar27 X
+--------CP rmvar d
+------GENERIC (lines 69-69) [recompile=true]
+--------CP nrow X.MATRIX.FP64.false _Var28.SCALAR.INT64 8
+--------CP mvvar _Var28 num_rows
+------IF (lines 70-71)
+--------CP <= num_rows.SCALAR.INT64.false 0.SCALAR.INT64.true _Var29.SCALAR.BOOLEAN
+--------CP mvvar _Var29 __pred
+--------GENERIC (lines 71-71) [recompile=false]
+----------CP print seasonal differencing order should be smaller than number of observations divided by length of season.SCALAR.STRING.true _Var30.SCALAR.STRING 8
+----------CP rmvar _Var30
+--------CP rmvar num_rows
+------FOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 0.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 74-75) [recompile=true]
+----------CP nrow X.MATRIX.FP64.false _Var31.SCALAR.INT64 8
+----------CP + _Var31.SCALAR.INT64.false 0.0.SCALAR.FP64.true _Var32.SCALAR.FP64
+----------CP rmvar _Var31
+----------CP createvar _mVar33 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp4 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 25.SCALAR.INT64.true _Var32.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar33.MATRIX.FP64 MULTI_BLOCK
+----------CP - _Var32.SCALAR.FP64.false 24.SCALAR.INT64.true _Var34.SCALAR.FP64
+----------CP rmvar _Var32
+----------CP createvar _mVar35 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp5 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var34.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar35.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var34
+----------CP createvar _mVar36 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp6 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK - _mVar33.MATRIX.FP64 _mVar35.MATRIX.FP64 _mVar36.MATRIX.FP64
+----------CP rmvar _mVar33 _mVar35
+----------CP mvvar _mVar36 X
+--------CP rmvar D i n1
+------GENERIC (lines 78-82) [recompile=true]
+--------CP nrow X.MATRIX.FP64.false _Var37.SCALAR.INT64 8
+--------CP createvar _mVar38 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp7 true MATRIX binary -1 1 1000 0 copy
+--------SPARK rand _Var37.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 0 0 1.0 -1 null uniform 1.0 _mVar38.MATRIX.FP64
+--------CP createvar _mVar39 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp8 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK rappend X.MATRIX.FP64 _mVar38.MATRIX.FP64 _mVar39.MATRIX.FP64 true
+--------CP rmvar _mVar38
+--------CP mvvar _Var37 n
+--------CP mvvar _mVar39 Z
+------GENERIC (lines 0-0) [recompile=true]
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 88-88) [recompile=true]
+----------CP - n.SCALAR.INT64.false i1.SCALAR.INT64.false _Var40.SCALAR.INT64
+----------CP createvar _mVar41 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp9 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var40.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar41.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var40
+----------CP + i1.SCALAR.INT64.false 1.SCALAR.INT64.true _Var42.SCALAR.INT64
+----------CP + 1.SCALAR.INT64.true i1.SCALAR.INT64.false _Var43.SCALAR.INT64
+----------CP createvar _mVar44 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp10 true MATRIX binary -1 2 1000 -1 copy
+----------SPARK leftIndex Z.MATRIX.FP64 _mVar41.MATRIX.FP64 _Var42.SCALAR.INT64.false n.SCALAR.INT64.false _Var43.SCALAR.INT64.false _Var43.SCALAR.INT64.false _mVar44.MATRIX.FP64 NONE
+----------CP rmvar _mVar41 _Var42 _Var43
+----------CP mvvar _mVar44 Z
+--------CP rmvar i1
+------GENERIC (lines 0-0) [recompile=true]
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 0.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 93-93) [recompile=true]
+----------CP * 24.SCALAR.INT64.true i2.SCALAR.INT64.false _Var45.SCALAR.INT64
+----------CP - n.SCALAR.INT64.false _Var45.SCALAR.INT64.false _Var46.SCALAR.INT64
+----------CP createvar _mVar47 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp11 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var46.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar47.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var46
+----------CP + _Var45.SCALAR.INT64.false 1.SCALAR.INT64.true _Var48.SCALAR.INT64
+----------CP rmvar _Var45
+----------CP + 2.SCALAR.INT64.true i2.SCALAR.INT64.false _Var49.SCALAR.INT64
+----------CP createvar _mVar50 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp12 true MATRIX binary -1 2 1000 -1 copy
+----------SPARK leftIndex Z.MATRIX.FP64 _mVar47.MATRIX.FP64 _Var48.SCALAR.INT64.false n.SCALAR.INT64.false _Var49.SCALAR.INT64.false _Var49.SCALAR.INT64.false _mVar50.MATRIX.FP64 NONE
+----------CP rmvar _mVar47 _Var48 _Var49
+----------CP mvvar _mVar50 Z
+--------CP rmvar i2
+------GENERIC (lines 0-0) [recompile=true]
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 0.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 98-98) [recompile=true]
+----------CP - n.SCALAR.INT64.false i5.SCALAR.INT64.false _Var51.SCALAR.INT64
+----------CP createvar _mVar52 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp13 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var51.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar52.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var51
+----------CP + i5.SCALAR.INT64.false 1.SCALAR.INT64.true _Var53.SCALAR.INT64
+----------CP + 2.SCALAR.INT64.true i5.SCALAR.INT64.false _Var54.SCALAR.INT64
+----------CP createvar _mVar55 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp14 true MATRIX binary -1 2 1000 -1 copy
+----------SPARK leftIndex Z.MATRIX.FP64 _mVar52.MATRIX.FP64 _Var53.SCALAR.INT64.false n.SCALAR.INT64.false _Var54.SCALAR.INT64.false _Var54.SCALAR.INT64.false _mVar55.MATRIX.FP64 NONE
+----------CP rmvar _mVar52 _Var53 _Var54
+----------CP mvvar _mVar55 Z
+--------CP rmvar i5
+------GENERIC (lines 0-0) [recompile=true]
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 0.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 103-103) [recompile=true]
+----------CP * 24.SCALAR.INT64.true i6.SCALAR.INT64.false _Var56.SCALAR.INT64
+----------CP - n.SCALAR.INT64.false _Var56.SCALAR.INT64.false _Var57.SCALAR.INT64
+----------CP createvar _mVar58 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp15 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var57.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar58.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var57
+----------CP + _Var56.SCALAR.INT64.false 1.SCALAR.INT64.true _Var59.SCALAR.INT64
+----------CP rmvar _Var56
+----------CP + 2.SCALAR.INT64.true i6.SCALAR.INT64.false _Var60.SCALAR.INT64
+----------CP createvar _mVar61 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp16 true MATRIX binary -1 2 1000 -1 copy
+----------SPARK leftIndex Z.MATRIX.FP64 _mVar58.MATRIX.FP64 _Var59.SCALAR.INT64.false n.SCALAR.INT64.false _Var60.SCALAR.INT64.false _Var60.SCALAR.INT64.false _mVar61.MATRIX.FP64 NONE
+----------CP rmvar _mVar58 _Var59 _Var60
+----------CP mvvar _mVar61 Z
+--------CP rmvar X i6 n
+------GENERIC (lines 106-110) [recompile=false]
+--------CP createvar _mVar62 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp17 true MATRIX binary 1 1 1000 0 copy
+--------CP rand 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1000 0 0 1.0 -1 uniform 1.0 8 _mVar62.MATRIX.FP64
+--------CP createvar _mVar63 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp18 true MATRIX binary 1 1 1000 1 copy
+--------CP rand 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1000 0.1 0.1 1.0 -1 uniform 1.0 8 _mVar63.MATRIX.FP64
+--------CP createvar _mVar64 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp19 true MATRIX binary 1 1 1000 1 copy
+--------CP rdiag _mVar63.MATRIX.FP64 _mVar64.MATRIX.FP64
+--------CP rmvar _mVar63
+--------CP createvar _mVar65 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp20 true MATRIX binary 1 2 1000 -1 copy
+--------CP append _mVar62.MATRIX.FP64 _mVar64.MATRIX.FP64 1.SCALAR.INT64.true _mVar65.MATRIX.FP64 true
+--------CP rmvar _mVar62 _mVar64
+--------CP createvar _mVar66 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp21 true MATRIX binary 1 2 1000 0 copy
+--------CP rand 1.SCALAR.INT64.true 2.SCALAR.INT64.true 1000 0 0 1.0 -1 uniform 1.0 8 _mVar66.MATRIX.FP64
+--------CP assignvar 0.SCALAR.INT64.true num_func_invoc.SCALAR.INT64
+--------CP cpvar _mVar65 simplex
+--------CP cpvar _mVar66 objvals
+--------CP rmvar _mVar65 _mVar66 totcols
+------GENERIC (lines 0-0) [recompile=true]
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 2.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 112-112) [recompile=true]
+----------CP createvar _mVar67 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp22 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true i3.SCALAR.INT64.false i3.SCALAR.INT64.false _mVar67.MATRIX.FP64
+----------CP fcall .builtinNS arima_css true 8 1 w=_mVar67.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=1.SCALAR.INT64.true P=0.SCALAR.INT64.true qIn=0.SCALAR.INT64.true Q=0.SCALAR.INT64.true s=24.SCALAR.INT64.true solver=jacobi.SCALAR.STRING.true _funvar0
+----------CP rmvar _mVar67
+--------GENERIC (lines 112-112) [recompile=false]
+----------CP createvar _mVar68 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp23 true MATRIX binary 1 2 1000 -1 copy
+----------CP leftIndex objvals.MATRIX.FP64 _funvar0.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true i3.SCALAR.INT64.false i3.SCALAR.INT64.false _mVar68.MATRIX.FP64
+----------CP mvvar _mVar68 objvals
+----------CP rmvar _funvar0
+--------CP rmvar i3 _funvar0
+------GENERIC (lines 115-119) [recompile=false]
+--------CP + num_func_invoc.SCALAR.INT64.false 2.SCALAR.INT64.true _Var69.SCALAR.INT64
+--------CP createvar _mVar70 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp24 true MATRIX binary 1 1 1000 -1 copy
+--------CP rightIndex objvals.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar70.MATRIX.FP64
+--------CP castdts _mVar70.MATRIX.FP64.false _Var71.SCALAR.FP64 8
+--------CP rmvar _mVar70
+--------CP * 1.5000000000000002E-8.SCALAR.FP64.true _Var71.SCALAR.FP64.false _Var72.SCALAR.FP64
+--------CP rmvar _Var71
+--------CP assignvar _Var69.SCALAR.INT64.false num_func_invoc.SCALAR.INT64
+--------CP assignvar _Var72.SCALAR.FP64.false tol.SCALAR.FP64
+--------CP assignvar true.SCALAR.BOOLEAN.true continue.SCALAR.BOOLEAN
+--------CP rmvar _Var69 _Var72
+------GENERIC (lines 120-170) [recompile=true]
+------WHILE (lines 120-170)
+--------CP <= num_func_invoc.SCALAR.INT64.false 20.SCALAR.INT64.true _Var73.SCALAR.BOOLEAN
+--------CP && continue.SCALAR.BOOLEAN.false _Var73.SCALAR.BOOLEAN.false _Var74.SCALAR.BOOLEAN
+--------CP rmvar _Var73
+--------CP mvvar _Var74 __pred
+--------GENERIC (lines 121-135) [recompile=true]
+----------CP createvar _mVar75 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp25 true MATRIX binary 1 1 1000 -1 copy
+----------CP uarimin objvals.MATRIX.FP64 _mVar75.MATRIX.FP64 8 1
+----------CP castdts _mVar75.MATRIX.FP64.false _Var76.SCALAR.FP64 8
+----------CP rmvar _mVar75
+----------CP createvar _mVar77 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp26 true MATRIX binary 1 1 1000 -1 copy
+----------CP uarimax objvals.MATRIX.FP64 _mVar77.MATRIX.FP64 8 1
+----------CP castdts _mVar77.MATRIX.FP64.false _Var78.SCALAR.FP64 8
+----------CP rmvar _mVar77
+----------CP createvar _mVar79 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp27 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex objvals.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var76.SCALAR.FP64.false _Var76.SCALAR.FP64.false _mVar79.MATRIX.FP64
+----------CP castdts _mVar79.MATRIX.FP64.false _Var80.SCALAR.FP64 8
+----------CP rmvar _mVar79
+----------CP createvar _mVar81 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp28 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex objvals.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var78.SCALAR.FP64.false _Var78.SCALAR.FP64.false _mVar81.MATRIX.FP64
+----------CP castdts _mVar81.MATRIX.FP64.false _Var82.SCALAR.FP64 8
+----------CP rmvar _mVar81
+----------CP + _Var80.SCALAR.FP64.false tol.SCALAR.FP64.false _Var83.SCALAR.FP64
+----------CP > _Var82.SCALAR.FP64.false _Var83.SCALAR.FP64.false _Var84.SCALAR.BOOLEAN
+----------CP rmvar _Var83
+----------CP uak+ simplex.MATRIX.FP64 _Var85.SCALAR.FP64 8
+----------CP createvar _mVar86 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp29 true MATRIX binary 1 1 1000 -1 copy
+----------CP castdtm _Var85.SCALAR.FP64.false _mVar86.MATRIX.FP64 8
+----------CP rmvar _Var85
+----------CP createvar _mVar87 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp30 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var78.SCALAR.FP64.false _Var78.SCALAR.FP64.false _mVar87.MATRIX.FP64
+----------CP castdts _mVar87.MATRIX.FP64.false _Var88.SCALAR.FP64 8
+----------CP rmvar _mVar87
+----------CP createvar _mVar89 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp31 true MATRIX binary 1 1 1000 -1 copy
+----------CP - _mVar86.MATRIX.FP64 _Var88.SCALAR.FP64.false _mVar89.MATRIX.FP64 8
+----------CP rmvar _mVar86
+----------CP createvar _mVar90 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp32 true MATRIX binary 1 1 1000 -1 copy
+----------CP * 2.SCALAR.INT64.true _mVar89.MATRIX.FP64 _mVar90.MATRIX.FP64 8
+----------CP createvar _mVar91 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp33 true MATRIX binary 1 1 1000 -1 copy
+----------CP - _mVar90.MATRIX.FP64 _Var88.SCALAR.FP64.false _mVar91.MATRIX.FP64 8
+----------CP rmvar _mVar90 _Var88
+----------CP + num_func_invoc.SCALAR.INT64.false 1.SCALAR.INT64.true _Var92.SCALAR.INT64
+----------CP fcall .builtinNS arima_css true 8 1 w=_mVar91.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=1.SCALAR.INT64.true P=0.SCALAR.INT64.true qIn=0.SCALAR.INT64.true Q=0.SCALAR.INT64.true s=24.SCALAR.INT64.true solver=jacobi.SCALAR.STRING.true obj_x_r
+----------CP assignvar _Var76.SCALAR.FP64.false best_index.SCALAR.FP64
+----------CP assignvar _Var78.SCALAR.FP64.false worst_index.SCALAR.FP64
+----------CP assignvar _Var80.SCALAR.FP64.false best_obj_val.SCALAR.FP64
+----------CP assignvar _Var82.SCALAR.FP64.false worst_obj_val.SCALAR.FP64
+----------CP assignvar _Var84.SCALAR.BOOLEAN.false continue.SCALAR.BOOLEAN
+----------CP assignvar _Var92.SCALAR.INT64.false num_func_invoc.SCALAR.INT64
+----------CP rmvar _Var76 _Var78 _Var80 _Var82 _Var84 _Var92
+----------CP cpvar _mVar89 c
+----------CP cpvar _mVar91 x_r
+----------CP rmvar _mVar89 _mVar91
+--------IF (lines 137-169)
+----------CP < obj_x_r.SCALAR.FP64.false best_obj_val.SCALAR.FP64.false _Var93.SCALAR.BOOLEAN
+----------CP mvvar _Var93 __pred
+----------GENERIC (lines 138-139) [recompile=true]
+------------CP createvar _mVar94 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp34 true MATRIX binary 1 1 1000 -1 copy
+------------CP * 2.SCALAR.INT64.true x_r.MATRIX.FP64 _mVar94.MATRIX.FP64 8
+------------CP castdts c.MATRIX.FP64.false _Var95.SCALAR.FP64 8
+------------CP createvar _mVar96 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp35 true MATRIX binary 1 1 1000 -1 copy
+------------CP - _mVar94.MATRIX.FP64 _Var95.SCALAR.FP64.false _mVar96.MATRIX.FP64 8
+------------CP rmvar _mVar94 _Var95
+------------CP fcall .builtinNS arima_css true 8 1 w=_mVar96.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=1.SCALAR.INT64.true P=0.SCALAR.INT64.true qIn=0.SCALAR.INT64.true Q=0.SCALAR.INT64.true s=24.SCALAR.INT64.true solver=jacobi.SCALAR.STRING.true obj_x_e
+------------CP mvvar _mVar96 x_e
+------------CP rmvar c
+----------GENERIC (lines 140-143) [recompile=false]
+------------CP + num_func_invoc.SCALAR.INT64.false 1.SCALAR.INT64.true _Var97.SCALAR.INT64
+------------CP <= obj_x_r.SCALAR.FP64.false obj_x_e.SCALAR.FP64.false _Var98.SCALAR.BOOLEAN
+------------CP createvar _mVar99 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp36 true MATRIX binary 1 1 1000 -1 copy
+------------CP ifelse _Var98.SCALAR.BOOLEAN.false x_r.MATRIX.FP64 x_e.MATRIX.FP64 _mVar99.MATRIX.FP64 8
+------------CP createvar _mVar100 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp37 true MATRIX binary 1 2 1000 -1 copy
+------------CP leftIndex simplex.MATRIX.FP64 _mVar99.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar100.MATRIX.FP64
+------------CP rmvar _mVar99
+------------CP ifelse _Var98.SCALAR.BOOLEAN.false obj_x_r.SCALAR.FP64.false obj_x_e.SCALAR.FP64.false _Var101.SCALAR.FP64
+------------CP rmvar _Var98
+------------CP createvar _mVar102 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp38 true MATRIX binary 1 2 1000 -1 copy
+------------CP leftIndex objvals.MATRIX.FP64 _Var101.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar102.MATRIX.FP64
+------------CP rmvar _Var101 simplex objvals
+------------CP mvvar _Var97 num_func_invoc
+------------CP cpvar _mVar100 simplex
+------------CP cpvar _mVar102 objvals
+------------CP rmvar _mVar100 _mVar102 obj_x_e x_r obj_x_r worst_index x_e
+--------ELSE
+----------IF (lines 146-149)
+------------CP < obj_x_r.SCALAR.FP64.false worst_obj_val.SCALAR.FP64.false _Var103.SCALAR.BOOLEAN
+------------CP mvvar _Var103 __pred
+------------GENERIC (lines 147-148) [recompile=false]
+--------------CP createvar _mVar104 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp39 true MATRIX binary 1 2 1000 -1 copy
+--------------CP leftIndex simplex.MATRIX.FP64 x_r.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar104.MATRIX.FP64
+--------------CP createvar _mVar105 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp40 true MATRIX binary 1 2 1000 -1 copy
+--------------CP leftIndex objvals.MATRIX.FP64 obj_x_r.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar105.MATRIX.FP64
+--------------CP rmvar objvals simplex
+--------------CP cpvar _mVar104 simplex
+--------------CP cpvar _mVar105 objvals
+--------------CP rmvar _mVar104 _mVar105 x_r
+------------CP rmvar x_r
+----------GENERIC (lines 151-153) [recompile=true]
+------------CP createvar _mVar106 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp41 true MATRIX binary 1 1 1000 -1 copy
+------------CP rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar106.MATRIX.FP64
+------------CP castdts c.MATRIX.FP64.false _Var107.SCALAR.FP64 8
+------------CP createvar _mVar108 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp42 true MATRIX binary 1 1 1000 -1 copy
+------------CP + _mVar106.MATRIX.FP64 _Var107.SCALAR.FP64.false _mVar108.MATRIX.FP64 8
+------------CP rmvar _mVar106 _Var107
+------------CP createvar _mVar109 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp43 true MATRIX binary 1 1 1000 -1 copy
+------------CP / _mVar108.MATRIX.FP64 2.SCALAR.INT64.true _mVar109.MATRIX.FP64 8
+------------CP rmvar _mVar108
+------------CP + num_func_invoc.SCALAR.INT64.false 1.SCALAR.INT64.true _Var110.SCALAR.INT64
+------------CP fcall .builtinNS arima_css true 8 1 w=_mVar109.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=1.SCALAR.INT64.true P=0.SCALAR.INT64.true qIn=0.SCALAR.INT64.true Q=0.SCALAR.INT64.true s=24.SCALAR.INT64.true solver=jacobi.SCALAR.STRING.true obj_x_c_in
+------------CP mvvar _Var110 num_func_invoc
+------------CP mvvar _mVar109 x_c_in
+------------CP rmvar c
+----------IF (lines 155-168)
+------------CP createvar _mVar111 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp44 true MATRIX binary 1 1 1000 -1 copy
+------------CP rightIndex objvals.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar111.MATRIX.FP64
+------------CP castdts _mVar111.MATRIX.FP64.false _Var112.SCALAR.FP64 8
+------------CP rmvar _mVar111
+------------CP < obj_x_c_in.SCALAR.FP64.false _Var112.SCALAR.FP64.false _Var113.SCALAR.BOOLEAN
+------------CP rmvar _Var112
+------------CP mvvar _Var113 __pred
+------------GENERIC (lines 156-157) [recompile=false]
+--------------CP createvar _mVar114 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp45 true MATRIX binary 1 2 1000 -1 copy
+--------------CP leftIndex simplex.MATRIX.FP64 x_c_in.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar114.MATRIX.FP64
+--------------CP createvar _mVar115 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp46 true MATRIX binary 1 2 1000 -1 copy
+--------------CP leftIndex objvals.MATRIX.FP64 obj_x_c_in.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar115.MATRIX.FP64
+--------------CP rmvar objvals simplex
+--------------CP cpvar _mVar114 simplex
+--------------CP cpvar _mVar115 objvals
+--------------CP rmvar _mVar114 _mVar115 x_c_in obj_x_c_in worst_index
+----------ELSE
+------------IF (lines 159-168)
+--------------CP >= obj_x_r.SCALAR.FP64.false worst_obj_val.SCALAR.FP64.false _Var116.SCALAR.BOOLEAN
+--------------CP mvvar _Var116 __pred
+--------------GENERIC (lines 160-160) [recompile=false]
+----------------CP createvar _mVar117 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp47 true MATRIX binary 1 1 1000 -1 copy
+----------------CP rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true best_index.SCALAR.FP64.false best_index.SCALAR.FP64.false _mVar117.MATRIX.FP64
+----------------CP mvvar _mVar117 best_point
+--------------GENERIC (lines 0-0) [recompile=true]
+--------------PARFOR (lines 0-0)
+----------------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+----------------CP assignvar 2.SCALAR.INT64.true __pred.SCALAR.INT64
+----------------IF (lines 162-165)
+------------------CP != i4.SCALAR.INT64.false best_index.SCALAR.FP64.false _Var118.SCALAR.BOOLEAN
+------------------CP mvvar _Var118 __pred
+------------------GENERIC (lines 163-164) [recompile=true]
+--------------------CP createvar _mVar119 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp48 true MATRIX binary 1 1 1000 -1 copy
+--------------------CP rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true i4.SCALAR.INT64.false i4.SCALAR.INT64.false _mVar119.MATRIX.FP64
+--------------------CP castdts best_point.MATRIX.FP64.false _Var120.SCALAR.FP64 8
+--------------------CP createvar _mVar121 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp49 true MATRIX binary 1 1 1000 -1 copy
+--------------------CP + _mVar119.MATRIX.FP64 _Var120.SCALAR.FP64.false _mVar121.MATRIX.FP64 8
+--------------------CP rmvar _mVar119 _Var120
+--------------------CP createvar _mVar122 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp50 true MATRIX binary 1 1 1000 -1 copy
+--------------------CP / _mVar121.MATRIX.FP64 2.SCALAR.INT64.true _mVar122.MATRIX.FP64 8
+--------------------CP rmvar _mVar121
+--------------------CP createvar _mVar123 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp51 true MATRIX binary 1 2 1000 -1 copy
+--------------------CP leftIndex simplex.MATRIX.FP64 _mVar122.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true i4.SCALAR.INT64.false i4.SCALAR.INT64.false _mVar123.MATRIX.FP64
+--------------------CP rmvar _mVar122
+--------------------CP createvar _mVar124 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp52 true MATRIX binary 1 1 1000 -1 copy
+--------------------CP rightIndex _mVar123.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true i4.SCALAR.INT64.false i4.SCALAR.INT64.false _mVar124.MATRIX.FP64
+--------------------CP fcall .builtinNS arima_css true 8 1 w=_mVar124.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=1.SCALAR.INT64.true P=0.SCALAR.INT64.true qIn=0.SCALAR.INT64.true Q=0.SCALAR.INT64.true s=24.SCALAR.INT64.true solver=jacobi.SCALAR.STRING.true _funvar1
+--------------------CP rmvar _mVar124
+--------------------CP mvvar _mVar123 simplex
+------------------GENERIC (lines 164-164) [recompile=false]
+--------------------CP createvar _mVar125 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp53 true MATRIX binary 1 2 1000 -1 copy
+--------------------CP leftIndex objvals.MATRIX.FP64 _funvar1.SCALAR.FP64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true i4.SCALAR.INT64.false i4.SCALAR.INT64.false _mVar125.MATRIX.FP64
+--------------------CP mvvar _mVar125 objvals
+--------------------CP rmvar _funvar1
+--------------GENERIC (lines 167-167) [recompile=false]
+----------------CP + num_func_invoc.SCALAR.INT64.false 1.SCALAR.INT64.true _Var126.SCALAR.INT64
+----------------CP mvvar _Var126 num_func_invoc
+--------------CP rmvar obj_x_r worst_obj_val
+------------CP rmvar obj_x_r worst_obj_val worst_index obj_x_c_in x_c_in
+----------CP rmvar best_obj_val obj_x_r worst_obj_val c x_r worst_index
+--------CP rmvar best_obj_val c max_func_invoc x_r tol p P q Q objvals worst_obj_val obj_x_r s continue Z worst_index num_func_invoc solver
+------GENERIC (lines 172-174) [recompile=false]
+--------CP createvar _mVar127 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp54 true MATRIX binary 1 1 1000 -1 copy
+--------CP rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true best_index.SCALAR.FP64.false best_index.SCALAR.FP64.false _mVar127.MATRIX.FP64
+--------CP createvar _mVar128 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp55 true MATRIX binary 1 1 1000 -1 copy
+--------CP castdtm mu.SCALAR.FP64.false _mVar128.MATRIX.FP64 8
+--------CP createvar _mVar129 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp56 true MATRIX binary 2 1 1000 -1 copy
+--------CP append _mVar127.MATRIX.FP64 _mVar128.MATRIX.FP64 1.SCALAR.INT64.true _mVar129.MATRIX.FP64 false
+--------CP rmvar _mVar127 _mVar128
+--------CP mvvar _mVar129 best_point
+--------CP rmvar mu simplex best_index include_mean
+----FUNCTION .builtinNS::m_arima (unoptimized) [recompile=true]
+------GENERIC (lines 49-54) [recompile=true]
+--------CP + 1.SCALAR.INT64.true p.SCALAR.INT64.false _Var130.SCALAR.INT64
+--------CP + _Var130.SCALAR.INT64.false P.SCALAR.INT64.false _Var131.SCALAR.INT64
+--------CP rmvar _Var130
+--------CP + _Var131.SCALAR.INT64.false Q.SCALAR.INT64.false _Var132.SCALAR.INT64
+--------CP rmvar _Var131
+--------CP + _Var132.SCALAR.INT64.false q.SCALAR.INT64.false _Var133.SCALAR.INT64
+--------CP rmvar _Var132
+--------CP nrow X.MATRIX.FP64.false _Var134.SCALAR.INT64 8
+--------CP assignvar _Var133.SCALAR.INT64.false totcols.SCALAR.INT64
+--------CP assignvar _Var134.SCALAR.INT64.false num_rows.SCALAR.INT64
+--------CP rmvar _Var133 _Var134
+------IF (lines 56-57)
+--------CP <= num_rows.SCALAR.INT64.false d.SCALAR.INT64.false _Var135.SCALAR.BOOLEAN
+--------CP mvvar _Var135 __pred
+--------GENERIC (lines 57-57) [recompile=false]
+----------CP print non-seasonal differencing order should be smaller than length of the time-series.SCALAR.STRING.true _Var136.SCALAR.STRING 8
+----------CP rmvar _Var136
+--------CP rmvar num_rows
+------GENERIC (lines 59-59) [recompile=false]
+--------CP assignvar 0.0.SCALAR.FP64.true mu.SCALAR.FP64
+------IF (lines 60-63)
+--------CP == include_mean.SCALAR.BOOLEAN.false 1.SCALAR.INT64.true _Var137.SCALAR.BOOLEAN
+--------CP mvvar _Var137 __pred
+--------GENERIC (lines 61-62) [recompile=true]
+----------CP uamean X.MATRIX.FP64 _Var138.SCALAR.FP64 8
+----------CP createvar _mVar139 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp57 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK - X.MATRIX.FP64 _Var138.SCALAR.FP64.false _mVar139.MATRIX.FP64
+----------CP rmvar X
+----------CP mvvar _Var138 mu
+----------CP mvvar _mVar139 X
+------FOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar d.SCALAR.INT64.false __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 67-67) [recompile=true]
+----------CP nrow X.MATRIX.FP64.false _Var140.SCALAR.INT64 8
+----------CP ncol X.MATRIX.FP64.false _Var141.SCALAR.INT64 8
+----------CP createvar _mVar142 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp58 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 2.SCALAR.INT64.true _Var140.SCALAR.INT64.false 1.SCALAR.INT64.true _Var141.SCALAR.INT64.false _mVar142.MATRIX.FP64 MULTI_BLOCK
+----------CP - _Var140.SCALAR.INT64.false 1.SCALAR.INT64.true _Var143.SCALAR.INT64
+----------CP rmvar _Var140
+----------CP createvar _mVar144 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp59 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var143.SCALAR.INT64.false 1.SCALAR.INT64.true _Var141.SCALAR.INT64.false _mVar144.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var143 _Var141
+----------CP createvar _mVar145 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp60 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK - _mVar142.MATRIX.FP64 _mVar144.MATRIX.FP64 _mVar145.MATRIX.FP64
+----------CP rmvar _mVar142 _mVar144
+----------CP mvvar _mVar145 X
+--------CP rmvar d
+------GENERIC (lines 69-69) [recompile=true]
+--------CP nrow X.MATRIX.FP64.false _Var146.SCALAR.INT64 8
+--------CP mvvar _Var146 num_rows
+------IF (lines 70-71)
+--------CP * s.SCALAR.INT64.false D.SCALAR.INT64.false _Var147.SCALAR.INT64
+--------CP <= num_rows.SCALAR.INT64.false _Var147.SCALAR.INT64.false _Var148.SCALAR.BOOLEAN
+--------CP rmvar _Var147
+--------CP mvvar _Var148 __pred
+--------GENERIC (lines 71-71) [recompile=false]
+----------CP print seasonal differencing order should be smaller than number of observations divided by length of season.SCALAR.STRING.true _Var149.SCALAR.STRING 8
+----------CP rmvar _Var149
+--------CP rmvar num_rows
+------FOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar D.SCALAR.INT64.false __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 74-75) [recompile=true]
+----------CP + s.SCALAR.INT64.false 1.SCALAR.INT64.true _Var150.SCALAR.INT64
+----------CP nrow X.MATRIX.FP64.false _Var151.SCALAR.INT64 8
+----------CP + _Var151.SCALAR.INT64.false 0.0.SCALAR.FP64.true _Var152.SCALAR.FP64
+----------CP rmvar _Var151
+----------CP ncol X.MATRIX.FP64.false _Var153.SCALAR.INT64 8
+----------CP createvar _mVar154 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp61 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 _Var150.SCALAR.INT64.false _Var152.SCALAR.FP64.false 1.SCALAR.INT64.true _Var153.SCALAR.INT64.false _mVar154.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var150
+----------CP - _Var152.SCALAR.FP64.false s.SCALAR.INT64.false _Var155.SCALAR.FP64
+----------CP rmvar _Var152
+----------CP createvar _mVar156 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp62 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var155.SCALAR.FP64.false 1.SCALAR.INT64.true _Var153.SCALAR.INT64.false _mVar156.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var155 _Var153
+----------CP createvar _mVar157 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp63 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK - _mVar154.MATRIX.FP64 _mVar156.MATRIX.FP64 _mVar157.MATRIX.FP64
+----------CP rmvar _mVar154 _mVar156
+----------CP mvvar _mVar157 X
+--------CP rmvar D i
+------GENERIC (lines 78-82) [recompile=true]
+--------CP nrow X.MATRIX.FP64.false _Var158.SCALAR.INT64 8
+--------CP ncol X.MATRIX.FP64.false _Var159.SCALAR.INT64 1
+--------CP - totcols.SCALAR.INT64.false 1.SCALAR.INT64.true _Var160.SCALAR.INT64
+--------CP createvar _mVar161 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp64 true MATRIX binary -1 -1 1000 0 copy
+--------SPARK rand _Var158.SCALAR.INT64.false _Var160.SCALAR.INT64.false 1000 0 0 1.0 -1 null uniform 1.0 _mVar161.MATRIX.FP64
+--------CP rmvar _Var160
+--------CP ncol _mVar161.MATRIX.FP64.false _Var162.SCALAR.INT64 1
+--------CP createvar _mVar163 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp65 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK gappend X.MATRIX.FP64 _mVar161.MATRIX.FP64 _Var159.SCALAR.INT64.false _Var162.SCALAR.INT64.false _mVar163.MATRIX.FP64 true
+--------CP rmvar _mVar161 _Var159 _Var162
+--------CP mvvar _Var158 n
+--------CP mvvar _mVar163 Z
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar164 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp66 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint X.MATRIX.FP64 _mVar164.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar164 X
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar p.SCALAR.INT64.false __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 88-88) [recompile=true]
+----------CP - n.SCALAR.INT64.false i1.SCALAR.INT64.false _Var165.SCALAR.INT64
+----------CP ncol X.MATRIX.FP64.false _Var166.SCALAR.INT64 8
+----------CP createvar _mVar167 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp67 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var165.SCALAR.INT64.false 1.SCALAR.INT64.true _Var166.SCALAR.INT64.false _mVar167.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var165 _Var166
+----------CP + i1.SCALAR.INT64.false 1.SCALAR.INT64.true _Var168.SCALAR.INT64
+----------CP + 1.SCALAR.INT64.true i1.SCALAR.INT64.false _Var169.SCALAR.INT64
+----------CP createvar _mVar170 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp68 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex Z.MATRIX.FP64 _mVar167.MATRIX.FP64 _Var168.SCALAR.INT64.false n.SCALAR.INT64.false _Var169.SCALAR.INT64.false _Var169.SCALAR.INT64.false _mVar170.MATRIX.FP64 NONE
+----------CP rmvar _mVar167 _Var168 _Var169
+----------CP mvvar _mVar170 Z
+--------CP rmvar i1
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar171 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp69 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint X.MATRIX.FP64 _mVar171.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar171 X
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar P.SCALAR.INT64.false __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 93-93) [recompile=true]
+----------CP * s.SCALAR.INT64.false i2.SCALAR.INT64.false _Var172.SCALAR.INT64
+----------CP - n.SCALAR.INT64.false _Var172.SCALAR.INT64.false _Var173.SCALAR.INT64
+----------CP ncol X.MATRIX.FP64.false _Var174.SCALAR.INT64 8
+----------CP createvar _mVar175 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp70 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var173.SCALAR.INT64.false 1.SCALAR.INT64.true _Var174.SCALAR.INT64.false _mVar175.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var173 _Var174
+----------CP + _Var172.SCALAR.INT64.false 1.SCALAR.INT64.true _Var176.SCALAR.INT64
+----------CP rmvar _Var172
+----------CP + 1.SCALAR.INT64.true p.SCALAR.INT64.false _Var177.SCALAR.INT64
+----------CP + _Var177.SCALAR.INT64.false i2.SCALAR.INT64.false _Var178.SCALAR.INT64
+----------CP rmvar _Var177
+----------CP createvar _mVar179 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp71 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex Z.MATRIX.FP64 _mVar175.MATRIX.FP64 _Var176.SCALAR.INT64.false n.SCALAR.INT64.false _Var178.SCALAR.INT64.false _Var178.SCALAR.INT64.false _mVar179.MATRIX.FP64 NONE
+----------CP rmvar _mVar175 _Var176 _Var178
+----------CP mvvar _mVar179 Z
+--------CP rmvar i2
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar180 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp72 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint X.MATRIX.FP64 _mVar180.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar180 X
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar q.SCALAR.INT64.false __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 98-98) [recompile=true]
+----------CP - n.SCALAR.INT64.false i5.SCALAR.INT64.false _Var181.SCALAR.INT64
+----------CP ncol X.MATRIX.FP64.false _Var182.SCALAR.INT64 8
+----------CP createvar _mVar183 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp73 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var181.SCALAR.INT64.false 1.SCALAR.INT64.true _Var182.SCALAR.INT64.false _mVar183.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var181 _Var182
+----------CP + i5.SCALAR.INT64.false 1.SCALAR.INT64.true _Var184.SCALAR.INT64
+----------CP + 1.SCALAR.INT64.true P.SCALAR.INT64.false _Var185.SCALAR.INT64
+----------CP + _Var185.SCALAR.INT64.false p.SCALAR.INT64.false _Var186.SCALAR.INT64
+----------CP rmvar _Var185
+----------CP + _Var186.SCALAR.INT64.false i5.SCALAR.INT64.false _Var187.SCALAR.INT64
+----------CP rmvar _Var186
+----------CP createvar _mVar188 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp74 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex Z.MATRIX.FP64 _mVar183.MATRIX.FP64 _Var184.SCALAR.INT64.false n.SCALAR.INT64.false _Var187.SCALAR.INT64.false _Var187.SCALAR.INT64.false _mVar188.MATRIX.FP64 NONE
+----------CP rmvar _mVar183 _Var184 _Var187
+----------CP mvvar _mVar188 Z
+--------CP rmvar i5
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar189 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp75 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint X.MATRIX.FP64 _mVar189.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar189 X
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar Q.SCALAR.INT64.false __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 103-103) [recompile=true]
+----------CP * s.SCALAR.INT64.false i6.SCALAR.INT64.false _Var190.SCALAR.INT64
+----------CP - n.SCALAR.INT64.false _Var190.SCALAR.INT64.false _Var191.SCALAR.INT64
+----------CP ncol X.MATRIX.FP64.false _Var192.SCALAR.INT64 8
+----------CP createvar _mVar193 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp76 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var191.SCALAR.INT64.false 1.SCALAR.INT64.true _Var192.SCALAR.INT64.false _mVar193.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var191 _Var192
+----------CP + _Var190.SCALAR.INT64.false 1.SCALAR.INT64.true _Var194.SCALAR.INT64
+----------CP rmvar _Var190
+----------CP + 1.SCALAR.INT64.true P.SCALAR.INT64.false _Var195.SCALAR.INT64
+----------CP + _Var195.SCALAR.INT64.false p.SCALAR.INT64.false _Var196.SCALAR.INT64
+----------CP rmvar _Var195
+----------CP + _Var196.SCALAR.INT64.false q.SCALAR.INT64.false _Var197.SCALAR.INT64
+----------CP rmvar _Var196
+----------CP + _Var197.SCALAR.INT64.false i6.SCALAR.INT64.false _Var198.SCALAR.INT64
+----------CP rmvar _Var197
+----------CP createvar _mVar199 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp77 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex Z.MATRIX.FP64 _mVar193.MATRIX.FP64 _Var194.SCALAR.INT64.false n.SCALAR.INT64.false _Var198.SCALAR.INT64.false _Var198.SCALAR.INT64.false _mVar199.MATRIX.FP64 NONE
+----------CP rmvar _mVar193 _Var194 _Var198
+----------CP mvvar _mVar199 Z
+--------CP rmvar X i6 n
+------GENERIC (lines 106-110) [recompile=true]
+--------CP - totcols.SCALAR.INT64.false 1.SCALAR.INT64.true _Var200.SCALAR.INT64
+--------CP createvar _mVar201 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp78 true MATRIX binary -1 1 1000 0 copy
+--------SPARK rand _Var200.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 0 0 1.0 -1 null uniform 1.0 _mVar201.MATRIX.FP64
+--------CP ncol _mVar201.MATRIX.FP64.false _Var202.SCALAR.INT64 1
+--------CP createvar _mVar203 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp79 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK rand _Var200.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 0.1 0.1 1.0 -1 null uniform 1.0 _mVar203.MATRIX.FP64
+--------CP rmvar _Var200
+--------CP createvar _mVar204 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp80 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK rdiag _mVar203.MATRIX.FP64 _mVar204.MATRIX.FP64
+--------CP rmvar _mVar203
+--------CP ncol _mVar204.MATRIX.FP64.false _Var205.SCALAR.INT64 1
+--------CP createvar _mVar206 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp81 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK gappend _mVar201.MATRIX.FP64 _mVar204.MATRIX.FP64 _Var202.SCALAR.INT64.false _Var205.SCALAR.INT64.false _mVar206.MATRIX.FP64 true
+--------CP rmvar _mVar201 _mVar204 _Var202 _Var205
+--------CP ncol _mVar206.MATRIX.FP64.false _Var207.SCALAR.INT64 8
+--------CP createvar _mVar208 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp82 true MATRIX binary 1 -1 1000 0 copy
+--------SPARK rand 1.SCALAR.INT64.true _Var207.SCALAR.INT64.false 1000 0 0 1.0 -1 null uniform 1.0 _mVar208.MATRIX.FP64
+--------CP rmvar _Var207
+--------CP assignvar 0.SCALAR.INT64.true num_func_invoc.SCALAR.INT64
+--------CP cpvar _mVar206 simplex
+--------CP cpvar _mVar208 objvals
+--------CP rmvar _mVar206 _mVar208 totcols
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar209 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp83 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint simplex.MATRIX.FP64 _mVar209.MATRIX.FP64 MEMORY_AND_DISK
+--------CP createvar _mVar210 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp84 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint Z.MATRIX.FP64 _mVar210.MATRIX.FP64 MEMORY_AND_DISK
+--------CP rmvar simplex Z
+--------CP cpvar _mVar209 simplex
+--------CP cpvar _mVar210 Z
+--------CP rmvar _mVar209 _mVar210
+------PARFOR (lines 0-0)
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP ncol simplex.MATRIX.FP64.false _Var211.SCALAR.INT64 8
+--------CP mvvar _Var211 __pred
+--------GENERIC (lines 112-112) [recompile=true]
+----------CP nrow simplex.MATRIX.FP64.false _Var212.SCALAR.INT64 8
+----------CP createvar _mVar213 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp85 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true _Var212.SCALAR.INT64.false i3.SCALAR.INT64.false i3.SCALAR.INT64.false _mVar213.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var212
+----------CP fcall .builtinNS arima_css false 8 1 w=_mVar213.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=p.SCALAR.INT64.false P=P.SCALAR.INT64.false qIn=q.SCALAR.INT64.false Q=Q.SCALAR.INT64.false s=s.SCALAR.INT64.false solver=solver.SCALAR.STRING.false _funvar0
+----------CP rmvar _mVar213
+--------GENERIC (lines 112-112) [recompile=true]
+----------CP createvar _mVar214 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp86 true MATRIX binary 1 1 1000 -1 copy
+----------CP castdtm _funvar0.SCALAR.FP64.false _mVar214.MATRIX.FP64 1
+----------CP createvar _mVar215 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp87 true MATRIX binary 1 -1 1000 -1 copy
+----------SPARK mapLeftIndex objvals.MATRIX.FP64 _mVar214.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true i3.SCALAR.INT64.false i3.SCALAR.INT64.false _mVar215.MATRIX.FP64 RIGHT
+----------CP rmvar _mVar214
+----------CP mvvar _mVar215 objvals
+----------CP rmvar _funvar0
+--------CP rmvar i3
+------GENERIC (lines 115-119) [recompile=true]
+--------CP ncol simplex.MATRIX.FP64.false _Var216.SCALAR.INT64 8
+--------CP + num_func_invoc.SCALAR.INT64.false _Var216.SCALAR.INT64.false _Var217.SCALAR.INT64
+--------CP rmvar _Var216
+--------CP createvar _mVar218 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp88 true MATRIX binary 1 1 1000 -1 copy
+--------CP rightIndex objvals.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar218.MATRIX.FP64
+--------CP castdts _mVar218.MATRIX.FP64.false _Var219.SCALAR.FP64 8
+--------CP rmvar _mVar218
+--------CP * 1.5000000000000002E-8.SCALAR.FP64.true _Var219.SCALAR.FP64.false _Var220.SCALAR.FP64
+--------CP rmvar _Var219
+--------CP assignvar _Var217.SCALAR.INT64.false num_func_invoc.SCALAR.INT64
+--------CP assignvar _Var220.SCALAR.FP64.false tol.SCALAR.FP64
+--------CP assignvar true.SCALAR.BOOLEAN.true continue.SCALAR.BOOLEAN
+--------CP rmvar _Var217 _Var220
+------GENERIC (lines 120-170) [recompile=true]
+--------CP createvar _mVar221 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp89 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint Z.MATRIX.FP64 _mVar221.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar221 Z
+------WHILE (lines 120-170)
+--------CP <= num_func_invoc.SCALAR.INT64.false max_func_invoc.SCALAR.INT64.false _Var222.SCALAR.BOOLEAN
+--------CP && continue.SCALAR.BOOLEAN.false _Var222.SCALAR.BOOLEAN.false _Var223.SCALAR.BOOLEAN
+--------CP rmvar _Var222
+--------CP mvvar _Var223 __pred
+--------GENERIC (lines 121-135) [recompile=true]
+----------CP createvar _mVar224 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp90 true MATRIX binary 1 1 1000 -1 copy
+----------CP uarimin objvals.MATRIX.FP64 _mVar224.MATRIX.FP64 8 1
+----------CP castdts _mVar224.MATRIX.FP64.false _Var225.SCALAR.FP64 8
+----------CP rmvar _mVar224
+----------CP createvar _mVar226 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp91 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK uarimax objvals.MATRIX.FP64 _mVar226.MATRIX.FP64 SINGLE_BLOCK
+----------CP castdts _mVar226.MATRIX.FP64.false _Var227.SCALAR.FP64 8
+----------CP rmvar _mVar226
+----------CP createvar _mVar228 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp92 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK rightIndex objvals.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var225.SCALAR.FP64.false _Var225.SCALAR.FP64.false _mVar228.MATRIX.FP64 MULTI_BLOCK
+----------CP castdts _mVar228.MATRIX.FP64.false _Var229.SCALAR.FP64 8
+----------CP rmvar _mVar228
+----------CP createvar _mVar230 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp93 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK rightIndex objvals.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true _Var227.SCALAR.FP64.false _Var227.SCALAR.FP64.false _mVar230.MATRIX.FP64 MULTI_BLOCK
+----------CP castdts _mVar230.MATRIX.FP64.false _Var231.SCALAR.FP64 8
+----------CP rmvar _mVar230
+----------CP + _Var229.SCALAR.FP64.false tol.SCALAR.FP64.false _Var232.SCALAR.FP64
+----------CP > _Var231.SCALAR.FP64.false _Var232.SCALAR.FP64.false _Var233.SCALAR.BOOLEAN
+----------CP rmvar _Var232
+----------CP createvar _mVar234 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp94 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK uark+ simplex.MATRIX.FP64 _mVar234.MATRIX.FP64 MULTI_BLOCK
+----------CP nrow simplex.MATRIX.FP64.false _Var235.SCALAR.INT64 8
+----------CP createvar _mVar236 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp95 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true _Var235.SCALAR.INT64.false _Var227.SCALAR.FP64.false _Var227.SCALAR.FP64.false _mVar236.MATRIX.FP64 MULTI_BLOCK
+----------CP createvar _mVar237 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp96 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK - _mVar234.MATRIX.FP64 _mVar236.MATRIX.FP64 _mVar237.MATRIX.FP64
+----------CP rmvar _mVar234
+----------CP createvar _mVar238 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp97 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK / _mVar237.MATRIX.FP64 _Var235.SCALAR.INT64.false _mVar238.MATRIX.FP64
+----------CP rmvar _mVar237 _Var235
+----------CP createvar _mVar239 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp98 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK * 2.SCALAR.INT64.true _mVar238.MATRIX.FP64 _mVar239.MATRIX.FP64
+----------CP createvar _mVar240 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp99 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK - _mVar239.MATRIX.FP64 _mVar236.MATRIX.FP64 _mVar240.MATRIX.FP64
+----------CP rmvar _mVar239 _mVar236
+----------CP + num_func_invoc.SCALAR.INT64.false 1.SCALAR.INT64.true _Var241.SCALAR.INT64
+----------CP fcall .builtinNS arima_css false 8 1 w=_mVar240.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=p.SCALAR.INT64.false P=P.SCALAR.INT64.false qIn=q.SCALAR.INT64.false Q=Q.SCALAR.INT64.false s=s.SCALAR.INT64.false solver=solver.SCALAR.STRING.false obj_x_r
+----------CP assignvar _Var225.SCALAR.FP64.false best_index.SCALAR.FP64
+----------CP assignvar _Var227.SCALAR.FP64.false worst_index.SCALAR.FP64
+----------CP assignvar _Var229.SCALAR.FP64.false best_obj_val.SCALAR.FP64
+----------CP assignvar _Var231.SCALAR.FP64.false worst_obj_val.SCALAR.FP64
+----------CP assignvar _Var233.SCALAR.BOOLEAN.false continue.SCALAR.BOOLEAN
+----------CP assignvar _Var241.SCALAR.INT64.false num_func_invoc.SCALAR.INT64
+----------CP rmvar _Var225 _Var227 _Var229 _Var231 _Var233 _Var241
+----------CP cpvar _mVar238 c
+----------CP cpvar _mVar240 x_r
+----------CP rmvar _mVar238 _mVar240
+--------IF (lines 137-169)
+----------CP < obj_x_r.SCALAR.FP64.false best_obj_val.SCALAR.FP64.false _Var242.SCALAR.BOOLEAN
+----------CP mvvar _Var242 __pred
+----------GENERIC (lines 138-139) [recompile=true]
+------------CP createvar _mVar243 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp100 true MATRIX binary -1 1 1000 -1 copy
+------------SPARK * 2.SCALAR.INT64.true x_r.MATRIX.FP64 _mVar243.MATRIX.FP64
+------------CP createvar _mVar244 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp101 true MATRIX binary -1 1 1000 -1 copy
+------------SPARK - _mVar243.MATRIX.FP64 c.MATRIX.FP64 _mVar244.MATRIX.FP64
+------------CP rmvar _mVar243
+------------CP fcall .builtinNS arima_css false 8 1 w=_mVar244.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=p.SCALAR.INT64.false P=P.SCALAR.INT64.false qIn=q.SCALAR.INT64.false Q=Q.SCALAR.INT64.false s=s.SCALAR.INT64.false solver=solver.SCALAR.STRING.false obj_x_e
+------------CP mvvar _mVar244 x_e
+------------CP rmvar c
+----------GENERIC (lines 140-143) [recompile=true]
+------------CP + num_func_invoc.SCALAR.INT64.false 1.SCALAR.INT64.true _Var245.SCALAR.INT64
+------------CP <= obj_x_r.SCALAR.FP64.false obj_x_e.SCALAR.FP64.false _Var246.SCALAR.BOOLEAN
+------------CP createvar _mVar247 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp102 true MATRIX binary -1 1 1000 -1 copy
+------------CP ifelse _Var246.SCALAR.BOOLEAN.false x_r.MATRIX.FP64 x_e.MATRIX.FP64 _mVar247.MATRIX.FP64 8
+------------CP nrow simplex.MATRIX.FP64.false _Var248.SCALAR.INT64 8
+------------CP createvar _mVar249 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp103 true MATRIX binary -1 -1 1000 -1 copy
+------------SPARK leftIndex simplex.MATRIX.FP64 _mVar247.MATRIX.FP64 1.SCALAR.INT64.true _Var248.SCALAR.INT64.false worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar249.MATRIX.FP64 NONE
+------------CP rmvar _mVar247 _Var248
+------------CP ifelse _Var246.SCALAR.BOOLEAN.false obj_x_r.SCALAR.FP64.false obj_x_e.SCALAR.FP64.false _Var250.SCALAR.FP64
+------------CP rmvar _Var246
+------------CP createvar _mVar251 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp104 true MATRIX binary 1 1 1000 -1 copy
+------------CP castdtm _Var250.SCALAR.FP64.false _mVar251.MATRIX.FP64 1
+------------CP rmvar _Var250
+------------CP createvar _mVar252 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp105 true MATRIX binary 1 -1 1000 -1 copy
+------------SPARK mapLeftIndex objvals.MATRIX.FP64 _mVar251.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar252.MATRIX.FP64 RIGHT
+------------CP rmvar _mVar251 simplex objvals
+------------CP mvvar _Var245 num_func_invoc
+------------CP cpvar _mVar249 simplex
+------------CP cpvar _mVar252 objvals
+------------CP rmvar _mVar249 _mVar252 obj_x_e x_r obj_x_r worst_index x_e
+--------ELSE
+----------IF (lines 146-149)
+------------CP < obj_x_r.SCALAR.FP64.false worst_obj_val.SCALAR.FP64.false _Var253.SCALAR.BOOLEAN
+------------CP mvvar _Var253 __pred
+------------GENERIC (lines 147-148) [recompile=true]
+--------------CP nrow simplex.MATRIX.FP64.false _Var254.SCALAR.INT64 8
+--------------CP createvar _mVar255 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp106 true MATRIX binary -1 -1 1000 -1 copy
+--------------SPARK leftIndex simplex.MATRIX.FP64 x_r.MATRIX.FP64 1.SCALAR.INT64.true _Var254.SCALAR.INT64.false worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar255.MATRIX.FP64 NONE
+--------------CP rmvar _Var254
+--------------CP createvar _mVar256 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp107 true MATRIX binary 1 1 1000 -1 copy
+--------------CP castdtm obj_x_r.SCALAR.FP64.false _mVar256.MATRIX.FP64 1
+--------------CP createvar _mVar257 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp108 true MATRIX binary 1 -1 1000 -1 copy
+--------------SPARK mapLeftIndex objvals.MATRIX.FP64 _mVar256.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar257.MATRIX.FP64 RIGHT
+--------------CP rmvar _mVar256 objvals simplex
+--------------CP cpvar _mVar255 simplex
+--------------CP cpvar _mVar257 objvals
+--------------CP rmvar _mVar255 _mVar257 x_r
+------------CP rmvar x_r
+----------GENERIC (lines 151-153) [recompile=true]
+------------CP nrow simplex.MATRIX.FP64.false _Var258.SCALAR.INT64 8
+------------CP createvar _mVar259 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp109 true MATRIX binary -1 1 1000 -1 copy
+------------SPARK rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true _Var258.SCALAR.INT64.false worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar259.MATRIX.FP64 MULTI_BLOCK
+------------CP rmvar _Var258
+------------CP createvar _mVar260 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp110 true MATRIX binary -1 1 1000 -1 copy
+------------SPARK + _mVar259.MATRIX.FP64 c.MATRIX.FP64 _mVar260.MATRIX.FP64
+------------CP rmvar _mVar259
+------------CP createvar _mVar261 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp111 true MATRIX binary -1 1 1000 -1 copy
+------------SPARK / _mVar260.MATRIX.FP64 2.SCALAR.INT64.true _mVar261.MATRIX.FP64
+------------CP rmvar _mVar260
+------------CP + num_func_invoc.SCALAR.INT64.false 1.SCALAR.INT64.true _Var262.SCALAR.INT64
+------------CP fcall .builtinNS arima_css false 8 1 w=_mVar261.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=p.SCALAR.INT64.false P=P.SCALAR.INT64.false qIn=q.SCALAR.INT64.false Q=Q.SCALAR.INT64.false s=s.SCALAR.INT64.false solver=solver.SCALAR.STRING.false obj_x_c_in
+------------CP mvvar _Var262 num_func_invoc
+------------CP mvvar _mVar261 x_c_in
+------------CP rmvar c
+----------IF (lines 155-168)
+------------CP createvar _mVar263 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp112 true MATRIX binary 1 1 1000 -1 copy
+------------CP rightIndex objvals.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar263.MATRIX.FP64
+------------CP castdts _mVar263.MATRIX.FP64.false _Var264.SCALAR.FP64 8
+------------CP rmvar _mVar263
+------------CP < obj_x_c_in.SCALAR.FP64.false _Var264.SCALAR.FP64.false _Var265.SCALAR.BOOLEAN
+------------CP rmvar _Var264
+------------CP mvvar _Var265 __pred
+------------GENERIC (lines 156-157) [recompile=true]
+--------------CP nrow simplex.MATRIX.FP64.false _Var266.SCALAR.INT64 8
+--------------CP createvar _mVar267 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp113 true MATRIX binary -1 -1 1000 -1 copy
+--------------SPARK leftIndex simplex.MATRIX.FP64 x_c_in.MATRIX.FP64 1.SCALAR.INT64.true _Var266.SCALAR.INT64.false worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar267.MATRIX.FP64 NONE
+--------------CP rmvar _Var266
+--------------CP createvar _mVar268 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp114 true MATRIX binary 1 1 1000 -1 copy
+--------------CP castdtm obj_x_c_in.SCALAR.FP64.false _mVar268.MATRIX.FP64 1
+--------------CP createvar _mVar269 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp115 true MATRIX binary 1 -1 1000 -1 copy
+--------------SPARK mapLeftIndex objvals.MATRIX.FP64 _mVar268.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true worst_index.SCALAR.FP64.false worst_index.SCALAR.FP64.false _mVar269.MATRIX.FP64 RIGHT
+--------------CP rmvar _mVar268 objvals simplex
+--------------CP cpvar _mVar267 simplex
+--------------CP cpvar _mVar269 objvals
+--------------CP rmvar _mVar267 _mVar269 x_c_in obj_x_c_in worst_index
+----------ELSE
+------------IF (lines 159-168)
+--------------CP >= obj_x_r.SCALAR.FP64.false worst_obj_val.SCALAR.FP64.false _Var270.SCALAR.BOOLEAN
+--------------CP mvvar _Var270 __pred
+--------------GENERIC (lines 160-160) [recompile=true]
+----------------CP nrow simplex.MATRIX.FP64.false _Var271.SCALAR.INT64 8
+----------------CP createvar _mVar272 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp116 true MATRIX binary -1 1 1000 -1 copy
+----------------SPARK rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true _Var271.SCALAR.INT64.false best_index.SCALAR.FP64.false best_index.SCALAR.FP64.false _mVar272.MATRIX.FP64 MULTI_BLOCK
+----------------CP rmvar _Var271
+----------------CP mvvar _mVar272 best_point
+--------------GENERIC (lines 0-0) [recompile=true]
+----------------CP createvar _mVar273 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp117 true MATRIX binary -1 -1 1000 -1 copy
+----------------SPARK chkpoint Z.MATRIX.FP64 _mVar273.MATRIX.FP64 MEMORY_AND_DISK
+----------------CP mvvar _mVar273 Z
+--------------PARFOR (lines 0-0)
+----------------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+----------------CP ncol simplex.MATRIX.FP64.false _Var274.SCALAR.INT64 8
+----------------CP mvvar _Var274 __pred
+----------------IF (lines 162-165)
+------------------CP != i4.SCALAR.INT64.false best_index.SCALAR.FP64.false _Var275.SCALAR.BOOLEAN
+------------------CP mvvar _Var275 __pred
+------------------GENERIC (lines 163-164) [recompile=true]
+--------------------CP nrow simplex.MATRIX.FP64.false _Var276.SCALAR.INT64 8
+--------------------CP createvar _mVar277 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp118 true MATRIX binary -1 1 1000 -1 copy
+--------------------SPARK rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true _Var276.SCALAR.INT64.false i4.SCALAR.INT64.false i4.SCALAR.INT64.false _mVar277.MATRIX.FP64 MULTI_BLOCK
+--------------------CP createvar _mVar278 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp119 true MATRIX binary -1 1 1000 -1 copy
+--------------------SPARK + _mVar277.MATRIX.FP64 best_point.MATRIX.FP64 _mVar278.MATRIX.FP64
+--------------------CP rmvar _mVar277
+--------------------CP createvar _mVar279 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp120 true MATRIX binary -1 1 1000 -1 copy
+--------------------SPARK / _mVar278.MATRIX.FP64 2.SCALAR.INT64.true _mVar279.MATRIX.FP64
+--------------------CP rmvar _mVar278
+--------------------CP createvar _mVar280 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp121 true MATRIX binary -1 -1 1000 -1 copy
+--------------------SPARK leftIndex simplex.MATRIX.FP64 _mVar279.MATRIX.FP64 1.SCALAR.INT64.true _Var276.SCALAR.INT64.false i4.SCALAR.INT64.false i4.SCALAR.INT64.false _mVar280.MATRIX.FP64 NONE
+--------------------CP rmvar _mVar279 _Var276
+--------------------CP nrow _mVar280.MATRIX.FP64.false _Var281.SCALAR.INT64 8
+--------------------CP createvar _mVar282 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp122 true MATRIX binary -1 1 1000 -1 copy
+--------------------SPARK rightIndex _mVar280.MATRIX.FP64 1.SCALAR.INT64.true _Var281.SCALAR.INT64.false i4.SCALAR.INT64.false i4.SCALAR.INT64.false _mVar282.MATRIX.FP64 MULTI_BLOCK
+--------------------CP rmvar _Var281
+--------------------CP fcall .builtinNS arima_css false 8 1 w=_mVar282.MATRIX.FP64 X=Z.MATRIX.FP64 pIn=p.SCALAR.INT64.false P=P.SCALAR.INT64.false qIn=q.SCALAR.INT64.false Q=Q.SCALAR.INT64.false s=s.SCALAR.INT64.false solver=solver.SCALAR.STRING.false _funvar1
+--------------------CP rmvar _mVar282
+--------------------CP mvvar _mVar280 simplex
+------------------GENERIC (lines 164-164) [recompile=true]
+--------------------CP createvar _mVar283 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp123 true MATRIX binary 1 1 1000 -1 copy
+--------------------CP castdtm _funvar1.SCALAR.FP64.false _mVar283.MATRIX.FP64 1
+--------------------CP createvar _mVar284 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp124 true MATRIX binary 1 -1 1000 -1 copy
+--------------------SPARK mapLeftIndex objvals.MATRIX.FP64 _mVar283.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true i4.SCALAR.INT64.false i4.SCALAR.INT64.false _mVar284.MATRIX.FP64 RIGHT
+--------------------CP rmvar _mVar283
+--------------------CP mvvar _mVar284 objvals
+--------------------CP rmvar _funvar1
+--------------GENERIC (lines 167-167) [recompile=true]
+----------------CP ncol simplex.MATRIX.FP64.false _Var285.SCALAR.INT64 8
+----------------CP - _Var285.SCALAR.INT64.false 1.SCALAR.INT64.true _Var286.SCALAR.INT64
+----------------CP rmvar _Var285
+----------------CP + num_func_invoc.SCALAR.INT64.false _Var286.SCALAR.INT64.false _Var287.SCALAR.INT64
+----------------CP rmvar _Var286
+----------------CP mvvar _Var287 num_func_invoc
+--------------CP rmvar obj_x_r worst_obj_val
+------------CP rmvar obj_x_r worst_obj_val worst_index obj_x_c_in x_c_in
+----------CP rmvar best_obj_val obj_x_r worst_obj_val c x_r worst_index
+--------CP rmvar max_func_invoc tol p P q Q objvals s continue Z num_func_invoc solver
+------GENERIC (lines 172-172) [recompile=true]
+--------CP nrow simplex.MATRIX.FP64.false _Var288.SCALAR.INT64 8
+--------CP createvar _mVar289 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp125 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK rightIndex simplex.MATRIX.FP64 1.SCALAR.INT64.true _Var288.SCALAR.INT64.false best_index.SCALAR.FP64.false best_index.SCALAR.FP64.false _mVar289.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _Var288
+--------CP mvvar _mVar289 best_point
+--------CP rmvar simplex best_index
+------IF (lines 173-174)
+--------CP assignvar include_mean.SCALAR.BOOLEAN.false __pred.SCALAR.BOOLEAN
+--------GENERIC (lines 174-174) [recompile=true]
+----------CP nrow best_point.MATRIX.FP64.false _Var290.SCALAR.INT64 1
+----------CP createvar _mVar291 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp126 true MATRIX binary 1 1 1000 -1 copy
+----------CP castdtm mu.SCALAR.FP64.false _mVar291.MATRIX.FP64 8
+----------CP createvar _mVar292 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp127 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK mappend best_point.MATRIX.FP64 _mVar291.MATRIX.FP64 _Var290.SCALAR.INT64.false _mVar292.MATRIX.FP64 false
+----------CP rmvar _mVar291 _Var290
+----------CP mvvar _mVar292 best_point
+----------CP rmvar mu
+--------CP rmvar mu include_mean
+----FUNCTION .builtinNS::arima_css [recompile=true]
+------GENERIC (lines 182-183) [recompile=true]
+--------CP nrow X.MATRIX.FP64.false _Var293.SCALAR.INT64 8
+--------CP ncol X.MATRIX.FP64.false _Var294.SCALAR.INT64 8
+--------CP createvar _mVar295 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp128 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var293.SCALAR.INT64.false 2.SCALAR.INT64.true _Var294.SCALAR.INT64.false _mVar295.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _Var294
+--------CP createvar _mVar296 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp129 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK cpmm _mVar295.MATRIX.FP64 w.MATRIX.FP64 _mVar296.MATRIX.FP64 true MULTI_BLOCK
+--------CP rmvar _mVar295
+--------CP createvar _mVar297 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp130 true MATRIX binary -1 -1 1000 0 copy
+--------SPARK rand _Var293.SCALAR.INT64.false _Var293.SCALAR.INT64.false 1000 0 0 1.0 -1 null uniform 1.0 _mVar297.MATRIX.FP64
+--------CP rmvar _Var293
+--------CP cpvar _mVar296 b
+--------CP cpvar _mVar297 R
+--------CP rmvar _mVar296 _mVar297
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar298 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp131 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint w.MATRIX.FP64 _mVar298.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar298 w
+------FOR (lines 0-0) [in-place=[R]]
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 0.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 185-186) [recompile=true]
+----------CP + 1.SCALAR.INT64.true i7.SCALAR.INT64.false _Var299.SCALAR.INT64
+----------CP nrow R.MATRIX.FP64.false _Var300.SCALAR.INT64 8
+----------CP ncol R.MATRIX.FP64.false _Var301.SCALAR.INT64 8
+----------CP - _Var301.SCALAR.INT64.false i7.SCALAR.INT64.false _Var302.SCALAR.INT64
+----------CP rmvar _Var301
+----------CP createvar _mVar303 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp132 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rightIndex R.MATRIX.FP64 _Var299.SCALAR.INT64.false _Var300.SCALAR.INT64.false 1.SCALAR.INT64.true _Var302.SCALAR.INT64.false _mVar303.MATRIX.FP64 MULTI_BLOCK
+----------CP n+ 0.SCALAR.INT64.true 1.SCALAR.INT64.true i7.SCALAR.INT64.false _Var304.SCALAR.INT64
+----------CP createvar _mVar305 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp133 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK rightIndex w.MATRIX.FP64 _Var304.SCALAR.INT64.false _Var304.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar305.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var304
+----------CP castdts _mVar305.MATRIX.FP64.false _Var306.SCALAR.FP64 8
+----------CP rmvar _mVar305
+----------CP - _Var300.SCALAR.INT64.false i7.SCALAR.INT64.false _Var307.SCALAR.INT64
+----------CP createvar _mVar308 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp134 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rand _Var307.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 ¶_Var306¶ ¶_Var306¶ 1.0 -1 null uniform 1.0 _mVar308.MATRIX.FP64
+----------CP rmvar _Var306 _Var307
+----------CP createvar _mVar309 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp135 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rdiag _mVar308.MATRIX.FP64 _mVar309.MATRIX.FP64
+----------CP rmvar _mVar308
+----------CP createvar _mVar310 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp136 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK + _mVar303.MATRIX.FP64 _mVar309.MATRIX.FP64 _mVar310.MATRIX.FP64
+----------CP rmvar _mVar303 _mVar309
+----------CP createvar _mVar311 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp137 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex R.MATRIX.FP64 _mVar310.MATRIX.FP64 _Var299.SCALAR.INT64.false _Var300.SCALAR.INT64.false 1.SCALAR.INT64.true _Var302.SCALAR.INT64.false _mVar311.MATRIX.FP64 NONE
+----------CP rmvar _mVar310 _Var299 _Var300 _Var302
+----------CP mvvar _mVar311 R
+--------CP rmvar i7 d_ns
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar312 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp138 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint w.MATRIX.FP64 _mVar312.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar312 w
+------FOR (lines 0-0) [in-place=[R]]
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 0.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 190-192) [recompile=true]
+----------CP * 24.SCALAR.INT64.true i8.SCALAR.INT64.false _Var313.SCALAR.INT64
+----------CP + 1.SCALAR.INT64.true _Var313.SCALAR.INT64.false _Var314.SCALAR.INT64
+----------CP nrow R.MATRIX.FP64.false _Var315.SCALAR.INT64 8
+----------CP ncol R.MATRIX.FP64.false _Var316.SCALAR.INT64 8
+----------CP - _Var316.SCALAR.INT64.false _Var313.SCALAR.INT64.false _Var317.SCALAR.INT64
+----------CP rmvar _Var316
+----------CP createvar _mVar318 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp139 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rightIndex R.MATRIX.FP64 _Var314.SCALAR.INT64.false _Var315.SCALAR.INT64.false 1.SCALAR.INT64.true _Var317.SCALAR.INT64.false _mVar318.MATRIX.FP64 MULTI_BLOCK
+----------CP n+ 0.SCALAR.INT64.true 1.SCALAR.INT64.true 0.SCALAR.INT64.true i8.SCALAR.INT64.false _Var319.SCALAR.INT64
+----------CP createvar _mVar320 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp140 true MATRIX binary 1 1 1000 -1 copy
+----------SPARK rightIndex w.MATRIX.FP64 _Var319.SCALAR.INT64.false _Var319.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar320.MATRIX.FP64 MULTI_BLOCK
+----------CP rmvar _Var319
+----------CP castdts _mVar320.MATRIX.FP64.false _Var321.SCALAR.FP64 8
+----------CP rmvar _mVar320
+----------CP - _Var315.SCALAR.INT64.false _Var313.SCALAR.INT64.false _Var322.SCALAR.INT64
+----------CP rmvar _Var313
+----------CP createvar _mVar323 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp141 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rand _Var322.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 ¶_Var321¶ ¶_Var321¶ 1.0 -1 null uniform 1.0 _mVar323.MATRIX.FP64
+----------CP rmvar _Var321 _Var322
+----------CP createvar _mVar324 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp142 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rdiag _mVar323.MATRIX.FP64 _mVar324.MATRIX.FP64
+----------CP rmvar _mVar323
+----------CP createvar _mVar325 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp143 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK + _mVar318.MATRIX.FP64 _mVar324.MATRIX.FP64 _mVar325.MATRIX.FP64
+----------CP rmvar _mVar318 _mVar324
+----------CP createvar _mVar326 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp144 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex R.MATRIX.FP64 _mVar325.MATRIX.FP64 _Var314.SCALAR.INT64.false _Var315.SCALAR.INT64.false 1.SCALAR.INT64.true _Var317.SCALAR.INT64.false _mVar326.MATRIX.FP64 NONE
+----------CP rmvar _mVar325 _Var314 _Var315 _Var317
+----------CP mvvar _mVar326 R
+--------CP rmvar P Q s pIn w qIn d_s err_ind_s i8
+------GENERIC (lines 196-199) [recompile=true]
+--------CP fcall .builtinNS jacobi_solver true 4 1 A=R.MATRIX.FP64 B=b.MATRIX.FP64 tolerance=0.01.SCALAR.FP64.true max_iterations=100.SCALAR.INT64.true _sbcvar2
+------GENERIC (lines 196-199) [recompile=true]
+--------CP nrow X.MATRIX.FP64.false _Var327.SCALAR.INT64 8
+--------CP createvar _mVar328 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp145 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var327.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar328.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _Var327
+--------CP createvar _mVar329 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp146 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK - _mVar328.MATRIX.FP64 _sbcvar2.MATRIX.FP64 _mVar329.MATRIX.FP64
+--------CP rmvar _mVar328
+--------CP createvar _mVar330 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp147 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK tsmm _mVar329.MATRIX.FP64 _mVar330.MATRIX.FP64 LEFT
+--------CP rmvar _mVar329
+--------CP castdts _mVar330.MATRIX.FP64.false _Var331.SCALAR.FP64 8
+--------CP rmvar _mVar330
+--------CP mvvar _Var331 obj
+--------CP rmvar X _sbcvar2 R b solver
+----FUNCTION .builtinNS::arima_css (unoptimized) [recompile=true]
+------GENERIC (lines 182-183) [recompile=true]
+--------CP nrow X.MATRIX.FP64.false _Var332.SCALAR.INT64 8
+--------CP ncol X.MATRIX.FP64.false _Var333.SCALAR.INT64 8
+--------CP createvar _mVar334 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp148 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var332.SCALAR.INT64.false 2.SCALAR.INT64.true _Var333.SCALAR.INT64.false _mVar334.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _Var333
+--------CP createvar _mVar335 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp149 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK cpmm _mVar334.MATRIX.FP64 w.MATRIX.FP64 _mVar335.MATRIX.FP64 true MULTI_BLOCK
+--------CP rmvar _mVar334
+--------CP createvar _mVar336 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp150 true MATRIX binary -1 -1 1000 0 copy
+--------SPARK rand _Var332.SCALAR.INT64.false _Var332.SCALAR.INT64.false 1000 0 0 1.0 -1 null uniform 1.0 _mVar336.MATRIX.FP64
+--------CP rmvar _Var332
+--------CP cpvar _mVar335 b
+--------CP cpvar _mVar336 R
+--------CP rmvar _mVar335 _mVar336
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar337 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp151 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint w.MATRIX.FP64 _mVar337.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar337 w
+------FOR (lines 0-0) [in-place=[R]]
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar qIn.SCALAR.INT64.false __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 185-186) [recompile=true]
+----------CP + 1.SCALAR.INT64.true i7.SCALAR.INT64.false _Var338.SCALAR.INT64
+----------CP nrow R.MATRIX.FP64.false _Var339.SCALAR.INT64 8
+----------CP ncol R.MATRIX.FP64.false _Var340.SCALAR.INT64 8
+----------CP - _Var340.SCALAR.INT64.false i7.SCALAR.INT64.false _Var341.SCALAR.INT64
+----------CP rmvar _Var340
+----------CP createvar _mVar342 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp152 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rightIndex R.MATRIX.FP64 _Var338.SCALAR.INT64.false _Var339.SCALAR.INT64.false 1.SCALAR.INT64.true _Var341.SCALAR.INT64.false _mVar342.MATRIX.FP64 MULTI_BLOCK
+----------CP + P.SCALAR.INT64.false pIn.SCALAR.INT64.false _Var343.SCALAR.INT64
+----------CP + _Var343.SCALAR.INT64.false i7.SCALAR.INT64.false _Var344.SCALAR.INT64
+----------CP rmvar _Var343
+----------CP createvar _mVar345 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp153 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex w.MATRIX.FP64 _Var344.SCALAR.INT64.false _Var344.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar345.MATRIX.FP64
+----------CP rmvar _Var344
+----------CP castdts _mVar345.MATRIX.FP64.false _Var346.SCALAR.FP64 8
+----------CP rmvar _mVar345
+----------CP - _Var339.SCALAR.INT64.false i7.SCALAR.INT64.false _Var347.SCALAR.INT64
+----------CP createvar _mVar348 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp154 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rand _Var347.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 ¶_Var346¶ ¶_Var346¶ 1.0 -1 null uniform 1.0 _mVar348.MATRIX.FP64
+----------CP rmvar _Var346 _Var347
+----------CP createvar _mVar349 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp155 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rdiag _mVar348.MATRIX.FP64 _mVar349.MATRIX.FP64
+----------CP rmvar _mVar348
+----------CP createvar _mVar350 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp156 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK + _mVar342.MATRIX.FP64 _mVar349.MATRIX.FP64 _mVar350.MATRIX.FP64
+----------CP rmvar _mVar342 _mVar349
+----------CP createvar _mVar351 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp157 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex R.MATRIX.FP64 _mVar350.MATRIX.FP64 _Var338.SCALAR.INT64.false _Var339.SCALAR.INT64.false 1.SCALAR.INT64.true _Var341.SCALAR.INT64.false _mVar351.MATRIX.FP64 NONE
+----------CP rmvar _mVar350 _Var338 _Var339 _Var341
+----------CP mvvar _mVar351 R
+--------CP rmvar i7
+------GENERIC (lines 0-0) [recompile=true]
+--------CP createvar _mVar352 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp158 true MATRIX binary -1 -1 1000 -1 copy
+--------SPARK chkpoint w.MATRIX.FP64 _mVar352.MATRIX.FP64 MEMORY_AND_DISK
+--------CP mvvar _mVar352 w
+------FOR (lines 0-0) [in-place=[R]]
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------CP assignvar Q.SCALAR.INT64.false __pred.SCALAR.INT64
+--------CP assignvar 1.SCALAR.INT64.true __pred.SCALAR.INT64
+--------GENERIC (lines 190-192) [recompile=true]
+----------CP * s.SCALAR.INT64.false i8.SCALAR.INT64.false _Var353.SCALAR.INT64
+----------CP + 1.SCALAR.INT64.true _Var353.SCALAR.INT64.false _Var354.SCALAR.INT64
+----------CP nrow R.MATRIX.FP64.false _Var355.SCALAR.INT64 8
+----------CP ncol R.MATRIX.FP64.false _Var356.SCALAR.INT64 8
+----------CP - _Var356.SCALAR.INT64.false _Var353.SCALAR.INT64.false _Var357.SCALAR.INT64
+----------CP rmvar _Var356
+----------CP createvar _mVar358 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp159 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rightIndex R.MATRIX.FP64 _Var354.SCALAR.INT64.false _Var355.SCALAR.INT64.false 1.SCALAR.INT64.true _Var357.SCALAR.INT64.false _mVar358.MATRIX.FP64 MULTI_BLOCK
+----------CP + P.SCALAR.INT64.false pIn.SCALAR.INT64.false _Var359.SCALAR.INT64
+----------CP + _Var359.SCALAR.INT64.false qIn.SCALAR.INT64.false _Var360.SCALAR.INT64
+----------CP rmvar _Var359
+----------CP + _Var360.SCALAR.INT64.false i8.SCALAR.INT64.false _Var361.SCALAR.INT64
+----------CP rmvar _Var360
+----------CP createvar _mVar362 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp160 true MATRIX binary 1 1 1000 -1 copy
+----------CP rightIndex w.MATRIX.FP64 _Var361.SCALAR.INT64.false _Var361.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar362.MATRIX.FP64
+----------CP rmvar _Var361
+----------CP castdts _mVar362.MATRIX.FP64.false _Var363.SCALAR.FP64 8
+----------CP rmvar _mVar362
+----------CP - _Var355.SCALAR.INT64.false _Var353.SCALAR.INT64.false _Var364.SCALAR.INT64
+----------CP rmvar _Var353
+----------CP createvar _mVar365 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp161 true MATRIX binary -1 1 1000 -1 copy
+----------SPARK rand _Var364.SCALAR.INT64.false 1.SCALAR.INT64.true 1000 ¶_Var363¶ ¶_Var363¶ 1.0 -1 null uniform 1.0 _mVar365.MATRIX.FP64
+----------CP rmvar _Var363 _Var364
+----------CP createvar _mVar366 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp162 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK rdiag _mVar365.MATRIX.FP64 _mVar366.MATRIX.FP64
+----------CP rmvar _mVar365
+----------CP createvar _mVar367 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp163 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK + _mVar358.MATRIX.FP64 _mVar366.MATRIX.FP64 _mVar367.MATRIX.FP64
+----------CP rmvar _mVar358 _mVar366
+----------CP createvar _mVar368 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp164 true MATRIX binary -1 -1 1000 -1 copy
+----------SPARK leftIndex R.MATRIX.FP64 _mVar367.MATRIX.FP64 _Var354.SCALAR.INT64.false _Var355.SCALAR.INT64.false 1.SCALAR.INT64.true _Var357.SCALAR.INT64.false _mVar368.MATRIX.FP64 NONE
+----------CP rmvar _mVar367 _Var354 _Var355 _Var357
+----------CP mvvar _mVar368 R
+--------CP rmvar P Q s pIn w qIn i8
+------GENERIC (lines 196-199) [recompile=true]
+--------CP + solver.SCALAR.STRING.false _solver.SCALAR.STRING.true _Var369.SCALAR.STRING
+--------CP createvar _mVar370 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp165 true MATRIX binary -1 -1 1000 -1 copy
+--------CP eval _Var369.SCALAR.STRING.false R.MATRIX.FP64 b.MATRIX.FP64 0.01.SCALAR.FP64.true 100.SCALAR.INT64.true _mVar370.MATRIX.FP64
+--------CP rmvar _Var369
+--------CP mvvar _mVar370 _sbcvar2
+------GENERIC (lines 196-199) [recompile=true]
+--------CP nrow X.MATRIX.FP64.false _Var371.SCALAR.INT64 8
+--------CP createvar _mVar372 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp166 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK rightIndex X.MATRIX.FP64 1.SCALAR.INT64.true _Var371.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar372.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _Var371
+--------CP createvar _mVar373 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp167 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK - _mVar372.MATRIX.FP64 _sbcvar2.MATRIX.FP64 _mVar373.MATRIX.FP64
+--------CP rmvar _mVar372
+--------CP createvar _mVar374 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp168 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK ^2 _mVar373.MATRIX.FP64 2.SCALAR.INT64.true _mVar374.MATRIX.FP64
+--------CP rmvar _mVar373
+--------CP createvar _mVar375 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp169 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uak+ _mVar374.MATRIX.FP64 _mVar375.MATRIX.FP64 SINGLE_BLOCK
+--------CP rmvar _mVar374
+--------CP castdts _mVar375.MATRIX.FP64.false _Var376.SCALAR.FP64 1
+--------CP rmvar _mVar375
+--------CP mvvar _Var376 obj
+--------CP rmvar X _sbcvar2 R b solver
+--MAIN PROGRAM
+----GENERIC (lines 22-26) [recompile=false]
+------CP createvar pREADX target/testTemp/functions/builtin/BuiltinArimaTest/in/col.mtx false MATRIX mm 3000 1 -1 3000 copy
+------CP createvar _mVar420 target/testTemp/functions/builtin/BuiltinArimaTest/arima/target/scratch_space//_p31589_192.168.0.100//_t0/temp194 true MATRIX binary 3000 1 1000 3000 copy
+------SPARK rblk pREADX.MATRIX.FP64 _mVar420.MATRIX.FP64 1000 true
+------CP fcall .builtinNS m_arima true 11 1 X=_mVar420.MATRIX.FP64 max_func_invoc=20.SCALAR.INT64.true p=1.SCALAR.INT64.true d=0.SCALAR.INT64.true q=0.SCALAR.INT64.true P=0.SCALAR.INT64.true D=0.SCALAR.INT64.true Q=0.SCALAR.INT64.true s=24.SCALAR.INT64.true include_mean=1.SCALAR.INT64.true solver=jacobi.SCALAR.STRING.true coefficients
+------CP rmvar _mVar420
+----GENERIC (lines 28-28) [recompile=false]
+------CP write coefficients.MATRIX.FP64 target/testTemp/functions/builtin/BuiltinArimaTest/out/learnt.model.SCALAR.STRING.true text.SCALAR.STRING.true .SCALAR.STRING.true -1
+------CP rmvar coefficients
+
+SystemDS Statistics:
+Total execution time:		1.656 sec.
+Number of executed Spark inst:	0.
+
+R Standard output :
+NULL
+
+R Standard Error  :
+Warnmeldung:
+readMM(): expected 3000 entries but found only 2707
+
+

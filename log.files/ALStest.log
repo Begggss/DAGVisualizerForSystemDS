@@ -1,0 +1,342 @@
+# EXPLAIN (RUNTIME):
+# Memory Budget local/remote = 2100MB/?MB/?MB/?MB
+# Degree of Parallelism (vcores) local/remote = 8/?
+PROGRAM ( size CP/SP = 298/1 )
+--FUNCTIONS
+----FUNCTION CALL GRAPH
+------MAIN PROGRAM
+--------.builtinNS::m_alsCG
+----FUNCTION .builtinNS::m_alsCG [recompile=false]
+------GENERIC (lines 58-108) [recompile=false]
+--------CP createvar _mVar12 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp0 true MATRIX binary 6 10 1000 60 copy
+--------CP rand 6.SCALAR.INT64.true 10.SCALAR.INT64.true 1000 -0.5 0.5 1.0 1342516 uniform 1.0 8 _mVar12.MATRIX.FP64
+--------CP createvar _mVar13 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp1 true MATRIX binary 6 10 1000 60 copy
+--------CP rand 6.SCALAR.INT64.true 10.SCALAR.INT64.true 1000 -0.5 0.5 1.0 1342517 uniform 1.0 8 _mVar13.MATRIX.FP64
+--------CP createvar _mVar14 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp2 true MATRIX binary 6 6 1000 -1 copy
+--------CP != X.MATRIX.FP64 0.SCALAR.INT64.true _mVar14.MATRIX.FP64 8
+--------CP createvar _mVar15 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp3 true MATRIX binary 6 1 1000 6 copy
+--------CP rand 6.SCALAR.INT64.true 1.SCALAR.INT64.true 1000 1 1 1.0 -1 uniform 1.0 8 _mVar15.MATRIX.FP64
+--------CP wsloss X.MATRIX.FP64 _mVar12.MATRIX.FP64 _mVar13.MATRIX.FP64 1.SCALAR.INT64.true _Var16.SCALAR.FP64 POST_NZ 8
+--------CP * 0.5.SCALAR.FP64.true _Var16.SCALAR.FP64.false _Var17.SCALAR.FP64
+--------CP rmvar _Var16
+--------CP createvar _mVar18 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp4 true MATRIX binary 6 10 1000 60 copy
+--------CP ^2 _mVar12.MATRIX.FP64 2.SCALAR.INT64.true _mVar18.MATRIX.FP64 8
+--------CP uak+ _mVar18.MATRIX.FP64 _Var19.SCALAR.FP64 8
+--------CP rmvar _mVar18
+--------CP createvar _mVar20 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp5 true MATRIX binary 6 10 1000 60 copy
+--------CP ^2 _mVar13.MATRIX.FP64 2.SCALAR.INT64.true _mVar20.MATRIX.FP64 8
+--------CP uak+ _mVar20.MATRIX.FP64 _Var21.SCALAR.FP64 8
+--------CP rmvar _mVar20
+--------CP + _Var19.SCALAR.FP64.false _Var21.SCALAR.FP64.false _Var22.SCALAR.FP64
+--------CP rmvar _Var19 _Var21
+--------CP * 5.0E-7.SCALAR.FP64.true _Var22.SCALAR.FP64.false _Var23.SCALAR.FP64
+--------CP rmvar _Var22
+--------CP + _Var17.SCALAR.FP64.false _Var23.SCALAR.FP64.false _Var24.SCALAR.FP64
+--------CP rmvar _Var17 _Var23
+--------CP + -----   Initial train loss: .SCALAR.STRING.true _Var24.SCALAR.FP64.false _Var25.SCALAR.STRING
+--------CP + _Var25.SCALAR.STRING.false  -----.SCALAR.STRING.true _Var26.SCALAR.STRING
+--------CP rmvar _Var25
+--------CP print BEGIN ALS-CG SCRIPT WITH NONZERO SQUARED LOSS + L2 WITH REG - 1.0E-6.SCALAR.STRING.true _Var27.SCALAR.STRING 8
+--------CP print _Var26.SCALAR.STRING.false _Var28.SCALAR.STRING 8
+--------CP rmvar _Var26
+--------CP assignvar true.SCALAR.BOOLEAN.true is_U.SCALAR.BOOLEAN
+--------CP assignvar _Var24.SCALAR.FP64.false loss_init.SCALAR.FP64
+--------CP assignvar 0.SCALAR.INT64.true it.SCALAR.INT64
+--------CP assignvar false.SCALAR.BOOLEAN.true converged.SCALAR.BOOLEAN
+--------CP rmvar _Var24
+--------CP cpvar _mVar12 U
+--------CP cpvar _mVar13 V
+--------CP cpvar _mVar14 W
+--------CP rmvar _Var27
+--------CP cpvar _mVar15 row_nonzeros
+--------CP cpvar _mVar15 col_nonzeros
+--------CP rmvar _Var28 _mVar12 _mVar13 _mVar14 _mVar15 seed maxi rank regType
+------GENERIC (lines 109-159) [recompile=false]
+------WHILE (lines 109-159)
+--------CP / it.SCALAR.INT64.false 2.SCALAR.INT64.true _Var29.SCALAR.FP64
+--------CP castvti _Var29.SCALAR.FP64.false _Var30.SCALAR.INT64 8
+--------CP rmvar _Var29
+--------CP < _Var30.SCALAR.INT64.false 50.SCALAR.INT64.true _Var31.SCALAR.BOOLEAN
+--------CP rmvar _Var30
+--------CP ! converged.SCALAR.BOOLEAN.false _Var32.SCALAR.BOOLEAN 8
+--------CP && _Var31.SCALAR.BOOLEAN.false _Var32.SCALAR.BOOLEAN.false _Var33.SCALAR.BOOLEAN
+--------CP rmvar _Var31 _Var32
+--------CP mvvar _Var33 __pred
+--------GENERIC (lines 110-110) [recompile=false]
+----------CP + it.SCALAR.INT64.false 1.SCALAR.INT64.true _Var34.SCALAR.INT64
+----------CP mvvar _Var34 it
+--------IF (lines 111-114)
+----------CP assignvar is_U.SCALAR.BOOLEAN.false __pred.SCALAR.BOOLEAN
+----------GENERIC (lines 112-112) [recompile=false]
+------------CP createvar _mVar35 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp6 true MATRIX binary 6 6 1000 -1 copy
+------------CP != X.MATRIX.FP64 0.SCALAR.INT64.true _mVar35.MATRIX.FP64 8
+------------CP createvar _mVar36 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp7 true MATRIX binary 10 6 1000 -1 copy
+------------CP r' V.MATRIX.FP64 _mVar36.MATRIX.FP64 8
+------------CP createvar _mVar37 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp8 true MATRIX binary 6 6 1000 -1 copy
+------------CP ba+* U.MATRIX.FP64 _mVar36.MATRIX.FP64 _mVar37.MATRIX.FP64 8
+------------CP rmvar _mVar36
+------------CP createvar _mVar38 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp9 true MATRIX binary 6 6 1000 -1 copy
+------------CP - _mVar37.MATRIX.FP64 X.MATRIX.FP64 _mVar38.MATRIX.FP64 8
+------------CP rmvar _mVar37
+------------CP createvar _mVar39 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp10 true MATRIX binary 6 6 1000 -1 copy
+------------CP * _mVar35.MATRIX.FP64 _mVar38.MATRIX.FP64 _mVar39.MATRIX.FP64 8
+------------CP rmvar _mVar35 _mVar38
+------------CP createvar _mVar40 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp11 true MATRIX binary 6 10 1000 -1 copy
+------------CP ba+* _mVar39.MATRIX.FP64 V.MATRIX.FP64 _mVar40.MATRIX.FP64 8
+------------CP rmvar _mVar39
+------------CP createvar _mVar41 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp12 true MATRIX binary 6 1 1000 -1 copy
+------------CP * row_nonzeros.MATRIX.FP64 1.0E-6.SCALAR.FP64.true _mVar41.MATRIX.FP64 8
+------------CP createvar _mVar42 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp13 true MATRIX binary 6 10 1000 -1 copy
+------------CP * U.MATRIX.FP64 _mVar41.MATRIX.FP64 _mVar42.MATRIX.FP64 8
+------------CP rmvar _mVar41
+------------CP createvar _mVar43 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp14 true MATRIX binary 6 10 1000 -1 copy
+------------CP + _mVar40.MATRIX.FP64 _mVar42.MATRIX.FP64 _mVar43.MATRIX.FP64 8
+------------CP rmvar _mVar40 _mVar42
+------------CP mvvar _mVar43 G
+--------ELSE
+----------GENERIC (lines 114-114) [recompile=false]
+------------CP createvar _mVar44 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp15 true MATRIX binary 10 6 1000 -1 copy
+------------CP r' U.MATRIX.FP64 _mVar44.MATRIX.FP64 8
+------------CP createvar _mVar45 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp16 true MATRIX binary 6 6 1000 -1 copy
+------------CP != X.MATRIX.FP64 0.SCALAR.INT64.true _mVar45.MATRIX.FP64 8
+------------CP createvar _mVar46 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp17 true MATRIX binary 10 6 1000 -1 copy
+------------CP r' V.MATRIX.FP64 _mVar46.MATRIX.FP64 8
+------------CP createvar _mVar47 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp18 true MATRIX binary 6 6 1000 -1 copy
+------------CP ba+* U.MATRIX.FP64 _mVar46.MATRIX.FP64 _mVar47.MATRIX.FP64 8
+------------CP rmvar _mVar46
+------------CP createvar _mVar48 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp19 true MATRIX binary 6 6 1000 -1 copy
+------------CP - _mVar47.MATRIX.FP64 X.MATRIX.FP64 _mVar48.MATRIX.FP64 8
+------------CP rmvar _mVar47
+------------CP createvar _mVar49 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp20 true MATRIX binary 6 6 1000 -1 copy
+------------CP * _mVar45.MATRIX.FP64 _mVar48.MATRIX.FP64 _mVar49.MATRIX.FP64 8
+------------CP rmvar _mVar45 _mVar48
+------------CP createvar _mVar50 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp21 true MATRIX binary 10 6 1000 -1 copy
+------------CP ba+* _mVar44.MATRIX.FP64 _mVar49.MATRIX.FP64 _mVar50.MATRIX.FP64 8
+------------CP rmvar _mVar44 _mVar49
+------------CP createvar _mVar51 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp22 true MATRIX binary 6 10 1000 -1 copy
+------------CP r' _mVar50.MATRIX.FP64 _mVar51.MATRIX.FP64 8
+------------CP rmvar _mVar50
+------------CP createvar _mVar52 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp23 true MATRIX binary 6 1 1000 -1 copy
+------------CP * col_nonzeros.MATRIX.FP64 1.0E-6.SCALAR.FP64.true _mVar52.MATRIX.FP64 8
+------------CP createvar _mVar53 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp24 true MATRIX binary 6 10 1000 -1 copy
+------------CP * V.MATRIX.FP64 _mVar52.MATRIX.FP64 _mVar53.MATRIX.FP64 8
+------------CP rmvar _mVar52
+------------CP createvar _mVar54 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp25 true MATRIX binary 6 10 1000 -1 copy
+------------CP + _mVar51.MATRIX.FP64 _mVar53.MATRIX.FP64 _mVar54.MATRIX.FP64 8
+------------CP rmvar _mVar51 _mVar53
+------------CP mvvar _mVar54 G
+--------GENERIC (lines 116-122) [recompile=false]
+----------CP createvar _mVar55 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp26 true MATRIX binary 6 10 1000 -1 copy
+----------CP - 0.SCALAR.INT64.true G.MATRIX.FP64 _mVar55.MATRIX.FP64 8
+----------CP uasqk+ G.MATRIX.FP64 _Var56.SCALAR.FP64 8
+----------CP assignvar _Var56.SCALAR.FP64.false norm_G2.SCALAR.FP64
+----------CP assignvar _Var56.SCALAR.FP64.false norm_R2.SCALAR.FP64
+----------CP assignvar 1.SCALAR.INT64.true inneriter.SCALAR.INT64
+----------CP assignvar 1.0E-9.SCALAR.FP64.true tt.SCALAR.FP64
+----------CP rmvar _Var56
+----------CP cpvar _mVar55 R
+----------CP cpvar _mVar55 S
+----------CP rmvar _mVar55 G
+--------GENERIC (lines 123-140) [recompile=false]
+--------WHILE (lines 123-140)
+----------CP * tt.SCALAR.FP64.false norm_G2.SCALAR.FP64.false _Var57.SCALAR.FP64
+----------CP > norm_R2.SCALAR.FP64.false _Var57.SCALAR.FP64.false _Var58.SCALAR.BOOLEAN
+----------CP rmvar _Var57
+----------CP <= inneriter.SCALAR.INT64.false 10.SCALAR.INT64.true _Var59.SCALAR.BOOLEAN
+----------CP && _Var58.SCALAR.BOOLEAN.false _Var59.SCALAR.BOOLEAN.false _Var60.SCALAR.BOOLEAN
+----------CP rmvar _Var58 _Var59
+----------CP mvvar _Var60 __pred
+----------IF (lines 124-133)
+------------CP assignvar is_U.SCALAR.BOOLEAN.false __pred.SCALAR.BOOLEAN
+------------GENERIC (lines 125-127) [recompile=false]
+--------------CP createvar _mVar61 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp27 true MATRIX binary 10 6 1000 -1 copy
+--------------CP r' V.MATRIX.FP64 _mVar61.MATRIX.FP64 8
+--------------CP createvar _mVar62 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp28 true MATRIX binary 6 6 1000 -1 copy
+--------------CP ba+* S.MATRIX.FP64 _mVar61.MATRIX.FP64 _mVar62.MATRIX.FP64 8
+--------------CP rmvar _mVar61
+--------------CP createvar _mVar63 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp29 true MATRIX binary 6 6 1000 -1 copy
+--------------CP * W.MATRIX.FP64 _mVar62.MATRIX.FP64 _mVar63.MATRIX.FP64 8
+--------------CP rmvar _mVar62
+--------------CP createvar _mVar64 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp30 true MATRIX binary 6 10 1000 -1 copy
+--------------CP ba+* _mVar63.MATRIX.FP64 V.MATRIX.FP64 _mVar64.MATRIX.FP64 8
+--------------CP rmvar _mVar63
+--------------CP createvar _mVar65 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp31 true MATRIX binary 6 1 1000 -1 copy
+--------------CP * row_nonzeros.MATRIX.FP64 1.0E-6.SCALAR.FP64.true _mVar65.MATRIX.FP64 8
+--------------CP createvar _mVar66 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp32 true MATRIX binary 6 10 1000 -1 copy
+--------------CP * S.MATRIX.FP64 _mVar65.MATRIX.FP64 _mVar66.MATRIX.FP64 8
+--------------CP rmvar _mVar65
+--------------CP createvar _mVar67 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp33 true MATRIX binary 6 10 1000 -1 copy
+--------------CP + _mVar64.MATRIX.FP64 _mVar66.MATRIX.FP64 _mVar67.MATRIX.FP64 8
+--------------CP rmvar _mVar64 _mVar66
+--------------CP tak+* S.MATRIX.FP64 _mVar67.MATRIX.FP64 1.SCALAR.INT64.true _Var68.SCALAR.FP64 8
+--------------CP / norm_R2.SCALAR.FP64.false _Var68.SCALAR.FP64.false _Var69.SCALAR.FP64
+--------------CP rmvar _Var68
+--------------CP createvar _mVar70 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp34 true MATRIX binary 6 10 1000 -1 copy
+--------------CP +* U.MATRIX.FP64 _Var69.SCALAR.FP64.false S.MATRIX.FP64 _mVar70.MATRIX.FP64 8
+--------------CP rmvar U
+--------------CP mvvar _Var69 alpha
+--------------CP cpvar _mVar67 HS
+--------------CP cpvar _mVar70 U
+--------------CP rmvar _mVar67 _mVar70
+----------ELSE
+------------GENERIC (lines 130-132) [recompile=false]
+--------------CP createvar _mVar71 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp35 true MATRIX binary 10 6 1000 -1 copy
+--------------CP r' U.MATRIX.FP64 _mVar71.MATRIX.FP64 8
+--------------CP createvar _mVar72 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp36 true MATRIX binary 10 6 1000 -1 copy
+--------------CP r' S.MATRIX.FP64 _mVar72.MATRIX.FP64 8
+--------------CP createvar _mVar73 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp37 true MATRIX binary 6 6 1000 -1 copy
+--------------CP ba+* U.MATRIX.FP64 _mVar72.MATRIX.FP64 _mVar73.MATRIX.FP64 8
+--------------CP rmvar _mVar72
+--------------CP createvar _mVar74 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp38 true MATRIX binary 6 6 1000 -1 copy
+--------------CP * W.MATRIX.FP64 _mVar73.MATRIX.FP64 _mVar74.MATRIX.FP64 8
+--------------CP rmvar _mVar73
+--------------CP createvar _mVar75 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp39 true MATRIX binary 10 6 1000 -1 copy
+--------------CP ba+* _mVar71.MATRIX.FP64 _mVar74.MATRIX.FP64 _mVar75.MATRIX.FP64 8
+--------------CP rmvar _mVar71 _mVar74
+--------------CP createvar _mVar76 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp40 true MATRIX binary 6 10 1000 -1 copy
+--------------CP r' _mVar75.MATRIX.FP64 _mVar76.MATRIX.FP64 8
+--------------CP rmvar _mVar75
+--------------CP createvar _mVar77 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp41 true MATRIX binary 6 1 1000 -1 copy
+--------------CP * col_nonzeros.MATRIX.FP64 1.0E-6.SCALAR.FP64.true _mVar77.MATRIX.FP64 8
+--------------CP createvar _mVar78 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp42 true MATRIX binary 6 10 1000 -1 copy
+--------------CP * S.MATRIX.FP64 _mVar77.MATRIX.FP64 _mVar78.MATRIX.FP64 8
+--------------CP rmvar _mVar77
+--------------CP createvar _mVar79 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp43 true MATRIX binary 6 10 1000 -1 copy
+--------------CP + _mVar76.MATRIX.FP64 _mVar78.MATRIX.FP64 _mVar79.MATRIX.FP64 8
+--------------CP rmvar _mVar76 _mVar78
+--------------CP tak+* S.MATRIX.FP64 _mVar79.MATRIX.FP64 1.SCALAR.INT64.true _Var80.SCALAR.FP64 8
+--------------CP / norm_R2.SCALAR.FP64.false _Var80.SCALAR.FP64.false _Var81.SCALAR.FP64
+--------------CP rmvar _Var80
+--------------CP createvar _mVar82 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp44 true MATRIX binary 6 10 1000 -1 copy
+--------------CP +* V.MATRIX.FP64 _Var81.SCALAR.FP64.false S.MATRIX.FP64 _mVar82.MATRIX.FP64 8
+--------------CP rmvar V
+--------------CP mvvar _Var81 alpha
+--------------CP cpvar _mVar79 HS
+--------------CP cpvar _mVar82 V
+--------------CP rmvar _mVar79 _mVar82
+----------GENERIC (lines 135-139) [recompile=false]
+------------CP createvar _mVar83 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp45 true MATRIX binary 6 10 1000 -1 copy
+------------CP -* R.MATRIX.FP64 alpha.SCALAR.FP64.false HS.MATRIX.FP64 _mVar83.MATRIX.FP64 8
+------------CP uasqk+ _mVar83.MATRIX.FP64 _Var84.SCALAR.FP64 8
+------------CP / _Var84.SCALAR.FP64.false norm_R2.SCALAR.FP64.false _Var85.SCALAR.FP64
+------------CP createvar _mVar86 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp46 true MATRIX binary 6 10 1000 -1 copy
+------------CP +* _mVar83.MATRIX.FP64 _Var85.SCALAR.FP64.false S.MATRIX.FP64 _mVar86.MATRIX.FP64 8
+------------CP rmvar _Var85
+------------CP + inneriter.SCALAR.INT64.false 1.SCALAR.INT64.true _Var87.SCALAR.INT64
+------------CP rmvar R S
+------------CP assignvar _Var84.SCALAR.FP64.false norm_R2.SCALAR.FP64
+------------CP assignvar _Var87.SCALAR.INT64.false inneriter.SCALAR.INT64
+------------CP rmvar _Var84 _Var87
+------------CP cpvar _mVar83 R
+------------CP cpvar _mVar86 S
+------------CP rmvar _mVar83 _mVar86 HS alpha
+----------CP rmvar old_norm_R2 HS alpha
+--------GENERIC (lines 142-142) [recompile=false]
+----------CP ! is_U.SCALAR.BOOLEAN.false _Var88.SCALAR.BOOLEAN 8
+----------CP mvvar _Var88 is_U
+--------IF (lines 145-158)
+----------CP %% it.SCALAR.INT64.false 2.SCALAR.INT64.true _Var89.SCALAR.INT64
+----------CP == _Var89.SCALAR.INT64.false 0.SCALAR.INT64.true _Var90.SCALAR.BOOLEAN
+----------CP rmvar _Var89
+----------CP && true.SCALAR.BOOLEAN.true _Var90.SCALAR.BOOLEAN.false _Var91.SCALAR.BOOLEAN
+----------CP rmvar _Var90
+----------CP mvvar _Var91 __pred
+----------GENERIC (lines 146-151) [recompile=false]
+------------CP wsloss X.MATRIX.FP64 U.MATRIX.FP64 V.MATRIX.FP64 1.SCALAR.INT64.true _Var92.SCALAR.FP64 POST_NZ 8
+------------CP * 0.5.SCALAR.FP64.true _Var92.SCALAR.FP64.false _Var93.SCALAR.FP64
+------------CP rmvar _Var92
+------------CP createvar _mVar94 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp47 true MATRIX binary 6 10 1000 -1 copy
+------------CP ^2 U.MATRIX.FP64 2.SCALAR.INT64.true _mVar94.MATRIX.FP64 8
+------------CP createvar _mVar95 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp48 true MATRIX binary 6 10 1000 -1 copy
+------------CP * _mVar94.MATRIX.FP64 row_nonzeros.MATRIX.FP64 _mVar95.MATRIX.FP64 8
+------------CP rmvar _mVar94
+------------CP uak+ _mVar95.MATRIX.FP64 _Var96.SCALAR.FP64 8
+------------CP rmvar _mVar95
+------------CP createvar _mVar97 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp49 true MATRIX binary 6 10 1000 -1 copy
+------------CP ^2 V.MATRIX.FP64 2.SCALAR.INT64.true _mVar97.MATRIX.FP64 8
+------------CP createvar _mVar98 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp50 true MATRIX binary 6 10 1000 -1 copy
+------------CP * _mVar97.MATRIX.FP64 col_nonzeros.MATRIX.FP64 _mVar98.MATRIX.FP64 8
+------------CP rmvar _mVar97
+------------CP uak+ _mVar98.MATRIX.FP64 _Var99.SCALAR.FP64 8
+------------CP rmvar _mVar98
+------------CP + _Var96.SCALAR.FP64.false _Var99.SCALAR.FP64.false _Var100.SCALAR.FP64
+------------CP rmvar _Var96 _Var99
+------------CP * 5.0E-7.SCALAR.FP64.true _Var100.SCALAR.FP64.false _Var101.SCALAR.FP64
+------------CP rmvar _Var100
+------------CP + _Var93.SCALAR.FP64.false _Var101.SCALAR.FP64.false _Var102.SCALAR.FP64
+------------CP rmvar _Var93 _Var101
+------------CP - loss_init.SCALAR.FP64.false _Var102.SCALAR.FP64.false _Var103.SCALAR.FP64
+------------CP / _Var103.SCALAR.FP64.false loss_init.SCALAR.FP64.false _Var104.SCALAR.FP64
+------------CP rmvar _Var103
+------------CP / it.SCALAR.INT64.false 2.SCALAR.INT64.true _Var105.SCALAR.FP64
+------------CP castvti _Var105.SCALAR.FP64.false _Var106.SCALAR.INT64 8
+------------CP rmvar _Var105
+------------CP + Train loss at iteration (.SCALAR.STRING.true _Var106.SCALAR.INT64.false _Var107.SCALAR.STRING
+------------CP rmvar _Var106
+------------CP + _Var107.SCALAR.STRING.false ): .SCALAR.STRING.true _Var108.SCALAR.STRING
+------------CP rmvar _Var107
+------------CP + _Var108.SCALAR.STRING.false _Var102.SCALAR.FP64.false _Var109.SCALAR.STRING
+------------CP rmvar _Var108
+------------CP + _Var109.SCALAR.STRING.false  loss-dec .SCALAR.STRING.true _Var110.SCALAR.STRING
+------------CP rmvar _Var109
+------------CP + _Var110.SCALAR.STRING.false _Var104.SCALAR.FP64.false _Var111.SCALAR.STRING
+------------CP rmvar _Var110
+------------CP print _Var111.SCALAR.STRING.false _Var112.SCALAR.STRING 8
+------------CP rmvar _Var111
+------------CP assignvar _Var102.SCALAR.FP64.false loss_cur.SCALAR.FP64
+------------CP assignvar _Var104.SCALAR.FP64.false loss_dec.SCALAR.FP64
+------------CP rmvar _Var102 _Var104 _Var112
+----------IF (lines 152-156)
+------------CP >= loss_dec.SCALAR.FP64.false 0.SCALAR.INT64.true _Var113.SCALAR.BOOLEAN
+------------CP < loss_dec.SCALAR.FP64.false 1.0E-4.SCALAR.FP64.true _Var114.SCALAR.BOOLEAN
+------------CP && _Var113.SCALAR.BOOLEAN.false _Var114.SCALAR.BOOLEAN.false _Var115.SCALAR.BOOLEAN
+------------CP rmvar _Var113 _Var114
+------------CP == loss_init.SCALAR.FP64.false 0.SCALAR.INT64.true _Var116.SCALAR.BOOLEAN
+------------CP || _Var115.SCALAR.BOOLEAN.false _Var116.SCALAR.BOOLEAN.false _Var117.SCALAR.BOOLEAN
+------------CP rmvar _Var115 _Var116
+------------CP mvvar _Var117 __pred
+------------GENERIC (lines 154-155) [recompile=false]
+--------------CP / it.SCALAR.INT64.false 2.SCALAR.INT64.true _Var118.SCALAR.FP64
+--------------CP castvti _Var118.SCALAR.FP64.false _Var119.SCALAR.INT64 8
+--------------CP rmvar _Var118
+--------------CP + ----- ALS-CG converged after .SCALAR.STRING.true _Var119.SCALAR.INT64.false _Var120.SCALAR.STRING
+--------------CP rmvar _Var119
+--------------CP + _Var120.SCALAR.STRING.false  iterations!.SCALAR.STRING.true _Var121.SCALAR.STRING
+--------------CP rmvar _Var120
+--------------CP print _Var121.SCALAR.STRING.false _Var122.SCALAR.STRING 8
+--------------CP rmvar _Var121
+--------------CP assignvar true.SCALAR.BOOLEAN.true converged.SCALAR.BOOLEAN
+--------------CP rmvar _Var122
+------------CP rmvar loss_dec loss_init
+----------GENERIC (lines 157-157) [recompile=false]
+------------CP mvvar loss_cur loss_init
+--------CP rmvar tt maxinneriter G it is_U R col_nonzeros S norm_R2 reg W X max_iter row_nonzeros norm_G2 thr inneriter
+------GENERIC (lines 163-163) [recompile=false]
+--------CP + ----- Final train loss: .SCALAR.STRING.true loss_init.SCALAR.FP64.false _Var123.SCALAR.STRING
+--------CP + _Var123.SCALAR.STRING.false  -----.SCALAR.STRING.true _Var124.SCALAR.STRING
+--------CP rmvar _Var123
+--------CP print _Var124.SCALAR.STRING.false _Var125.SCALAR.STRING 8
+--------CP rmvar _Var124 _Var125 loss_init
+------IF (lines 164-165)
+--------CP ! converged.SCALAR.BOOLEAN.false _Var126.SCALAR.BOOLEAN 8
+--------CP mvvar _Var126 __pred
+--------GENERIC (lines 165-165) [recompile=false]
+----------CP print Max iteration achieved but not converged!.SCALAR.STRING.true _Var127.SCALAR.STRING 8
+----------CP rmvar _Var127
+--------CP rmvar converged
+------GENERIC (lines 168-168) [recompile=false]
+--------CP createvar _mVar128 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp51 true MATRIX binary 10 6 1000 -1 copy
+--------CP r' V.MATRIX.FP64 _mVar128.MATRIX.FP64 8
+--------CP mvvar _mVar128 V
+--MAIN PROGRAM
+----GENERIC (lines 22-30) [recompile=false]
+------CP createvar pREADX target/testTemp/functions/builtin/BuiltinALSTest/in/X false MATRIX text 6 6 -1 -1 copy
+------CP createvar _mVar129 target/testTemp/functions/builtin/BuiltinALSTest/als/target/scratch_space//_p31118_192.168.0.100//_t0/temp52 true MATRIX binary 6 6 1000 -1 copy
+------SPARK rblk pREADX.MATRIX.FP64 _mVar129.MATRIX.FP64 1000 true
+------CP fcall .builtinNS m_alsCG true 9 2 X=_mVar129.MATRIX.FP64 rank=10.SCALAR.INT64.true regType=L2.SCALAR.STRING.true reg=1.0E-6.SCALAR.FP64.true maxi=50.SCALAR.INT64.true check=true.SCALAR.BOOLEAN.true thr=1.0E-4.SCALAR.FP64.true seed=1342516.SCALAR.INT64.true verbose=true.SCALAR.BOOLEAN.true U V
+------CP rmvar _mVar129
+----GENERIC (lines 32-33) [recompile=false]
+------CP write U.MATRIX.FP64 target/testTemp/functions/builtin/BuiltinALSTest/out/U.SCALAR.STRING.true text.SCALAR.STRING.true .SCALAR.STRING.true -1
+------CP write V.MATRIX.FP64 target/testTemp/functions/builtin/BuiltinALSTest/out/V.SCALAR.STRING.true text.SCALAR.STRING.true .SCALAR.STRING.true -1
+------CP rmvar U V
+
