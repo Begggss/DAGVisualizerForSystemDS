@@ -250,6 +250,8 @@ def extract_output(operator):
         output = output.split('.')[0]
     return output
 
+# def remove_node(labelIndex,label, source, target):
+#     for x in range(len(source)):
 
 def create_sankey_nodes(path, treeNode):
     operations = create_operations(path,treeNode)
@@ -258,8 +260,11 @@ def create_sankey_nodes(path, treeNode):
     target = []
     value = []
     for operation in operations:
-        if operation.get_name() == "cpvar" or operation.get_name() == 'mvvar':
-            labels.append('var: ' + operation.get_output())
+        if operation.get_name() == "cpvar" or operation.get_name() == 'mvvar' or operation.get_name() == 'assignvar':
+            if 'SCALAR' in operation.get_output():
+                labels.append('var: ' + operation.get_output().split('.')[0])
+            else:
+                labels.append('var: ' + operation.get_output())
         else:
             labels.append(operation.get_name())
     for x in range(len(operations) - 1):
