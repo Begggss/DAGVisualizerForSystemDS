@@ -1,9 +1,9 @@
 import plotly.express as px
 import plotly.graph_objects as go
-import parser
+import blockParser
 
 def visualize_tree(path):
-    names, parents = parser.add_tree_nodes(path)
+    names, parents = blockParser.add_tree_nodes(path)
 
     fig = px.treemap(names=names,
                      parents=parents)
@@ -13,7 +13,7 @@ def visualize_tree(path):
 
 
 def visualize_sankey(path):
-    labels, source, target, value = parser.tree_to_sankey(path)
+    labels, source, target, value = blockParser.tree_to_sankey(path)
     title =  path.split('/').pop()
     fig = go.Figure(go.Sankey(
         arrangement='freeform',
@@ -35,7 +35,7 @@ def visualize_sankey(path):
 
 
 def visualize_operations(path, node):
-    label, source, target, value = parser.create_sankey_nodes(path, node)
+    label, source, target, value = blockParser.create_sankey_nodes(path, node)
     fig = go.Figure(go.Sankey(
         arrangement='freeform',
         node=dict(
