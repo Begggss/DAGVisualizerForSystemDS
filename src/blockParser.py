@@ -271,7 +271,7 @@ def remove_label(label,source, target, labels):
         if label == labels[index]:
             remove_node(index, source, target)
 
-def add_flows(operations, source, target, value):
+def add_flows(indexes, operations, source, target):
     for x in range(len(operations) - 1):
         operation1 = operations[x]
         name1 = operation1.get_name()
@@ -282,9 +282,26 @@ def add_flows(operations, source, target, value):
             input2 = extract_inputs(operation2)
             for input in input2:
                 if output1 == input:
-                    source.append(x)
-                    target.append(y)
-                    value.append(1)
+                    source.append(indexes[x])
+                    target.append(indexes[y])
+
+def add_inputs_outputs(operation,labels,source, target, IndexOperation):
+    inputs = extract_inputs(operation)
+    out = extract_output(operation)
+    x=1
+    if '_Var' not in out and '_mVar' not in out:
+        labels.append(out)
+        source.append(IndexOperation)
+        target.append(IndexOperation + x)
+        x += 1
+    for i in inputs:
+        if '_Var' in i or '_mVar' in i:
+            continue
+        labels.append(i)
+        source.append(IndexOperation + x)
+        target.append(IndexOperation)
+        x += 1
+
 
 
 
@@ -295,21 +312,28 @@ def create_sankey_nodes(path, treeNode):
     source = []
     target = []
     value = []
+    indexes = []
     for operation in operations:
+
         if operation.get_name() == "cpvar" or operation.get_name() == 'mvvar' or operation.get_name() == 'assignvar':
             if 'SCALAR' in operation.get_output():
                 labels.append('var: ' + operation.get_output().split('.')[0])
+                indexOperation = len(labels) - 1
+                indexes.append(indexOperation)
             else:
                 labels.append('var: ' + operation.get_output())
+                indexOperation = len(labels) - 1
+                indexes.append(indexOperation)
         else:
             labels.append(operation.get_name())
-    add_flows(operations, source, target, value)
+            indexOperation = len(labels) - 1
+            indexes.append(indexOperation)
+            add_inputs_outputs(operation, labels, source, target, indexOperation)
 
-    if len(source) == 0:
-        source.append(0)
-        target.append(1)
-        value.append(1)
+    add_flows(indexes, operations, source, target)
     remove_label('castdts', source, target,labels)
+    for i in source:
+        value.append(1)
 
     return labels, source, target, value
 

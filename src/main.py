@@ -6,7 +6,7 @@ import visualizer
 path = '../log-files/decisionTree.log'
 
 #name of the node for operators graph
-node = 'GENERIC 6'
+node = 'GENERIC 1'
 
 
 
