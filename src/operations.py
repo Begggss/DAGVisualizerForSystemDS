@@ -1,4 +1,4 @@
-class Operator:
+class Operation:
 
     def __init__(self, name,input,  output):
         self.name = name
