@@ -180,12 +180,13 @@ def tree_to_sankey(names, parents):
     return labels, source,target,value
 
 def group_operators(name):
-    group1 = ['>', '<', '>=', '<=', '==', '!=', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'log', 'xor']
+    group1 = ['>', '<', '>=', '<=', '==', '!=', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'xor', 'ba+*']
     group2 = ['seq']
     group3 = ['rand']
-    group4 = ['rightIndex','ctable', 'ctableexpand']
+    group4 = ['rightIndex','ctable', 'ctableexpand', 'groupedagg']
     group5 = ['uppertri', 'replace', 'ifelse', 'append']
     group6 = ['leftIndex']
+    group7 = ['+', 'log']
     if name in group1:
         return 1
     elif name in group2:
@@ -198,7 +199,7 @@ def group_operators(name):
         return 5
     elif name in group6:
         return 6
-    elif name == "+":
+    elif name in group7:
         return 7
     else:
         return 8
@@ -218,11 +219,10 @@ def get_input_output(number, line):
         return [line[2], line[3], line[4], line[5], line[6], line[7]], line[8]
     if number == 7:
         inputs = []
-        output= line[len(line)-1]
-        for i in range(2, len(line)-1):
-            if 'SCALAR' in  line[i]:
+        for i in range(len(line)):
+            if 'SCALAR' in  line[i] or 'MATRIX' in line[i]:
                 inputs.append(line[i])
-
+        output = inputs.pop(len(inputs)-1)
         return inputs, output
 
     else:
@@ -242,6 +242,8 @@ def create_operations(lines):
         operators.append(operator)
     return operators
 
+
+#extract the variable name only from the string
 def extract_inputs(operator):
     inputs = operator.get_input()
     for i in range(len(inputs)):
@@ -262,19 +264,23 @@ def create_sankey_nodes(operators):
     target = []
     value = []
     for operator in operators:
-        if operator.get_name() == "cpvar" or operator.get_name() == 'mvvar':
-            labels.append('var: ' + operator.get_output())
-        else:
-            labels.append(operator.get_name())
+        # if operator.get_name() == "cpvar" or operator.get_name() == 'mvvar':
+        #     labels.append('var: ' + operator.get_output())
+        # else:
+        #     labels.append(operator.get_name())
+        labels.append(operator.get_name())
+
 
     for x in range(len(operators)-1):
         operator1 = operators[x]
-        output1 = extract_output(operator1)
         name1 = operator1.get_name()
+        output1 = extract_output(operator1)
+
         for y in range(x+1, len(operators)):
             operator2 = operators[y]
-            input2 = extract_inputs(operator2)
             name2 = operator2.get_name()
+            input2 = extract_inputs(operator2)
+
             for input in input2:
                 if output1 == input:
                     source.append(x)
