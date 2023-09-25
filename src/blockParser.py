@@ -271,6 +271,22 @@ def remove_label(label,source, target, labels):
         if label == labels[index]:
             remove_node(index, source, target)
 
+def add_flows(operations, source, target, value):
+    for x in range(len(operations) - 1):
+        operation1 = operations[x]
+        name1 = operation1.get_name()
+        output1 = extract_output(operation1)
+        for y in range(x + 1, len(operations)):
+            operation2 = operations[y]
+            name2 = operation2.get_name()
+            input2 = extract_inputs(operation2)
+            for input in input2:
+                if output1 == input:
+                    source.append(x)
+                    target.append(y)
+                    value.append(1)
+
+
 
 
 def create_sankey_nodes(path, treeNode):
@@ -287,19 +303,8 @@ def create_sankey_nodes(path, treeNode):
                 labels.append('var: ' + operation.get_output())
         else:
             labels.append(operation.get_name())
-    for x in range(len(operations) - 1):
-        operation1 = operations[x]
-        name1 = operation1.get_name()
-        output1 = extract_output(operation1)
-        for y in range(x + 1, len(operations)):
-            operation2 = operations[y]
-            name2 = operation2.get_name()
-            input2 = extract_inputs(operation2)
-            for input in input2:
-                if output1 == input:
-                    source.append(x)
-                    target.append(y)
-                    value.append(1)
+    add_flows(operations, source, target, value)
+
     if len(source) == 0:
         source.append(0)
         target.append(1)
@@ -307,3 +312,6 @@ def create_sankey_nodes(path, treeNode):
     remove_label('castdts', source, target,labels)
 
     return labels, source, target, value
+
+
+
