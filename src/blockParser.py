@@ -250,8 +250,28 @@ def extract_output(operator):
         output = output.split('.')[0]
     return output
 
-# def remove_node(labelIndex,label, source, target):
-#     for x in range(len(source)):
+def remove_node(index, source, target):
+    i = len(source)
+    x = 0
+    while x < len(source):
+        a = source[x]
+        if source[x] == index:
+            targetIndex = target.pop(x)
+            source.pop(x)
+
+            for y in range(len(target)):
+                b = target[y]
+                if target[y] == index:
+                    target[y] = targetIndex
+        x = x+1
+
+
+def remove_label(label,source, target, labels):
+    for index in range(len(labels)):
+        if label == labels[index]:
+            remove_node(index, source, target)
+
+
 
 def create_sankey_nodes(path, treeNode):
     operations = create_operations(path,treeNode)
@@ -284,4 +304,6 @@ def create_sankey_nodes(path, treeNode):
         source.append(0)
         target.append(1)
         value.append(1)
+    remove_label('castdts', source, target,labels)
+
     return labels, source, target, value

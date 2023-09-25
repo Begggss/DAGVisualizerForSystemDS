@@ -3,7 +3,7 @@ import visualizer
 
 
 #path for log file
-path = '../log.files/decisionTree.log'
+path = '../log-files/decisionTree.log'
 
 #name of the node for operators graph
 node = 'GENERIC 6'
