@@ -14,6 +14,7 @@ def visualize_tree(path):
 
 def visualize_sankey(path):
     labels, source, target, value = parser.tree_to_sankey(path)
+    title =  path.split('/').pop()
     fig = go.Figure(go.Sankey(
         arrangement='freeform',
         node=dict(
@@ -29,7 +30,7 @@ def visualize_sankey(path):
             value=value
         )))
 
-    fig.update_layout(title_text=path, font_size=10)
+    fig.update_layout(title_text= title, font_size=15)
     fig.show()
 
 
@@ -45,12 +46,12 @@ def visualize_operations(path, node):
 
         ),
         link=dict(
-            arrowlen=15,
-            source=source,  # indices correspond to labels, eg A1, A2, A1, B1, ...
+            arrowlen=1000,
+            source=source,
             target=target,
             value=value
         )))
 
-    fig.update_layout(title_text="CP - " + node, font_size=10)
+    fig.update_layout(title_text= node, font_size=15)
 
     fig.show()
