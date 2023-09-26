@@ -22,7 +22,7 @@ If you run an Apache SystemDS script with an additional "-explain" argument, you
 
 If you know the "Generic Block" that you would like to inspect already, you can alter the variable "node" on line 7 accordingly. If you don't, you can leave the assigned value as "GENERIC 1" since any instance we tested already had a node named "GENERIC 1".
 
-This would create 2 visuals. An example is shown below for "decisionTree.log".
+This would create 2 visuals. An example is shown below for "ALStest.log".
 
 <img src="./img/1.png" width="800">
 
