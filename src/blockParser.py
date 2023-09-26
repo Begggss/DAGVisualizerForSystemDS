@@ -253,16 +253,16 @@ def extract_output(operator):
 def remove_node(index, source, target):
     i = len(source)
     x = 0
-    while x < len(source):
+    while x < len(target):
         a = source[x]
-        if source[x] == index:
-            targetIndex = target.pop(x)
-            source.pop(x)
-
-            for y in range(len(target)):
+        if target[x] == index:
+            sourceIndex = source.pop(x)
+            target.pop(x)
+            x -= 1
+            for y in range(len(source)):
                 b = target[y]
-                if target[y] == index:
-                    target[y] = targetIndex
+                if source[y] == index:
+                    source[y] = sourceIndex
         x = x+1
 
 
@@ -290,14 +290,14 @@ def add_inputs_outputs(operation,labels,source, target, IndexOperation):
     out = extract_output(operation)
     x=1
     if '_Var' not in out and '_mVar' not in out:
-        labels.append(out)
+        labels.append('var: '+ out)
         source.append(IndexOperation)
         target.append(IndexOperation + x)
         x += 1
     for i in inputs:
         if '_Var' in i or '_mVar' in i:
             continue
-        labels.append(i)
+        labels.append('var: ' + i)
         source.append(IndexOperation + x)
         target.append(IndexOperation)
         x += 1
