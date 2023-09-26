@@ -225,10 +225,9 @@ def create_operations(path, treeNode):
     operators = extract_operators(path, treeNode)
     operations = []
     for operator in operators:
-        name = operator[1]
-        number = group_operators(name)
+        number = group_operators(operator[1])
         inputs, output = get_input_output(number, operator)
-        operator = Operation(name, inputs, output)
+        operator = Operation(operator[1], inputs, output, operator[0])
         operations.append(operator)
     return operations
 
@@ -285,7 +284,7 @@ def add_flows(indexes, operations, source, target):
                     source.append(indexes[x])
                     target.append(indexes[y])
 
-def add_inputs_outputs(operation,labels,source, target, IndexOperation):
+def add_inputs_outputs(operation,labels,source, target,hover_label, IndexOperation):
     inputs = extract_inputs(operation)
     out = extract_output(operation)
     x=1
@@ -293,6 +292,7 @@ def add_inputs_outputs(operation,labels,source, target, IndexOperation):
         labels.append('var: '+ out)
         source.append(IndexOperation)
         target.append(IndexOperation + x)
+        hover_label.append(operation.get_label())
         x += 1
     for i in inputs:
         if '_Var' in i or '_mVar' in i:
@@ -300,6 +300,7 @@ def add_inputs_outputs(operation,labels,source, target, IndexOperation):
         labels.append('var: ' + i)
         source.append(IndexOperation + x)
         target.append(IndexOperation)
+        hover_label.append(operation.get_label())
         x += 1
 
 
@@ -313,8 +314,9 @@ def create_sankey_nodes(path, treeNode):
     target = []
     value = []
     indexes = []
+    hover_labels = []
     for operation in operations:
-
+        hover_labels.append(operation.get_label())
         if operation.get_name() == "cpvar" or operation.get_name() == 'mvvar' or operation.get_name() == 'assignvar':
             if 'SCALAR' in operation.get_output():
                 labels.append('var: ' + operation.get_output().split('.')[0])
@@ -328,15 +330,15 @@ def create_sankey_nodes(path, treeNode):
             labels.append(operation.get_name())
             indexOperation = len(labels) - 1
             indexes.append(indexOperation)
-            add_inputs_outputs(operation, labels, source, target, indexOperation)
+            add_inputs_outputs(operation, labels, source, target,hover_labels, indexOperation)
 
     add_flows(indexes, operations, source, target)
     remove_label('castdts', source, target,labels)
-    remove_label('castvti', source, target, label)
+    remove_label('castvti', source, target, labels)
     for i in source:
         value.append(1)
 
-    return labels, source, target, value
+    return labels, source, target, value, hover_labels
 
 
 

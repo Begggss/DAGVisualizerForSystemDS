@@ -35,7 +35,7 @@ def visualize_sankey(path):
 
 
 def visualize_operations(path, node):
-    label, source, target, value = blockParser.create_sankey_nodes(path, node)
+    label, source, target, value, hover_label = blockParser.create_sankey_nodes(path, node)
     fig = go.Figure(go.Sankey(
         arrangement='freeform',
         node=dict(
@@ -43,17 +43,19 @@ def visualize_operations(path, node):
             thickness=30,
             line=dict(color="black", width=0.5),
             label=label,
+            customdata = hover_label,
+            hovertemplate='%{customdata}<extra></extra>',
 
         ),
         link=dict(
-            arrowlen=1000,
+            arrowlen=50,
             source=source,
             target=target,
-            value=value
+            value=value,
+            hovertemplate = 'Link from  %{source.customdata}<br />' +
+                    'to %{target.customdata}<br />' +
+                    '<br /><extra></extra>',
         )))
 
     fig.update_layout(title_text= node, font_size=15)
     fig.show()
-    print(source)
-    print(target)
-    print(label)
