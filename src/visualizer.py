@@ -35,7 +35,7 @@ def visualize_sankey(path):
             value=value
         )))
 
-    fig.update_layout(title_text= title, font_size=15)
+    fig.update_layout(hovermode=False,title_text= title, font_size=15)
     fig.show()
 
 
