@@ -3,11 +3,16 @@ import plotly.graph_objects as go
 import blockParser
 
 def visualize_tree(path):
-    names, parents = blockParser.add_tree_nodes(path)
+    names, parents, numbers = blockParser.add_tree_nodes(path)
 
-    fig = px.treemap(names=names,
-                     parents=parents)
-    fig.update_traces(root_color="lightgrey")
+
+    fig = go.Figure(go.Treemap(
+        labels= names,
+        parents=parents,
+        text = numbers,
+        textinfo= "label+text",
+        root_color="lightgrey"
+    ))
     fig.update_layout(margin=dict(t=50, l=25, r=25, b=25))
     fig.show()
 
@@ -25,7 +30,7 @@ def visualize_sankey(path):
         ),
         link=dict(
             arrowlen=15,
-            source=source,  # indices correspond to labels, eg A1, A2, A1, B1, ...
+            source=source,
             target=target,
             value=value
         )))

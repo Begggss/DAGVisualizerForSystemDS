@@ -1,12 +1,13 @@
 from operations import Operation
 
 
-def adapt_words(words, dashCount):
+def adapt_words(words, dashCount, linenumbers):
     while True:
         if words[0] == "MAIN":
             break
-        words.pop(0);
-        dashCount.pop(0);
+        words.pop(0)
+        dashCount.pop(0)
+        linenumbers.pop(0)
     for label in words:
         if label[0] == '.':
             index = words.index(label)
@@ -25,6 +26,8 @@ def extract_words(path):
     file = open(path)
     words = []
     dashCount = []
+    linenumbers = []
+
     while True:
         line = file.readline()
         if not line:
@@ -41,30 +44,40 @@ def extract_words(path):
         if word[0] == 'FUNCTION':
             words.append(word[1])
             dashCount.append(numDash)
+            linenumbers.append(" ")
+        elif word[0] == 'GENERIC':
+            words.append(word[0])
+            dashCount.append(numDash)
+            linenumbers.append(word[1]+word[2])
         else:
             words.append(word[0])
             dashCount.append(numDash)
-    adapt_words(words, dashCount)
-    return words, dashCount
+            linenumbers.append(" ")
+
+    adapt_words(words, dashCount, linenumbers)
+    return words, dashCount, linenumbers
 
 
-def extract_tree_labels(words, dashCount):
+def extract_tree_labels(words, dashCount, linenumbers):
     labels = []
     dashCountTree = []
+    newnumbers = []
     for i in range(len(words)):
         if 'CP' in words[i] or 'SPARK' in words[i]:
             continue
         labels.append(words[i])
         dashCountTree.append(dashCount[i])
-    return labels, dashCountTree
+        newnumbers.append(linenumbers[i])
+    return labels, dashCountTree, newnumbers
 
 
 def add_tree_nodes(path):
-    words, dashCount = extract_words(path)
-    labels, dashCountTree = extract_tree_labels(words, dashCount)
+    words, dashCount, linenumbers = extract_words(path)
+    labels, dashCountTree, newnumbers = extract_tree_labels(words, dashCount,linenumbers)
 
     names = []
     parents = []
+    numbers = []
     dashCountMain = dashCountTree[0]
     index = 1
 
@@ -74,9 +87,12 @@ def add_tree_nodes(path):
         index += 1
     names.append('MAIN')
     parents.append('')
+    numbers.append(' ')
 
     for i in range(1, index):
         names.append(labels[i])
+        if 'func:' in labels[i]:
+            numbers.append(" ")
         numDash = dashCountTree[i]
         x = i - 1
         while x >= 0:
@@ -90,17 +106,18 @@ def add_tree_nodes(path):
             continue
         names.append(labels[i])
         numDash = dashCountTree[i]
+        numbers.append(newnumbers[i])
         x = i - 1
         while x >= index:
             if numDash - dashCountTree[x] == 2:
                 parents.append((labels[x]))
                 break
             x -= 1
-    return names, parents
+    return names, parents, numbers
 
 
 def tree_to_sankey(path):
-    names, parents = add_tree_nodes(path)
+    names, parents, linenumbers = add_tree_nodes(path)
     labels = []
     source = []
     target = []
@@ -124,7 +141,7 @@ def tree_to_sankey(path):
 
 
 def sankey_index(path, treeNode):
-    words, dashCount = extract_words(path)
+    words, dashCount, numbers = extract_words(path)
     i = words.index(treeNode)
     startIndex = i + 1
 
