@@ -390,6 +390,7 @@ def create_sankey_nodes(path, treeNode):
     add_flows(indexes, operations, source, target)
     remove_label('castdts', source, target,labels)
     remove_label('castvti', source, target, labels)
+    remove_label('castdtm', source,target, labels)
     for _ in source:
         value.append(1)
 
