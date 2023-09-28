@@ -1,0 +1,144 @@
+# EXPLAIN (RUNTIME):
+# Memory Budget local/remote = 2100MB/?MB/?MB/?MB
+# Degree of Parallelism (vcores) local/remote = 8/?
+PROGRAM ( size CP/SP = 127/15 )
+--FUNCTIONS
+----FUNCTION CALL GRAPH
+------MAIN PROGRAM
+--------.builtinNS::m_auc
+----FUNCTION .builtinNS::m_auc [recompile=false]
+------GENERIC (lines 40-41) [recompile=false]
+--------CP uamin Y.MATRIX.FP64 _Var0.SCALAR.FP64 8
+--------CP uamax Y.MATRIX.FP64 _Var1.SCALAR.FP64 8
+--------CP assignvar _Var0.SCALAR.FP64.false minv.SCALAR.FP64
+--------CP assignvar _Var1.SCALAR.FP64.false maxv.SCALAR.FP64
+--------CP rmvar _Var0 _Var1
+------IF (lines 44-45)
+--------CP == minv.SCALAR.FP64.false maxv.SCALAR.FP64.false _Var2.SCALAR.BOOLEAN
+--------CP mvvar _Var2 __pred
+--------GENERIC (lines 45-45) [recompile=false]
+----------CP stop AUC: stopping because only one class label existing in Y.SCALAR.STRING.true _Var3.SCALAR.STRING 8
+----------CP rmvar _Var3
+------IF (lines 46-47)
+--------CP createvar _mVar4 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp0 true MATRIX binary 12 1 1000 -1 copy
+--------CP == Y.MATRIX.FP64 minv.SCALAR.FP64.false _mVar4.MATRIX.FP64 8
+--------CP uak+ _mVar4.MATRIX.FP64 _Var5.SCALAR.FP64 8
+--------CP rmvar _mVar4
+--------CP createvar _mVar6 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp1 true MATRIX binary 12 1 1000 -1 copy
+--------CP == Y.MATRIX.FP64 maxv.SCALAR.FP64.false _mVar6.MATRIX.FP64 8
+--------CP uak+ _mVar6.MATRIX.FP64 _Var7.SCALAR.FP64 8
+--------CP rmvar _mVar6
+--------CP + _Var5.SCALAR.FP64.false _Var7.SCALAR.FP64.false _Var8.SCALAR.FP64
+--------CP rmvar _Var5 _Var7
+--------CP < _Var8.SCALAR.FP64.false 12.SCALAR.INT64.true _Var9.SCALAR.BOOLEAN
+--------CP rmvar _Var8
+--------CP mvvar _Var9 __pred
+--------GENERIC (lines 47-47) [recompile=false]
+----------CP stop AUC: stopping because more than two class labels existing in Y.SCALAR.STRING.true _Var10.SCALAR.STRING 8
+----------CP rmvar _Var10
+--------CP rmvar maxv
+------IF (lines 50-51)
+--------CP < minv.SCALAR.FP64.false 0.SCALAR.INT64.true _Var11.SCALAR.BOOLEAN
+--------CP mvvar _Var11 __pred
+--------GENERIC (lines 51-51) [recompile=false]
+----------CP createvar _mVar12 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp2 true MATRIX binary 12 1 1000 -1 copy
+----------CP + Y.MATRIX.FP64 1.SCALAR.INT64.true _mVar12.MATRIX.FP64 8
+----------CP createvar _mVar13 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp3 true MATRIX binary 12 1 1000 -1 copy
+----------CP != _mVar12.MATRIX.FP64 0.SCALAR.INT64.true _mVar13.MATRIX.FP64 8
+----------CP rmvar _mVar12
+----------CP mvvar _mVar13 Y
+--------CP rmvar minv
+------GENERIC (lines 54-59) [recompile=false]
+--------CP createvar _mVar14 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp4 true MATRIX binary 12 2 1000 -1 copy
+--------CP append Y.MATRIX.FP64 P.MATRIX.FP64 1.SCALAR.INT64.true _mVar14.MATRIX.FP64 true
+--------CP createvar _mVar15 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp5 true MATRIX binary 12 2 1000 -1 copy
+--------CP rsort _mVar14.MATRIX.FP64 2.SCALAR.INT64.true false.SCALAR.BOOLEAN.true false.SCALAR.BOOLEAN.true _mVar15.MATRIX.FP64 8
+--------CP rmvar _mVar14
+--------CP createvar _mVar16 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp6 true MATRIX binary 12 1 1000 -1 copy
+--------CP rightIndex _mVar15.MATRIX.FP64 1.SCALAR.INT64.true 12.SCALAR.INT64.true 2.SCALAR.INT64.true 2.SCALAR.INT64.true _mVar16.MATRIX.FP64
+--------CP createvar _mVar17 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp7 true MATRIX binary 11 1 1000 -1 copy
+--------CP rightIndex _mVar16.MATRIX.FP64 2.SCALAR.INT64.true 12.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar17.MATRIX.FP64
+--------CP createvar _mVar18 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp8 true MATRIX binary 1 1 1000 -1 copy
+--------CP castdtm 0.SCALAR.INT64.true _mVar18.MATRIX.FP64 8
+--------CP createvar _mVar19 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp9 true MATRIX binary 12 1 1000 -1 copy
+--------CP append _mVar17.MATRIX.FP64 _mVar18.MATRIX.FP64 11.SCALAR.INT64.true _mVar19.MATRIX.FP64 false
+--------CP rmvar _mVar17 _mVar18
+--------CP createvar _mVar20 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp10 true MATRIX binary 12 1 1000 -1 copy
+--------CP != _mVar16.MATRIX.FP64 _mVar19.MATRIX.FP64 _mVar20.MATRIX.FP64 8
+--------CP rmvar _mVar16 _mVar19
+--------CP uak+ Y.MATRIX.FP64 _Var21.SCALAR.FP64 8
+--------CP createvar _mVar22 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp11 true MATRIX binary 12 1 1000 -1 copy
+--------CP rightIndex _mVar15.MATRIX.FP64 1.SCALAR.INT64.true 12.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar22.MATRIX.FP64
+--------CP rmvar _mVar15
+--------CP createvar _mVar23 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp12 true MATRIX binary 12 1 1000 -1 copy
+--------CP ucumk+ _mVar22.MATRIX.FP64 _mVar23.MATRIX.FP64 8 false
+--------CP createvar _mVar24 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp13 true MATRIX binary 12 1 1000 -1 copy
+--------CP - _Var21.SCALAR.FP64.false _mVar23.MATRIX.FP64 _mVar24.MATRIX.FP64 8
+--------CP rmvar _mVar23
+--------CP createvar _mVar25 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp14 true MATRIX binary -1 1 1000 -1 copy
+--------CP rmempty margin=rows select=_mVar20 empty.return=true target=_mVar24 bRmEmptyBC=false _mVar25.MATRIX.FP64
+--------CP rmvar _mVar24
+--------CP createvar _mVar26 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp15 true MATRIX binary 12 1 1000 -1 copy
+--------CP ! _mVar22.MATRIX.FP64 _mVar26.MATRIX.FP64 8
+--------CP rmvar _mVar22
+--------CP createvar _mVar27 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp16 true MATRIX binary 12 1 1000 -1 copy
+--------CP ucumk+ _mVar26.MATRIX.FP64 _mVar27.MATRIX.FP64 8 false
+--------CP rmvar _mVar26
+--------CP createvar _mVar28 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp17 true MATRIX binary -1 1 1000 -1 copy
+--------CP rmempty margin=rows select=_mVar20 empty.return=true target=_mVar27 bRmEmptyBC=false _mVar28.MATRIX.FP64
+--------CP rmvar _mVar20 _mVar27
+--------CP mvvar _Var21 _sbcvar3
+--------CP cpvar _mVar25 _sbcvar1
+--------CP cpvar _mVar28 _sbcvar2
+--------CP rmvar _mVar25 _mVar28
+------GENERIC (lines 54-59) [recompile=true]
+--------CP createvar _mVar29 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp18 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK / _sbcvar1.MATRIX.FP64 _sbcvar3.SCALAR.FP64.false _mVar29.MATRIX.FP64
+--------CP createvar _mVar30 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp19 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK rightIndex _mVar29.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar30.MATRIX.FP64 NONE
+--------CP castdts _mVar30.MATRIX.FP64.false _Var31.SCALAR.FP64 8
+--------CP rmvar _mVar30
+--------CP - 12.SCALAR.INT64.true _sbcvar3.SCALAR.FP64.false _Var32.SCALAR.FP64
+--------CP createvar _mVar33 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp20 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK / _sbcvar2.MATRIX.FP64 _Var32.SCALAR.FP64.false _mVar33.MATRIX.FP64
+--------CP rmvar _Var32
+--------CP createvar _mVar34 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp21 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK rightIndex _mVar33.MATRIX.FP64 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar34.MATRIX.FP64 NONE
+--------CP castdts _mVar34.MATRIX.FP64.false _Var35.SCALAR.FP64 8
+--------CP rmvar _mVar34
+--------CP * _Var31.SCALAR.FP64.false _Var35.SCALAR.FP64.false _Var36.SCALAR.FP64
+--------CP rmvar _Var31 _Var35
+--------CP nrow _mVar29.MATRIX.FP64.false _Var37.SCALAR.INT64 8
+--------CP createvar _mVar38 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp22 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK rightIndex _mVar33.MATRIX.FP64 2.SCALAR.INT64.true _Var37.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar38.MATRIX.FP64 MULTI_BLOCK
+--------CP - _Var37.SCALAR.INT64.false 1.SCALAR.INT64.true _Var39.SCALAR.INT64
+--------CP createvar _mVar40 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp23 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK rightIndex _mVar33.MATRIX.FP64 1.SCALAR.INT64.true _Var39.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar40.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _mVar33
+--------CP createvar _mVar41 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp24 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK - _mVar38.MATRIX.FP64 _mVar40.MATRIX.FP64 _mVar41.MATRIX.FP64
+--------CP rmvar _mVar38 _mVar40
+--------CP createvar _mVar42 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp25 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK rightIndex _mVar29.MATRIX.FP64 2.SCALAR.INT64.true _Var37.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar42.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _Var37
+--------CP createvar _mVar43 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp26 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK rightIndex _mVar29.MATRIX.FP64 1.SCALAR.INT64.true _Var39.SCALAR.INT64.false 1.SCALAR.INT64.true 1.SCALAR.INT64.true _mVar43.MATRIX.FP64 MULTI_BLOCK
+--------CP rmvar _mVar29 _Var39
+--------CP createvar _mVar44 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp27 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK + _mVar42.MATRIX.FP64 _mVar43.MATRIX.FP64 _mVar44.MATRIX.FP64
+--------CP rmvar _mVar42 _mVar43
+--------CP createvar _mVar45 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp28 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK * _mVar41.MATRIX.FP64 _mVar44.MATRIX.FP64 _mVar45.MATRIX.FP64
+--------CP rmvar _mVar41 _mVar44
+--------CP createvar _mVar46 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp29 true MATRIX binary -1 1 1000 -1 copy
+--------SPARK / _mVar45.MATRIX.FP64 2.SCALAR.INT64.true _mVar46.MATRIX.FP64
+--------CP rmvar _mVar45
+--------CP createvar _mVar47 target/testTemp/functions/builtin/BuiltinAucTest/auc/target/scratch_space//_p59309_192.168.0.100//_t0/temp30 true MATRIX binary 1 1 1000 -1 copy
+--------SPARK uak+ _mVar46.MATRIX.FP64 _mVar47.MATRIX.FP64 SINGLE_BLOCK
+--------CP rmvar _mVar46
+--------CP castdts _mVar47.MATRIX.FP64.false _Var48.SCALAR.FP64 1
+--------CP rmvar _mVar47
+--------CP + _Var36.SCALAR.FP64.false _Var48.SCALAR.FP64.false _Var49.SCALAR.FP64
+--------CP rmvar _Var36 _Var48
+--------CP mvvar _Var49 auc
+--------CP rmvar P _sbcvar3 Y _sbcvar2 _sbcvar1
