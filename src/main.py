@@ -4,10 +4,10 @@ import blockParser
 
 
 #path for log file
-path = '../log-files/decisionTree.log'
+path = '../log-files/builtinOutlier.log'
 
 #name of the node for operators graph
-node = 'GENERIC 4'
+node = 'GENERIC 1'
 
 
 

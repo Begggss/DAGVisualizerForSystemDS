@@ -293,7 +293,7 @@ def extract_inputs(operator):
     for i in range(len(inputs)):
         if 'SCALAR' or 'MATRIX' in inputs[i]:
             inputs[i] = inputs[i].split('.')[0]
-        if 'target' in inputs[i]:
+        elif 'target' in inputs[i]:
             inputs[i] = inputs[i].split('=')[1]
     return inputs
 
