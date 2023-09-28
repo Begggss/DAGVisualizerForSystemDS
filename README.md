@@ -1,32 +1,41 @@
 # DAG Visualizer For SystemDS
 
-## About Repository
+## About The Projects
 
-In this repository, we implemented a visualizer to visualize the execution plans of a Apache SystemDS script. The programm takes an execution plan log created by Apache SystemDS as an input and creates various graphs as an output. 
+DAG Visualizer for SystemDS  is a visualization tool designed to enhance understanding of execution plans  in SystemDS. This tool implements clear  representation of how machine learning algorithms are executed  making it easier  to optimize implementation.
 
-Repository's contributers are Begum Cajias and Barkin Karadeniz.
+Data scientist often use high-level programming languages to develop machine learning algorithms, which work for small sets of data. SystemDS optimizes and scales these algorithms to large sets set of data, that requires a low-level, complex implementation, making it easier to deal with large sets of data.
 
-## Motivation
+As a result of this process, SystemDS detailed execution plains in plain text form.Understanding these execution plans is crucial to identify performance issues. However, comprehending these plans can be challenging and time consuming in plain text form.
 
-Apache SystemDS compiles a high-level script into hybrid execution plans of local, distributed and GPU operations. Understanding these plans is absolutely necessary to implement features in
-the compilation and runtime stacks. So this project is developed, aiming to produce visual structures for the execution plans of high-level scripts compiled by Apache SystemDS.
+This issue led to creation of DAG Visualizer for SystemDS.
 
-## How to Use
+## Getting Started
+<ul>
+  <li>Begin by cloning this repository to your local machine.</li>
+  <li>Install plotly </li>
+  <li>Configure the log path in "main.py" to ensure that the Parse Module can retrieve execution plans correctly.</li>
+</ul>
 
-If you run an Apache SystemDS script with an additional "-explain" argument, you would see that Apache SystemDS printed an detailed execution plan to your debug console. You have to take that log and add that log to "log-files" on your clone of this repository as a file. Then go to "src/main.py" and change the "path" variable on line 4 accordingly.
+<img src="img/path.png" width="200"/>
+<ul>
+  <li>Specify the name of the node in "main.py" for operations graph
+</ul>
 
-If you know the "Generic Block" that you would like to inspect already, you can alter the variable "node" on line 7 accordingly. If you don't, you can leave the assigned value as "GENERIC 1" since any instance we tested already had a node named "GENERIC 1".
+<img src="img/node.png" width="200"/>
 
-This would create 2 visuals. An example is shown below for "ALStest.log".
+## Example Visualization
+As a demonstration, we will use the  BuiltinAucTest. After passing the path of the log file containing the execution plan, the program will generate 3 graphs 
 
-<img src="./img/1.png" width="800">
 
-<img src="./img/2.png" width="800">
+<img src="./img/tree.png" width="400"> The first graph is Treemap, an interactive blocks graph. 
 
-After receiving the visuals, you can change the "node" variable however you need or want.
+<img src="./img/sankey.png" width="400"> The second graph is a sankey diagram, a flow diagram.
 
-## Limitations
+<img src="./img/operations.png" width="400"> The last graph is another sankey diagram, that contains the operations executing in the specified node.
 
-### You should be aware of the following limitations:
-- Your log file has to include only one execution plan. For example, if your log file has several <p style="text-align: center; margin: 0"># EXPLAIN (RUNTIME): </p> as a line that means that your log file has several execution plans bundled together. A known exception is "<a href="https://github.com/apache/systemds/blob/main/src/test/java/org/apache/sysds/test/functions/builtin/part1/BuiltinArimaTest.java">BuiltinArimaTest.java</a>" from Apache SystemDS's original<a href="https://github.com/apache/systemds"> open source repository</a>.
-- Your log file shouldn't have called a function from a 3rd party library or file. A known example of this is "<a href="https://github.com/apache/systemds/blob/main/src/test/java/org/apache/sysds/test/functions/builtin/part1/BuiltinBayesianOptimisationTest.java">BuiltinBayesianOptimisationTest.java</a>" from Apache SystemDS's original<a href="https://github.com/apache/systemds"> open source repository</a>.
+
+### Future Improvements:
+
+- At the moment we don't support sourcing from other files function.
+- Please make sure to pass one execution plan at a time 
