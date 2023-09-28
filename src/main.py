@@ -1,4 +1,5 @@
 import visualizer
+import blockParser
 
 
 
@@ -24,6 +25,12 @@ visualizer.visualize_sankey(path)
 #visualize the operations graph
 visualizer.visualize_operations(path, node)
 
+
+#add variable type
+#if your execution plan contains a variable type that is not given in list 'types' in the beginnig of blockParser.py,
+#you can use function below
+
+#blockParser.add_type(' ')
 
 
 

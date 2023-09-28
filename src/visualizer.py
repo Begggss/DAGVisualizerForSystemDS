@@ -72,7 +72,7 @@ def visualize_sankey(path):
 
 
 def visualize_operations(path, node):
-    if node == None or node == " ":
+    if node == None or node == " " or node == '':
         print("Please give the name of the node you would like to visualize")
     else:
         labels, source, target, value, hover_label = blockParser.create_sankey_nodes(path, node)

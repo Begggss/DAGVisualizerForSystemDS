@@ -1,6 +1,6 @@
 from operations import Operation
 
-
+types = ['SCALAR', 'MATRIX', 'BOOLEAN','diag=','values=', 'target=','pattern=', 'replacement=', '_mVar', '_Var']
 
 
 def adapt_words(words, dashCount, linenumbers):
@@ -255,7 +255,7 @@ def extract_operators(path, treeNode):
 #     return 1
 
 
-types = ['SCALAR', 'MATRIX', 'BOOLEAN','diag=','values=', 'target=','pattern=', 'replacement=', '_mVar', '_Var']
+
 def get_input_output(line):
 
     if "var" in line[1]:
@@ -269,7 +269,10 @@ def get_input_output(line):
     out = variables.pop(len(variables) - 1)
     return variables, out
 
-
+def add_type(type_name):
+    if type_name == None:
+        pass
+    types.append(type_name)
 
 def create_operations(path, treeNode):
     operators = extract_operators(path, treeNode)
