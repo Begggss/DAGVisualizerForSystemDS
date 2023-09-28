@@ -1,6 +1,8 @@
 from operations import Operation
 
 
+
+
 def adapt_words(words, dashCount, linenumbers):
     while True:
         if words[0] == "MAIN":
@@ -132,7 +134,7 @@ def tree_to_sankey(path):
         source.append(indexParent)
         target.append(i)
         value.append(1)
-    return labels, source, target, value
+    return labels, source, target, value, linenumbers
 
 
 
@@ -189,63 +191,95 @@ def extract_operators(path, treeNode):
             x += 1
     return operations
 
-def group_operators(name):
-    group1 = ['>', '<', '>=', '<=', '==', '!=', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'xor', 'ba+*']
-    group2 = ['seq']
-    group3 = ['rand']
-    group4 = ['rightIndex', 'ctable', 'ctableexpand', 'groupedagg']
-    group5 = ['uppertri', 'replace', 'ifelse', 'append']
-    group6 = ['leftIndex']
-    group7 = ['+', 'log']
-    if name in group1:
-        return 1
-    elif name in group2:
-        return 2
-    elif name in group3:
-        return 3
-    elif name in group4:
-        return 4
-    elif name in group5:
-        return 5
-    elif name in group6:
-        return 6
-    elif name in group7:
-        return 7
-    else:
-        return 8
 
-def get_input_output(number, line):
-    if number == 1:
-        return [line[2], line[3]], line[4]
-    if number == 2:
-        return [line[5], line[6], line[7]], line[8]
-    if number == 3:
-        return [line[2], line[3]], line[len(line) - 1]
-    if number == 4:
-        return [line[2], line[3], line[4], line[5], line[6]], line[7]
-    if number == 5:
-        return [line[2], line[3], line[4]], line[5]
-    if number == 6:
-        return [line[2], line[3], line[4], line[5], line[6], line[7]], line[8]
-    if number == 7:
-        inputs = []
-        for i in range(len(line)):
-            if 'SCALAR' in line[i] or 'MATRIX' in line[i]:
-                inputs.append(line[i])
-        output = inputs.pop(len(inputs) - 1)
-        return inputs, output
-    else:
+# def group_operators(name):
+#     group1 = ['>', '<', '>=', '<=', '==', '!=', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'xor', 'ba+*']
+#     group2 = ['seq']
+#     group3 = ['rand']
+#     group4 = ['rightIndex', 'ctable', 'ctableexpand', 'groupedagg']
+#     group5 = ['uppertri', 'replace', 'ifelse', 'append']
+#     group6 = ['leftIndex']
+#     group7 = ['+', 'log']
+#     if name in group1:
+#         return 1
+#     elif name in group2:
+#         return 2
+#     elif name in group3:
+#         return 3
+#     elif name in group4:
+#         return 4
+#     elif name in group5:
+#         return 5
+#     elif name in group6:
+#         return 6
+#     elif name in group7:
+#         return 7
+#     else:
+#         return 8
+#
+# def get_input_output(number, line):
+#     if number == 1:
+#         return [line[2], line[3]], line[4]
+#     if number == 2:
+#         return [line[5], line[6], line[7]], line[8]
+#     if number == 3:
+#         return [line[2], line[3]], line[len(line) - 1]
+#     if number == 4:
+#         return [line[2], line[3], line[4], line[5], line[6]], line[7]
+#     if number == 5:
+#         return [line[2], line[3], line[4]], line[5]
+#     if number == 6:
+#         return [line[2], line[3], line[4], line[5], line[6], line[7]], line[8]
+#     if number == 7:
+#         inputs = []
+#         for i in range(len(line)):
+#             if 'SCALAR' in line[i] or 'MATRIX' in line[i]:
+#                 inputs.append(line[i])
+#         output = inputs.pop(len(inputs) - 1)
+#         return inputs, output
+#     else:
+#         return [line[2]], line[3]
+
+
+# def group_operators(name):
+#     group2 = ['>', '<', '>=', '<=', '==', '!=', '-', '^2', '/', '*', 'cpmm', '&&', 'max', 'mapmm', 'xor', 'ba+*', '+', 'log', 'rand']
+#     group3 = ['seq','uppertri', 'replace', 'ifelse', 'append']
+#     group4 = []
+#     group5 = ['rightIndex', 'ctable', 'ctableexpand', 'groupedagg']
+#     group6 = ['leftIndex']
+#     if name in group2: return 2
+#     if name in group3: return 3
+#     if name in group4: return 4
+#     if name in group5: return 5
+#     if name in group6: return 6
+#     return 1
+
+
+types = ['SCALAR', 'MATRIX', 'BOOLEAN','diag=','values=', 'target=','pattern=', 'replacement=', '_mVar', '_Var']
+def get_input_output(line):
+
+    if "var" in line[1]:
         return [line[2]], line[3]
+    variables = []
+    for word in line:
+        for type in types:
+            if type in word:
+                variables.append(word)
+                break
+    out = variables.pop(len(variables) - 1)
+    return variables, out
+
 
 
 def create_operations(path, treeNode):
     operators = extract_operators(path, treeNode)
     operations = []
     for operator in operators:
-        number = group_operators(operator[1])
-        inputs, output = get_input_output(number, operator)
-        operator = Operation(operator[1], inputs, output, operator[0])
-        operations.append(operator)
+        #number = group_operators(operator[1])
+        #inputs, output = get_input_output(#number, operator)
+        inputs, output=get_input_output(operator)
+        operation = Operation(operator[1], inputs, output, operator[0])
+        operations.append(operation)
     return operations
 
 
@@ -352,7 +386,7 @@ def create_sankey_nodes(path, treeNode):
     add_flows(indexes, operations, source, target)
     remove_label('castdts', source, target,labels)
     remove_label('castvti', source, target, labels)
-    for i in source:
+    for _ in source:
         value.append(1)
 
     return labels, source, target, value, hover_labels
