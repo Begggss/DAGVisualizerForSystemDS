@@ -1,5 +1,6 @@
 from operations import Operation
 
+#variable types/tags searched by the program
 types = ['SCALAR', 'MATRIX', 'BOOLEAN','diag=','values=', 'target=','pattern=', 'replacement=', '_mVar', '_Var']
 
 
