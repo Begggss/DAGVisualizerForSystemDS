@@ -7,7 +7,7 @@ import blockParser
 path = '../log-files/AucTest.log'
 
 #name of the node for operators graph
-node = ''
+node = 'GENERIC 1'
 
 
 
