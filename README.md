@@ -27,15 +27,22 @@ This issue led to creation of DAG Visualizer for SystemDS.
 ## Example Visualization
 As a demonstration, we will use the  BuiltinAucTest. After passing the path of the log file containing the execution plan, the program will generate 3 graphs 
 
+The first graph is Treemap, an interactive blocks graph. This graph contains line numbers in the blocks and allows user to trace graph with clickevents, making specially easier to trace big graphs.
+<img src="./img/tree.png" width="500">
 
-The first graph is Treemap, an interactive blocks graph. \
-<img src="./img/tree.png" width="500"> 
+Here is the example of a bigger graph. Clicking allows user to go deeper into desired node, at the same time provide the path to the current node from 'MAIN' on top of the graph 
+<img src="./img/tree3.png" width="500"> 
 
-The second graph is a sankey diagram, a flow diagram. \
+The second graph is a sankey diagram, allowing user to interact with the graph by moving the nodes around. This function is especially useful for dealing with large execution plans
 <img src="./img/sankey.png" width="500"> 
-
-The last graph is another sankey diagram, that contains the operations executing in the specified node. \
+   
+The last graph is another sankey diagram, that contains the operations executing in the specified node.
 <img src="./img/operations.png" width="500"> 
+
+Hover label function in the operations graph gives the location of where each operation is executing. 
+
+<img src="./img/hower.png" width="200"> 
+
 
 
 ### Future Improvements:
