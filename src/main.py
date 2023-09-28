@@ -4,10 +4,10 @@ import blockParser
 
 
 #path for log file
-path = '../log-files/AucTest.log'
+path = '../log-files/decisionTree.log'
 
 #name of the node for operators graph
-node = 'GENERIC 2'
+node = 'GENERIC 4'
 
 
 
