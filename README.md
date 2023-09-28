@@ -28,14 +28,14 @@ This issue led to creation of DAG Visualizer for SystemDS.
 As a demonstration, we will use the  BuiltinAucTest. After passing the path of the log file containing the execution plan, the program will generate 3 graphs 
 
 
+The first graph is Treemap, an interactive blocks graph. \
 <img src="./img/tree.png" width="500"> 
-The first graph is Treemap, an interactive blocks graph. 
 
+The second graph is a sankey diagram, a flow diagram. \
 <img src="./img/sankey.png" width="500"> 
-The second graph is a sankey diagram, a flow diagram.
 
+The last graph is another sankey diagram, that contains the operations executing in the specified node. \
 <img src="./img/operations.png" width="500"> 
-The last graph is another sankey diagram, that contains the operations executing in the specified node.
 
 
 ### Future Improvements:
