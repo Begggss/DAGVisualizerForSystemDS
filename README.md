@@ -17,22 +17,22 @@ This issue led to creation of DAG Visualizer for SystemDS.
   <li>Configure the log path in "main.py" to ensure that the Parse Module can retrieve execution plans correctly.</li>
 </ul>
 
-<img src="img/path.png" width="200"/>
+<img src="img/path.png" width="300"/>
 <ul>
   <li>Specify the name of the node in "main.py" for operations graph
 </ul>
 
-<img src="img/node.png" width="200"/>
+<img src="img/node.png" width="300"/>
 
 ## Example Visualization
 As a demonstration, we will use the  BuiltinAucTest. After passing the path of the log file containing the execution plan, the program will generate 3 graphs 
 
 
-<img src="./img/tree.png" width="400"> The first graph is Treemap, an interactive blocks graph. 
+<img src="./img/tree.png" width="500"> The first graph is Treemap, an interactive blocks graph. 
 
-<img src="./img/sankey.png" width="400"> The second graph is a sankey diagram, a flow diagram.
+<img src="./img/sankey.png" width="500"> The second graph is a sankey diagram, a flow diagram.
 
-<img src="./img/operations.png" width="400"> The last graph is another sankey diagram, that contains the operations executing in the specified node.
+<img src="./img/operations.png" width="500"> The last graph is another sankey diagram, that contains the operations executing in the specified node.
 
 
 ### Future Improvements:
